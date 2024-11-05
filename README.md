@@ -24,16 +24,16 @@
 
 ### Не забудьте создать в корне проекта файл .env со следующими переменными:
 
-**DATABASE_NAME=название_базы_данных**
-**DATABASE_USER=пользователь_базы_данных**
-**DATABASE_PASSWORD=пароль_базы_данных**
-**DATABASE_HOST=localhost**
-**DATABASE_PORT=5432**
-**SECRET_KEY=секретный_ключ_Django**
-**EMAIL_HOST=smtp.yandex.ru**
-**EMAIL_PORT=465**
-**EMAIL_USE_SSL=True**
-**EMAIL_HOST_USER=электронная_почта_для_отправки**
-**EMAIL_HOST_PASSWORD=пароль_почтового_ящика**
+- **DATABASE_NAME=название_базы_данных**
+- **DATABASE_USER=пользователь_базы_данных**
+- **DATABASE_PASSWORD=пароль_базы_данных**
+- **DATABASE_HOST=localhost**
+- **DATABASE_PORT=5432**
+- **SECRET_KEY=секретный_ключ_Django**
+- **EMAIL_HOST=smtp.yandex.ru**
+- **EMAIL_PORT=465**
+- **EMAIL_USE_SSL=True**
+- **EMAIL_HOST_USER=электронная_почта_для_отправки**
+- **EMAIL_HOST_PASSWORD=пароль_почтового_ящика**
 
 ## [Ссылка на Гайд в Telegram](https://t.me/+n6wXEr1V0MpmNTMy)
