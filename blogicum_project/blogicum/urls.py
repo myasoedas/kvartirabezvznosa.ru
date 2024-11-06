@@ -13,10 +13,11 @@ handler403 = 'pages.views.custom_403_view'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('django.contrib.auth.urls')),
-    path('pages/', include('pages.urls')),
     path('auth/registration/',
          UserRegisterView.as_view(),
          name='registration'),
+    path('ckeditor/', include('django_ckeditor_5.urls')),
+    path('pages/', include('pages.urls')),
     path('', include('blog.urls')),
 ]
 

@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db import models
+
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 from .models import Category, Comment, Location, Post
 
@@ -25,10 +28,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    inlines = (CommentInline,)  # Вставка комментариев в пост
+    inlines = (CommentInline,)
     list_display = (
         'title',
-        'text',
         'author',
         'category',
         'is_published',
@@ -36,11 +38,36 @@ class PostAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_editable = ('is_published',)
-    search_fields = ('title', 'text')
-    list_filter = ('is_published', 'category', 'author')
+    search_fields = ('title', 'text',)
+    list_filter = ('is_published', 'category', 'author', 'pub_date', 'location',)
     list_display_links = ('title',)
     empty_value_display = 'Не задано'
 
+    # Настройка отображения редактора
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditor5Widget(config_name='default')},
+    }
+
+    # Группировка полей в админке
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'text', 'author', 'category', 'location',),
+        }),
+        ('Изображение', {
+            'fields': ('image',),
+            'description': 'Добавьте изображение для карточки поста',
+        }),
+        ('Публикация', {
+            'fields': ('is_published', 'pub_date'),
+        }),
+        ('Дополнительно', {
+            'fields': ('created_at',),
+            'classes': ('collapse',),
+        }),
+    )
+
+    # Только для чтения
+    readonly_fields = ('created_at',)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

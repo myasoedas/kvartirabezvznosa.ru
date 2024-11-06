@@ -8,11 +8,13 @@
   <div class="col d-flex justify-content-center">
     <div class="card" style="width: 40rem;">
       <div class="card-body">
+        <!--
         {% if post.image %}
           <a href="{{ post.image.url }}" target="_blank">
             <img class="border-3 rounded img-fluid img-thumbnail mb-2 mx-auto d-block" src="{{ post.image.url }}">
           </a>
         {% endif %}
+        -->
         <h5 class="card-title">{{ post.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">
           <small>
@@ -26,7 +28,7 @@
             категории {% include "includes/category_link.html" %}
           </small>
         </h6>
-        <p class="card-text">{{ post.text|linebreaksbr }}</p>
+        <p class="card-text">{{ post.text|safe }}</p>
         {% if user == post.author %}
           <div class="mb-2">
             <a class="btn btn-sm text-muted" href="{% url 'blog:edit_post' post_id=post.id %}" role="button">

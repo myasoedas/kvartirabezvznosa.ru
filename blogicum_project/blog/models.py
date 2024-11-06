@@ -4,6 +4,11 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import Truncator
 
+from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
+from django.utils.timezone import now
+
 from .constants import CHAR_FIELD_MAX_LENGTH, SELF_TEXT_MAX_LENGTH
 
 User = get_user_model()
@@ -74,10 +79,19 @@ class Category(PublishableModel, TitleModel):
 
 
 class Post(PublishableModel, TitleModel):
-    text = models.TextField(verbose_name='Текст')
+    text = CKEditor5Field(config_name='default', verbose_name="Текст публикации")
+
+    image = models.ImageField(
+        upload_to='blogs_images/',
+        null=True,
+        blank=True,
+        verbose_name='Изображение'
+    )
+
     pub_date = models.DateTimeField(
+        default=now,  # Устанавливает текущее время по умолчанию
         verbose_name='Дата и время публикации',
-        help_text=(
+        help_text=_(
             'Если установить дату и время в будущем — можно делать '
             'отложенные публикации.'
         ),
@@ -102,13 +116,6 @@ class Post(PublishableModel, TitleModel):
         null=True,
         on_delete=models.SET_NULL,
         verbose_name='Категория'
-    )
-
-    image = models.ImageField(
-        upload_to='blogs_images/',
-        null=True,
-        blank=True,
-        verbose_name='Изображение'
     )
 
     class Meta:

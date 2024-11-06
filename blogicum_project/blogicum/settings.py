@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'blog.apps.BlogConfig',
     'django_cleanup.apps.CleanupConfig',
+    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [
@@ -41,7 +42,47 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Путь для загрузки файлов, включая видео
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Привязка загруженных файлов к пользователю
+CKEDITOR_RESTRICT_BY_USER = False
+
+# Разрешение на загрузку любых файлов, не только изображений
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
+
+# Конфигурация CKEditor
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|', 'alignment', '|',
+            'imageUpload', 'insertImage', 'mediaEmbed', '|',
+            'undo', 'redo', '|', 'fontSize', 'fontFamily', 'highlight', '|',
+            'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+            'horizontalLine', 'specialCharacters', 'sourceEditing'
+        ],
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', 'imageStyle:full', 'imageStyle:side',
+                'linkImage'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells'
+            ]
+        },
+        'mediaEmbed': {
+            'previewsInData': True
+        },
+        'height': 500,  # Adjust editor height
+        'width': 'auto',  # Adjust editor width
+    }
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 
 ROOT_URLCONF = 'blogicum.urls'
