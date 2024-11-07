@@ -23,3 +23,7 @@ class AboutView(TemplateView):
 
 class RulesView(TemplateView):
     template_name = 'pages/rules.html'
+
+
+class PrivacyView(TemplateView):
+    template_name = 'pages/privacy.html'

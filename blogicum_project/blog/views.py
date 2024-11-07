@@ -17,6 +17,8 @@ from .mixins import (AuthorRequiredMixin, PaginatorMixin,
                      PostQueryMixin, PostCommentCountMixin)
 from .models import Category, Comment, Post
 
+from django_ckeditor_5.widgets import CKEditor5Widget
+
 
 class CommentDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
     model = Comment
@@ -85,6 +87,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'text', 'image', 'category', 'location', 'pub_date']
     template_name = 'blog/create.html'
 
+    def get_form(self, form_class=None):
+        # Получаем форму
+        form = super().get_form(form_class)
+        # Настраиваем виджет CKEditor для поля "text"
+        form.fields['text'].widget = CKEditor5Widget(config_name='default')
+        return form
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -92,7 +101,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('blog:profile',
                        kwargs={'username': self.request.user.username})
-
 
 class UserLoginView(LoginView):
     def get_redirect_url(self):
