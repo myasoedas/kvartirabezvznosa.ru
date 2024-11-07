@@ -23,20 +23,18 @@
 - **Git** для управления версиями
 
 ### Не забудьте создать в корне проекта файл .env со следующими переменными:
-
-- **DATABASE_NAME=название_базы_данных**
-- **DATABASE_USER=пользователь_базы_данных**
-- **DATABASE_PASSWORD=пароль_базы_данных**
-- **DATABASE_HOST=localhost**
-- **DATABASE_PORT=5432**
-- **SECRET_KEY=секретный_ключ_Django**
-- **EMAIL_HOST=smtp.yandex.ru**
-- **EMAIL_PORT=465**
-- **EMAIL_USE_SSL=True**
-- **EMAIL_HOST_USER=электронная_почта_для_отправки**
-- **EMAIL_HOST_PASSWORD=пароль_почтового_ящика**
-
-## [Ссылка на Гайд в Telegram](https://t.me/+n6wXEr1V0MpmNTMy)
+```ssh
+DATABASE_NAME=blogicum_db
+DATABASE_USER=имя_пользователя_базы_данных
+DATABASE_PASSWORD=пароль_базы_данных
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+SECRET_KEY=secret_key_django_settings
+EMAIL_HOST=smtp.yandex.ru
+EMAIL_PORT=465
+EMAIL_USE_SSL=True
+EMAIL_HOST_USER=имя_почтового_ящика@yandex.ru
+EMAIL_HOST_PASSWORD=пароль_почтового_ящика
 
 ### При установке CKEDITOR 5 текст в поле рекдактирования слишком светлый и его плохо видно на белом фоне. Чтобы исправить эту проблему необходимо найти папку ./venv/lib/django_ckeditor_5/static/dist/style.css и добавить в конец этого файла код css:
 ```css
@@ -47,3 +45,5 @@
     font-family: Arial, sans-serif; /* Задаем шрифт текста */
     font-size: 16px; /* Устанавливаем размер шрифта */
 }
+
+
