@@ -23,7 +23,7 @@
 - **Git** для управления версиями
 
 ### Не забудьте создать в корне проекта файл .env со следующими переменными:
-```ssh
+```python
 DATABASE_NAME=blogicum_db
 DATABASE_USER=имя_пользователя_базы_данных
 DATABASE_PASSWORD=пароль_базы_данных
@@ -35,6 +35,7 @@ EMAIL_PORT=465
 EMAIL_USE_SSL=True
 EMAIL_HOST_USER=имя_почтового_ящика@yandex.ru
 EMAIL_HOST_PASSWORD=пароль_почтового_ящика
+```
 
 ### При установке CKEDITOR 5 текст в поле рекдактирования слишком светлый и его плохо видно на белом фоне. Чтобы исправить эту проблему необходимо найти папку ./venv/lib/django_ckeditor_5/static/dist/style.css и добавить в конец этого файла код css:
 ```css
@@ -45,5 +46,6 @@ EMAIL_HOST_PASSWORD=пароль_почтового_ящика
     font-family: Arial, sans-serif; /* Задаем шрифт текста */
     font-size: 16px; /* Устанавливаем размер шрифта */
 }
+```
 
 
