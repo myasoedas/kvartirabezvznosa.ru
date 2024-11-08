@@ -30,18 +30,6 @@ class CommentDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
                        kwargs={'post_id': self.object.post.id})
 
 
-class PostDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
-    model = Post
-    template_name = 'blog/create.html'
-    pk_url_kwarg = 'post_id'
-
-    def get_success_url(self):
-        return reverse('blog:index')
-
-    def handle_no_permission(self):
-        return HttpResponseRedirect(self.get_object().get_absolute_url())
-
-
 class CommentUpdateView(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
     model = Comment
     form_class = CommentForm
@@ -68,39 +56,6 @@ class PostCommentView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return self.object.post.get_absolute_url()
 
-
-class PostEditView(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
-    model = Post
-    template_name = 'blog/create.html'
-    fields = ['title', 'text', 'image', 'category', 'location', 'pub_date']
-    pk_url_kwarg = 'post_id'
-
-    def get_success_url(self):
-        return self.object.get_absolute_url()
-
-    def handle_no_permission(self):
-        return redirect(self.get_object().get_absolute_url())
-
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'text', 'image', 'category', 'location', 'pub_date']
-    template_name = 'blog/create.html'
-
-    def get_form(self, form_class=None):
-        # Получаем форму
-        form = super().get_form(form_class)
-        # Настраиваем виджет CKEditor для поля "text"
-        form.fields['text'].widget = CKEditor5Widget(config_name='default')
-        return form
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('blog:profile',
-                       kwargs={'username': self.request.user.username})
 
 class UserLoginView(LoginView):
     def get_redirect_url(self):
