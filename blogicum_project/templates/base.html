@@ -13,7 +13,11 @@
     <title>
       {% block title %}{% endblock %}
     </title>
+    <!-- Bootstrap CSS -->
     {% bootstrap_css %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   </head>
   <body>
     {% include "includes/header.html" %}
@@ -23,5 +27,11 @@
       </div>
     </main>
     {% include "includes/footer.html" %}
+    <!-- Bootstrap JS & Dependencies -->
+    {% bootstrap_javascript %}
+    <!-- Custom JS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/css_class_activate_monitoring.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
   </body>
 </html>
