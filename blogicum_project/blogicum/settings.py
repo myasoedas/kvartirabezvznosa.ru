@@ -167,8 +167,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Читаем из .env
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Читаем из .env
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Добавляем таймауты для повышения надежности
@@ -195,13 +195,13 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'django_debug.log'),
-            'formatter': 'verbose',  # Форматирование для логов
+            'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'WARNING',  # Для продакшн лучше использовать 'INFO' или 'WARNING'. 'DEBUG' - только при настройке и проверке работстоспособности.
+            'level': 'DEBUG',  # 'INFO' 'WARNING' 'DEBUG' 
             'propagate': True,
         },
     },
