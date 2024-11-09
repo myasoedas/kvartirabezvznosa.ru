@@ -1,27 +1,32 @@
 <!-- blogicum/templates/includes/post_card.html -->
-<div class="col d-flex justify-content-center">
-  <div class="card" style="width: 40rem;">
-    <div class="card-body">
-      {% if post.image %}
-        <a href="{{ post.image.url }}" target="_blank">
-          <img class="border-3 rounded img-fluid img-thumbnail mb-2 mx-auto d-block" src="{{ post.image.url }}">
-        </a>
-      {% endif %}
-      <h5 class="card-title">{{ post.title }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">
-        <small>
-          {% if not post.is_published %}
-            <p class="text-danger">Пост снят с публикации админом</p>
-          {% elif not post.category.is_published %}
-            <p class="text-danger">Выбранная категория снята с публикации админом</p>
-          {% endif %}
-          {{ post.pub_date|date:"d E Y, H:i" }} | {% if post.location and post.location.is_published %}{{ post.location.name }}{% else %}Планета Земля{% endif %}<br>
-          От автора <a class="text-muted" href="{% url 'blog:profile' post.author.username %}">@{{ post.author.username }}</a> в
-          категории {% include "includes/category_link.html" %}
-        </small>
-      </h6>
-      <a href="{% url 'blog:post_detail' post_id=post.id %}" class="card-link">Читать пост</a>
-      <a href="{% url 'blog:post_detail' post_id=post.id %}" class="card-link text-muted">Комментарии ({{ post.comment_count }})</a>
-    </div>
-  </div>
-</div>
+{% if post.image %}
+<figure class="card-img-container">
+  <img class="card-img-top" src="{{ post.image.url }}" alt="Изображение карточки: {{ post.title }}">
+</figure>
+{% endif %}
+<section class="card-body d-flex flex-column flex-grow-1">
+  <header>
+    <h4 class="card-title">{{ post.title }}</h4>
+  </header>
+  {% if not post.is_published %}
+    <p class="text-danger">Пост снят с публикации админом</p>
+  {% elif not post.category.is_published %}
+    <p class="text-danger">Выбранная категория снята с публикации админом</p>
+  {% endif %}
+  <p class="card-text">
+    {{ post.pub_date|date:"d E Y, H:i" }} | 
+    {% if post.location and post.location.is_published %}
+      {{ post.location.name }}
+    {% else %}
+      Планета Земля
+    {% endif %}
+    <br>
+    От автора <a class="text-muted" href="{% url 'blog:profile' post.author.username %}">@{{ post.author.username }}</a>
+    <br>
+    в категории {% include "includes/category_link.html" %}
+  </p>
+  <footer class="mt-auto d-flex flex-column">
+    <a href="{% url 'blog:post_detail' post_id=post.id %}" class="btn btn-primary mb-3">Читать пост</a>
+    <a href="{% url 'blog:post_detail' post_id=post.id %}" class="btn btn-secondary">Комментарии ({{ post.comment_count }})</a>
+  </footer>
+</section>
