@@ -4,12 +4,22 @@
   Публикации в категории {{ category.title }}
 {% endblock %}
 {% block content %}
+<header class="text-center mb-5">
   <h1 class="text-center">Публикации в категории - {{ category.title }}</h1>
-  <p class="col-6 offset-3 mb-5 lead text-center">{{ category.description }}</p>
-  {% for post in page_obj %}
-    <article class="mb-5">  
-      {% include "includes/post_card.html" %}
-    </article>   
-  {% endfor %}
+  <p class="col-12 col-md-10 col-lg-8 mx-auto lead">{{ category.description }}</p>
+</header>
+<section class="container my-4">
+  <div class="row g-4">
+    {% for post in page_obj %}
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex">
+      <article class="card w-100 h-100">
+        {% include "includes/post_card.html" %}
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<nav aria-label="Пагнинатор">
   {% include "includes/paginator.html" %}
+</nav>
 {% endblock %}

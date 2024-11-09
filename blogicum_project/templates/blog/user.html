@@ -2,21 +2,21 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% block title %}
-  Редактирование профиля
+  Редактирование профиля {{ request.user.username }}
 {% endblock %}
 {% block content %}
-  <div class="col d-flex justify-content-center">
-    <div class="card" style="width: 40rem;">
-      <div class="card-header">
-        Редактирование профиля - {{ request.user.username }}
-      </div>
-      <div class="card-body">
-        <form method="post">
-          {% csrf_token %}
-          {% bootstrap_form form %}
-          {% bootstrap_button button_type="submit" content="Отправить" %}
-        </form>
-      </div>
+<section class="col d-flex justify-content-center">
+  <article class="card">
+    <header class="card-header">
+      <h4>Редактирование профиля - {{ request.user.username }}</h4>
+    </header>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Отправить" %}
+      </form>
     </div>
-  </div>
+  </article>
+</section>
 {% endblock %}
