@@ -15,4 +15,8 @@
     object-fit: cover; /* Обрезаем изображение, чтобы оно заполнило контейнер */
   }
 
+  .comment-form-container {
+    max-width: 600px;
+  }
+
   

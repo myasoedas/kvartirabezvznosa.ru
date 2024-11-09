@@ -10,15 +10,15 @@
 {% endblock %}
 {% block content %}
   {% if user.is_authenticated %}
-    <div class="col d-flex justify-content-center">
-      <div class="card" style="width: 40rem;">
-        <div class="card-header">
+    <section class="container d-flex justify-content-center">
+      <article class="card w-100 comment-form-container">
+        <header class="card-header text-center">
           {% if '/edit_comment/' in request.path %}
-            Редактирование комментария
+            <h4>Редактирование комментария</h4>
           {% else %}
-            Удаление комментария
+            <h4>Удаление комментария</h4>
           {% endif %}
-        </div>
+        </header>
         <div class="card-body">
           <form method="post"
             {% if '/edit_comment/' in request.path %}
@@ -28,12 +28,14 @@
             {% if not '/delete_comment/' in request.path %}
               {% bootstrap_form form %}
             {% else %}
-              <p>{{ comment.text }}</p>
+              <p class="text-muted">{{ comment.text }}</p>
             {% endif %}
-            {% bootstrap_button button_type="submit" content="Отправить" %}
+            <footer class="mt-4 d-flex justify-content-center">
+              {% bootstrap_button button_type="submit" content="Отправить" %}
+            </footer>
           </form>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   {% endif %}
 {% endblock %}
