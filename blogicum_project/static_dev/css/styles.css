@@ -1,0 +1,325 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem; /* Базовый размер для обычного текста */
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.2rem; /* Увеличен шрифт */
+    font-weight: 500;  /* Увеличена жирность текста */
+}
+
+/* Убираем стандартное оформление ссылок */
+#contact a {
+    color: inherit; /* Цвет текста наследуется от родительского элемента */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Добавляем подчеркивание при наведении */
+#contact a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: calc(1.5rem + 2vw); /* Адаптация для разных экранов */
+    font-weight: bold;
+}
+
+h2 {
+    font-size: calc(1.25rem + 1.5vw);
+}
+
+h3 {
+    font-size: calc(1rem + 1vw);
+}
+
+h4 {
+    font-size: calc(1rem + 1vw);
+}
+
+h5 {
+    font-size: calc(1rem + 1vw);
+}
+
+h6 {
+    font-size: calc(1rem + 1vw);
+}
+
+p {
+    font-size: calc(0.9rem + 0.5vw); /* Адаптация для параграфов */
+}
+
+.btn-primary {
+    font-size: calc(0.8rem + 0.5vw); /* Адаптация для кнопок */
+}
+
+.section-heading {
+    font-size: calc(1.5rem + 1vw); /* Размер заголовков секций */
+    color: #006644;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    /* Коррекция для мобильных устройств */
+    h1 {
+        font-size: 2rem; /* Ограничение для слишком больших шрифтов */
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    p {
+        font-size: 1rem; /* Читаемый текст для мобильных экранов */
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+    }
+}
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-color: #e0e0e0;
+}
+
+/* Затемняющий слой */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачное черное затемнение */
+    z-index: 1;
+}
+
+.hero-section[data-fallback="true"] {
+    background-image: url('hero_section_image1.jpg');
+}
+
+.hero-section h1,
+.hero-section h2,
+.hero-section p,
+.hero-section .btn-primary {
+    position: relative;
+    z-index: 2; /* Поверх затемняющего слоя */
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.hero-section h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.hero-section p {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #006644;
+    border-color: #006644;
+    z-index: 2;
+}
+
+.btn-primary:hover {
+    background-color: #28A745;
+    border-color: #28A745;
+}
+
+.section-heading {
+    font-size: 36px;
+    color: #006644;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.bg-light {
+    background-color: #F8F8F8 !important;
+}
+
+.testimonials-carousel .carousel-item {
+    text-align: center;
+}
+
+.testimonial-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+footer {
+    background-color: #333333;
+    color: white;
+    padding: 20px 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.about-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 767.98px) {
+    .about-image {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .card {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+}
+
+/* Общие стили для иконок соцсетей */
+.social-icons a,p {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #333;
+    text-decoration: none; /* Убираем подчеркивание */
+    position: relative;
+}
+
+/* Изменение цвета при наведении */
+.social-icons a,p:hover {
+    color: #006644;
+}
+
+/* Убираем черточку, если она появляется при наведении */
+.social-icons a::after {
+    content: ''; /* Пустой контент */
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+/* Исправляем поведение при наведении */
+.social-icons a:hover::after {
+    width: 0; /* Не даем появляться черточке */
+    height: 0;
+    background-color: transparent;
+}
+
+/* Стили для заглушек изображений */
+.image-placeholder {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 50px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Custom CSS для управления слайдером */
+.custom-carousel-control {
+    position: absolute;
+    top: 50%; /* Центрируем по вертикали */
+    transform: translateY(-50%); /* Сдвигаем на 50% для точного центрирования */
+    z-index: 2;
+    width: 5%; /* Уменьшаем ширину */
+}
+
+.carousel-control-prev {
+    left: -50px; /* Смещаем за пределы карусели */
+}
+
+.carousel-control-next {
+    right: -50px; /* Смещаем за пределы карусели */
+}
+
+.custom-control-icon {
+    background-color: #006644; /* Изменение цвета стрелок на зелёный */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 100%, 100%;
+}
+
+/* Стили для попапа */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    position: relative;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Скрываем ошибки */
+.error-message {
+    display: none;
+}

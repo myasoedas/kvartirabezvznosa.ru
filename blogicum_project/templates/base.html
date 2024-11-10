@@ -11,7 +11,7 @@
     <meta name="geo.position" content="59.971537;30.343303">
     <meta name="geo.region" content="RU-SPB">
     <meta name="geo.placename" content="Санкт-Петербург, Волосово">
-    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %} index, follow {% endblock %}">
     <meta name="author" content="Бикетова Александра Викторовна">
     <meta property="og:title" content="{% block og_title %}Врач-остеопат в Санкт-Петербурге и Волосово - Бикетова Александра Викторовна{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Запишитесь на приём через WhatsApp, Telegram или позвоните по телефону: +7 911 986 63 08. Лечение детей и взрослых.{% endblock %}">
@@ -21,13 +21,17 @@
     <meta property="og:locale" content="ru_RU">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image">
+
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
     <link rel="alternate" hreflang="ru" href="https://osteopatbiketova.ru/">
   </head>
   <body>
     {% include "includes/header.html" %}
+    <br>
     <main class="container py-5">
       {% block content %}{% endblock %}
     </main>

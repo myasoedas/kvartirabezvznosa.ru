@@ -1,56 +1,46 @@
-<!-- blogicum/templates/includes/header.html -->
 {% load static %}
 <header>
-  <nav class="navbar navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'blog:index' %}">
-        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Логотип сайта Остеопат Бикетова">
-        Остеопат Бикетова
-      </a>
-      {% with request.resolver_match.view_name as view_name %}
-        <ul class="nav  nav-pills">
-          <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:about' %} text-white {% endif %}" href="{% url 'pages:about' %}">
-              О проекте
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:rules' %} text-white {% endif %}" href="{% url 'pages:rules' %}">
-              Правила
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:privacy' %} text-white {% endif %}" href="{% url 'pages:privacy' %}">
-              Политика конфиденциальности
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.iloveimg.com/" target="_blank" rel="noopener noreferrer">
-              Обработать фото
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/" target="_blank" rel="noopener noreferrer">
-              Админка
-            </a>
-          </li>
-          {% if user.is_authenticated %}
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'logout' %}">Выйти</a></button>
+    <nav class="navbar navbar-light bg-white fixed-top"> <!-- Добавлен класс fixed-top -->
+        <div class="container d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center logo-section">
+                <div class="ml-2">
+                    <a href="/">
+                        <img src="{% static 'img/logo.png' %}" alt="Логотип сайта Остеопат Бикетова" class="rounded-circle logo-spacing" loading="lazy">
+                    </a> 
+                </div>
+                <a class="navbar-brand ml-3" href="/">Остеопат Бикетова</a>
             </div>
-          {% else %}
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'login' %}">Войти</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'registration' %}">Регистрация</a></button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#services">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">О враче</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Квалификация</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Мои месенждеры и социальные сети</a></li>
+                </ul>
+                <div class="d-flex align-items-center social-icons">
+                    <a class="nav-link px-2" href="https://wa.me/79119866308" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a class="nav-link px-2" href="https://t.me/+dcXq8lbU7p05ZjNi" target="_blank" rel="noopener">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a class="nav-link px-2" href="https://vk.com/osteopat.biketova" target="_blank" rel="noopener">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    <a class="nav-link px-2" href="https://www.youtube.com/channel/UCxta34TZ-FLfosrG_AJCqAg" target="_blank" rel="noopener">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a class="nav-link px-2" href="https://www.instagram.com/osteopat_biketova/" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
             </div>
-          {% endif %}
-        </ul>
-      {% endwith %}
-    </div>
-  </nav>
+        </div>
+    </nav>
 </header>
