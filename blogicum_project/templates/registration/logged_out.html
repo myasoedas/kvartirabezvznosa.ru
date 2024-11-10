@@ -1,15 +1,23 @@
 <!-- blogicum/templates/registration/logget_out.html -->
 {% extends "base.html" %}
 {% block content %}
-  <div class="col d-flex justify-content-center">
-    <div class="card" style="width: 40rem;">
-      <div class="card-header">
-        Вы вышли из системы!
+  <section class="logged_out-section-center my-5">
+    <article class="card logged_out-card-width-max">
+      <header class="card-header text-center">
+        <h5>Вы вышли из системы!</h5>
+      </header>
+      <div class="card-body text-center">
+        <nav>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="{% url 'blog:index' %}" class="btn btn-primary">На главную</a>
+            </li>
+            <li>
+              <a href="{% url 'login' %}" class="btn btn-secondary">Войти снова</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div class="card-body">
-        <p><a href="{% url 'login' %}">Войти снова</a></p>
-        <p><a href="{% url 'blog:index' %}">На главную</a></p>
-      </div>
-    </div>
-  </div>
+    </article>
+  </section>
 {% endblock %}

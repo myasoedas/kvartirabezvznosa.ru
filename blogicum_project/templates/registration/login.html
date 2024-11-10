@@ -16,17 +16,17 @@
       </p>
     {% endif %}
   {% endif %}
-  <section class="d-flex justify-content-center align-items-center py-5">
-    <article class="card login-form-container w-100 mx-3">
+  <section class="login-section-center py-5">
+    <article class="card login-card-width-max">
       <header class="card-header text-center">
-        <h4>Войти в систему</h4>
+        <h5>Войти в систему</h5>
       </header>
       <div class="card-body">
         <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
           {% bootstrap_form form %}
           <input type="hidden" name="next" value="{{ next }}">
-          <div class="d-flex justify-content-center mt-3">
+          <div class="text-center mt-3">
             {% bootstrap_button button_type="submit" content="Войти" %}
           </div>
         </form>

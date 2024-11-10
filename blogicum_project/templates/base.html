@@ -6,30 +6,62 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Остеопат в Санкт-Петербурге — лечение детей и взрослых{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Остеопат в Санкт-Петербурге и Волосово. Лечение детей и взрослых. Запись по тел. +7 911 986 63 08. Эффективно и с заботой о здоровье.{% endblock %}">
+    <meta name="geo.position" content="59.971537;30.343303">
+    <meta name="geo.region" content="RU-SPB">
+    <meta name="geo.placename" content="Санкт-Петербург, Волосово">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <meta name="author" content="Бикетова Александра Викторовна">
+    <meta property="og:title" content="{% block og_title %}Врач-остеопат в Санкт-Петербурге и Волосово - Бикетова Александра Викторовна{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Запишитесь на приём через WhatsApp, Telegram или позвоните по телефону: +7 911 986 63 08. Лечение детей и взрослых.{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}https://osteopatbiketova.ru/static/img/og-default.png{% endblock %}">
+    <meta property="og:site_name" content="Остеопат Бикетова">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
-    <title>
-      {% block title %}{% endblock %}
-    </title>
-    <!-- Bootstrap CSS -->
     {% bootstrap_css %}
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="alternate" hreflang="ru" href="https://osteopatbiketova.ru/">
   </head>
   <body>
     {% include "includes/header.html" %}
     <main class="container py-5">
       {% block content %}{% endblock %}
     </main>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "MedicalBusiness",
+        "name": "Врач-остеопат Бикетова Александра",
+        "telephone": "+79119866308",
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "addressLocality": "Санкт-Петербург",
+            "streetAddress": "ул. Смолячкова, 12, к.2"
+          },
+          {
+            "@type": "PostalAddress",
+            "addressLocality": "Волосово",
+            "addressRegion": "Ленинградская область",
+            "streetAddress": "ул. Красных Командиров, 9"
+          }
+        ],
+        "url": "https://osteopatbiketova.ru/",
+        "sameAs": [
+          "https://t.me/+dcXq8lbU7p05ZjNi",
+          "https://wa.me/79119866308",
+          "https://vk.com/osteopat.biketova",
+          "https://www.instagram.com/osteopat_biketova/",
+          "https://www.youtube.com/channel/UCxta34TZ-FLfosrG_AJCqAg"
+        ]
+      }
+      </script>
     {% include "includes/footer.html" %}
-    <!-- Bootstrap JS & Dependencies -->
     {% bootstrap_javascript %}
-    <!-- Custom JS -->
-    <script src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/css_class_activate_monitoring.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>

@@ -19,12 +19,128 @@
     max-width: 600px;
   }
 
-  .resset-form-container {
-    max-width: 600px;
-  }
+  /* Центровка секции для страницы password_reset_form */
+.password_reset_form-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
 
-  .login-form-container {
-    max-width: 600px;
-  }
+/* Ограничение ширины карточки для страницы password_reset_form */
+.password_reset_form-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+
+  /* Центровка секции для страницы login */
+.login-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Ограничение ширины карточки для страницы login */
+.login-card-width-max {
+  width: 100%;
+  max-width: 30rem;
+  margin: 1rem;
+}
+
+  /* Центровка секции по горизонтали и вертикали на странице logged_out */
+.logged_out-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки на странице logged_out */
+.logged_out-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции по горизонтали и вертикали на странице password_change_done */
+.password_change_done-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки на странице password_change_done */
+.password_change_done-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции по горизонтали и вертикали на странице password_change_form */
+.password_change_form-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки на странице password_change_form */
+.password_change_form-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции по горизонтали и вертикали на странице password_reset_done */
+.password_reset_done-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки на странице password_reset_done */
+.password_reset_done-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции для страницы password_reset_complete */
+.password_reset_complete-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки для страницы password_reset_complete */
+.password_reset_complete-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции для страницы password_reset_confirm */
+.password_reset_confirm-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ограничение ширины карточки для страницы password_reset_confirm */
+.password_reset_confirm-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+/* Центровка секции для страницы registration_form */
+.registration_form-section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Ограничение ширины карточки для страницы registration_form */
+.registration_form-card-width-max {
+  width: 100%;
+  max-width: 40rem;
+}
+
+
 
   
