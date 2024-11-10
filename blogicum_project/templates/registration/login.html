@@ -16,22 +16,24 @@
       </p>
     {% endif %}
   {% endif %}
-  <div class="col d-flex justify-content-center">
-    <div class="card" style="width: 40rem;">
-      <div class="card-header">
-        Войти в систему
-      </div>
+  <section class="d-flex justify-content-center align-items-center py-5">
+    <article class="card login-form-container w-100 mx-3">
+      <header class="card-header text-center">
+        <h4>Войти в систему</h4>
+      </header>
       <div class="card-body">
         <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
           {% bootstrap_form form %}
           <input type="hidden" name="next" value="{{ next }}">
-          {% bootstrap_button button_type="submit" content="Войти" %}
+          <div class="d-flex justify-content-center mt-3">
+            {% bootstrap_button button_type="submit" content="Войти" %}
+          </div>
         </form>
-        <div>
+        <footer class="text-center mt-4">
           <a href="{% url 'password_reset' %}">Забыли пароль?</a>
-        </div>
+        </footer>
       </div>
-    </div>
-  </div>
+    </article>
+  </section>
 {% endblock %}
