@@ -32,6 +32,110 @@ p {
   font-size: calc(0.9rem + 0.5vw); /* Адаптация для параграфов */
 }
 
+.btn-primary {
+  font-size: calc(0.8rem + 0.5vw); /* Адаптация для кнопок */
+}
+
+/* Коррекция для мобильных устройств */
+@media (max-width: 768px) {
+  
+  h1 {
+      font-size: 2rem; /* Ограничение для слишком больших шрифтов */
+  }
+
+  h2 {
+      font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  p {
+      font-size: 1rem; /* Читаемый текст для мобильных экранов */
+  }
+
+  .btn-primary {
+      font-size: 1rem;
+  }
+}
+
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-color: #e0e0e0;
+}
+
+/* Затемняющий слой */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+.hero-section[data-fallback="true"] {
+  background-image: url('../../static/img/index/hero_section_img-1.jpg');
+}
+
+.hero-section h1,
+.hero-section h2,
+.hero-section p,
+.hero-section .btn-primary {
+  position: relative;
+  z-index: 2; 
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.hero-section h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: #006644;
+  border-color: #006644;
+  z-index: 2;
+}
+
+.btn-primary:hover {
+  background-color: #28A745;
+  border-color: #28A745;
+}
+
+
 
 .card-img-container {
     width: 100%; /* Контейнер будет растягиваться по ширине карточки */
