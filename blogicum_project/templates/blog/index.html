@@ -5,7 +5,7 @@
 {% block content %}
 <br>
 <!-- Hero Section -->
-<section class="hero-section" id="hero-section">
+<section id="hero-section" class="hero-section" >
   <div class="container">
     <h1>Остеопат в Санкт-Петербурге</h1>
     <h2>Бикетова Александра Викторовна</h2>
@@ -13,8 +13,230 @@
     <a href="#" class="btn btn-primary btn-lg mt-4">Записаться на бесплатную консультацию</a>
   </div>
 </section>
-<!-- Блог -->
+<br>
+<!-- Услуги -->
+<section id="services" class="py-5">
+  <div class="container">
+    <h2 class="section-heading">Услуги врача остеопата</h2>
+    <!-- Верхний ряд карточек -->
+    <div class="row">
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/krivosheya.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body mt-auto">
+            <h3 class="card-title">Лечение кривошеи</h3>
+            <p class="card-text">Чувствуете напряжение в шее или ограниченность движений? Остеопат поможет исправить кривошею, восстановив естественное положение шейных позвонков.</p>
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+            <!-- <a href="#" class="btn btn-secondary mt-auto">Подробнее об услуге</a> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/lor.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body mt-auto">
+            <h3 class="card-title">Лечение ЛОР-заболеваний</h3>
+            <p class="card-text">Страдаете от частых синуситов, отитов или проблем с дыханием? Остеопатический подход может помочь улучшить работу ЛОР-органов, устраняя причины недугов.</p>
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/alergiya.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body mt-auto">
+            <h3 class="card-title">Лечение аллергии</h3>
+            <p class="card-text">Мучает аллергия и постоянная заложенность носа? Остеопат поможет устранить дисбаланс в организме, который может быть причиной аллергических реакций.</p>
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>       
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Нижний ряд карточек с отступом сверху -->
+    <div class="row">
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/sustavi.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Лечение болезней суставов</h3>
+            <p class="card-text">Боли в суставах мешают двигаться свободно? Остеопат поможет снять напряжение, улучшить подвижность и устранить причины дискомфорта.</p>
+          </div>
+          <div class="card-body mt-auto">
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/zhkt.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Лечение заболеваний ЖКТ</h3>
+            <p class="card-text">Проблемы с пищеварением и постоянный дискомфорт? Остеопат поможет восстановить работу ЖКТ, устранив причины нарушений.</p>
+          </div>
+          <div class="card-body mt-auto">
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-img-container">
+            <img src="{% static 'img/index/endokrinaya-sistema.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Лечение эндокринных патологий</h3>
+            <p class="card-text">Страдаете от гормональных сбоев или проблем с эндокринной системой? Остеопат поможет восстановить баланс в организме и улучшить общее состояние.</p>
+          </div>
+          <div class="card-body mt-auto">
+            <a href="#" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</section>
+<!-- О враче -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">О враче</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <img src="{% static 'img/index/osteopat-biketova.jpeg' %}" 
+             alt="Бикетова Александра Викторовна" 
+             class="img-fluid rounded shadow-sm mx-auto d-block" 
+             style="max-width: 90%; height: auto;" 
+             loading="lazy">
+      </div>
+      <div class="col-md-6">
+        <h3 class="font-weight-bold">Бикетова Александра Викторовна</h3>
+        <p>Врач-остеопат с более чем 10-летним опытом работы, специализирующийся на лечении боли в спине, суставах, а также ЛОР-заболеваний и аллергий.</p>
+        <p>Прошла обучение в Санкт-Петербургской государственной педиатрической медицинской академии и регулярно повышает квалификацию.</p>
+        <h4 class="font-weight-bold mt-4">Образование</h4>
+        <ul>
+          <li>Санкт-Петербургская государственная педиатрическая медицинская академия (2004–2010 гг.)</li>
+          <li>Санкт-Петербургский государственный университет (2013–2017 гг.)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-5 align-items-center">
+      <div class="col-md-6">
+        <h4 class="font-weight-bold">Повышение квалификации</h4>
+        <ul class="list-unstyled">
+          <li>2013 г. – СПбГУ, программа повышения квалификации «Общие принципы мануальной медицины, остеопатии».</li>
+          <li>2014 г. – СПбГУ, программа «Принципы остеопатической диагностики и коррекции соматических дисфункций позвоночника и таза».</li>
+          <li>2015 г. – СПбГУ, программа «Мануальная терапия».</li>
+          <li>2015 г. – СПбГУ, программа «Принципы остеопатической диагностики и коррекции конечностей, костей черепа».</li>
+          <li>2016 г. – СПбГУ, программа «Остеопатическая диагностика и коррекция нервной системы и внутренних органов».</li>
+          <li>2019 г. – Институт остеопатической медицины, курс «Остеопатические аспекты педиатрии».</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static 'img/index/osteopat-biketova-2.jpeg' %}" 
+             alt="Бикетова Александра Викторовна" 
+             class="img-fluid rounded shadow-sm mx-auto d-block" 
+             style="max-width: 90%; height: auto;" 
+             loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Мои дипломы, удостоверения, сертификаты -->
+<section id="certificates" class="py-5">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">Мои дипломы, удостоверения, сертификаты</h2>
+    <div class="row g-4"> <!-- Используем g-4 для равномерного промежутка между карточками -->
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/diplom-1.png' %}" target="_blank">
+            <img src="{% static 'img/index/diplom-1.png' %}" class="img-thumbnail" alt="Диплом 1" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2010 г. Диплом</h5>
+            <p class="card-text">Санкт-Петербургская государственная педиатрическая медицинская академия</p>
+            <p class="card-text">Квалификация: Врач по специальности Педиатрия</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/diplom-2.png' %}" target="_blank">
+            <img src="{% static 'img/index/diplom-2.png' %}" class="img-thumbnail" alt="Диплом 2" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2017 г. Диплом о переподготовке</h5>
+            <p class="card-text">Северо-Западный государственный медицинский университет имени И.И. Мечникова</p>
+            <p class="card-text">Допущена: к ведению профессиональной деятельности в сфере Остеопатия</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/udostoverenie-1.png' %}" target="_blank">
+            <img src="{% static 'img/index/udostoverenie-1.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2013 г. Удостоверение о повышении квалификации</h5>
+            <p class="card-text">Санкт-Петербургский государственный университет</p>
+            <p class="card-text">Квалификация: Общие принципы мануальной медицины, остеопатии.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/udostoverenie-2.png' %}" target="_blank">
+            <img src="{% static 'img/index/udostoverenie-2.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2015 г. Удостоверение о повышении квалификации</h5>
+            <p class="card-text">Санкт-Петербургский государственный университет</p>
+            <p class="card-text">Квалификация: Остеопатическая диагностика и коррекция внутрикостных соматических дисфункций и черепных нервов. Висцеральная остеопатия</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/udostoverenie-3.png' %}" target="_blank">
+            <img src="{% static 'img/index/udostoverenie-3.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2015 г. Удостоверение о повышении квалификации</h5>
+            <p class="card-text">Санкт-Петербургский государственный университет</p>
+            <p class="card-text">Остеопатичекая диагностика и коррекция соматических дисфункций конечностей, костей черепа</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card mb-4 w-100">
+          <a href="{% static 'img/index/sertifikat-1.png' %}" target="_blank">
+            <img src="{% static 'img/index/sertifikat-1.png' %}" class="img-thumbnail" alt="Диплом 4" loading="lazy">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">2017 г. Сертификат специалиста</h5>
+            <p class="card-text">Северо-Западный государственный медицинский университет имени И.И. Мечникова</p>
+            <p class="card-text">Допущена: к медицинской деятельности по специальности Остеопатия</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Другие карточки аналогично -->
+  </div>
+</section>
+
+
+
+<!-- Блог 
 <section class="container my-4">
+  <h2 class="section-heading">Блог врача остеопата</h2>
   <div class="row g-4">
     {% for post in page_obj %}
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex">
@@ -24,6 +246,8 @@
     </div>
     {% endfor %}
   </div>
-</section>  
-{% include "includes/paginator.html" %}
+</section> 
+
+{% include "includes/paginator.html" %} 
 {% endblock %}
+-->
