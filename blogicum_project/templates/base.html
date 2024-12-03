@@ -2,53 +2,93 @@
 {% load static %}
 {% load django_bootstrap5 %}
 <!DOCTYPE html>
-<html lang="ru">
+<html prefix="place: https://ogp.me/ns/place#" lang="ru">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KR2BDNLHLX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KR2BDNLHLX');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Остеопат в Санкт-Петербурге — лечение детей и взрослых{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Остеопат в Санкт-Петербурге и Волосово. Лечение детей и взрослых. Запись по тел. +7 911 986 63 08. Эффективно и с заботой о здоровье.{% endblock %}">
-    <meta name="geo.position" content="59.971537;30.343303">
-    <meta name="geo.region" content="RU-SPB">
-    <meta name="geo.placename" content="Санкт-Петербург, Волосово">
-    <meta name="robots" content="{% block meta_robots %} index, follow {% endblock %}">
+    <title>{% block title %}Остеопат в Санкт-Петербурге — лечение детей и взрослых{% endblock %}</title> 
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Остеопат в Санкт-Петербурге и Волосово. Лечение детей и взрослых. Запись по тел. +7 911 986 63 08. Эффективно и с заботой о здоровье.">
     <meta name="author" content="Бикетова Александра Викторовна">
-    <meta property="og:title" content="{% block og_title %}Врач-остеопат в Санкт-Петербурге и Волосово - Бикетова Александра Викторовна{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Запишитесь на приём через WhatsApp, Telegram или позвоните по телефону: +7 911 986 63 08. Лечение детей и взрослых.{% endblock %}">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image" content="{% block og_image %}https://osteopatbiketova.ru/static/img/og-default.png{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Остеопат в Санкт-Петербурге — лечение детей и взрослых">
+    <meta property="og:description" content="Остеопат в Санкт-Петербурге и Волосово. Лечение детей и взрослых. Запись по тел. +7 911 986 63 08. Эффективно и с заботой о здоровье.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://osteopatbiketova.ru/">
+    <meta property="og:image" content="https://osteopatbiketova.ru/static/img/index/hero_section_img-1.jpg">
+    <meta property="og:image:alt" content="Остеопат из Санкт-Петербурга лечит девочку">
     <meta property="og:site_name" content="Остеопат Бикетова">
     <meta property="og:locale" content="ru_RU">
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image">
+    <meta property="place:location:latitude" content="59.971537">
+    <meta property="place:location:longitude" content="30.343303">
+    
+    <link rel="canonical" href="https://osteopatbiketova.ru/">
+    <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image/x-icon">
 
-    {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <link rel="alternate" hreflang="ru" href="https://osteopatbiketova.ru/">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(99095088, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+      });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/99095088" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
   </head>
   <body>
-    {% include "includes/header.html" %}
-    <br>
-    
-    {% block content %}{% endblock %}
-    
     <script type="application/ld+json">
       {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@type": "MedicalBusiness",
-        "name": "Врач-остеопат Бикетова Александра",
+        "name": "Остеопат Бикетова Александра",
         "telephone": "+79119866308",
+        "geo": [
+          {
+            "@type": "GeoCoordinates",
+            "latitude": 59.971537,
+            "longitude": 30.343303
+          },
+          {
+            "@type": "GeoCoordinates",
+            "latitude": 59.452640,
+            "longitude": 29.495306
+          }
+        ],
         "address": [
           {
             "@type": "PostalAddress",
+            "@id": "SPB",
             "addressLocality": "Санкт-Петербург",
             "streetAddress": "ул. Смолячкова, 12, к.2"
           },
           {
             "@type": "PostalAddress",
+            "@id": "Volosovo",
             "addressLocality": "Волосово",
             "addressRegion": "Ленинградская область",
             "streetAddress": "ул. Красных Командиров, 9"
@@ -64,8 +104,13 @@
         ]
       }
       </script>
+      
+    {% include "includes/header.html" %}
+    <br>
+    
+    {% block content %}{% endblock %}
+    
     {% include "includes/footer.html" %}
-    {% bootstrap_javascript %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/css_class_activate_monitoring.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>

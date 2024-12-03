@@ -1,6 +1,70 @@
-<!-- blogicum/templates/includes/footer.html -->
-<footer class="border-top text-center py-3">
-  <p>© 2024 Бикетова Александра Викторовна</p> 
-  <p>Разработчик сайта <a href="https://t.me/Aleksandr_Myasoed" target="_blank">Александр Мясоед</a></p>
 
+<!-- Контакты и форма записи -->
+{% load static %}
+<section id="contact" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">Запишитесь на консультацию</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 d-flex justify-content-center">
+        <img src="{% static 'img/logo.png' %}" 
+             alt="Фото офиса или логотипа компании" 
+             class="img-fluid rounded-circle shadow-lg" 
+             style="max-width: 300px; min-width: 150px; height: auto;">
+      </div>
+      <div class="col-md-6 mb-4">
+        <h2></h2>
+        <h3>Контактная информация</h3>
+        <p><i class="fas fa-map-marker-alt me-2"></i><a href="https://yandex.ru/maps/?rtext=~г.+Санкт-Петербург,+ул.+Смолячкова,+12,+к.2" 
+            target="_blank" class="text-decoration-none link-dark">г. Санкт-Петербург, ул. Смолячкова, 12, к.2</a></p>
+        <p><i class="fas fa-phone me-2"></i><a href="tel:+79119866308" class="text-decoration-none link-dark">+7 911 986 63 08</a></p>
+        <p><i class="fas fa-envelope me-2"></i><a href="mailto:biketova_osteopat@mail.ru" class="text-decoration-none link-dark">biketova_osteopat@mail.ru</a></p>
+        <p><i class="fab fa-whatsapp me-2"></i><a href="https://wa.me/79119866308" class="text-decoration-none link-dark">WhatsApp: Написать</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Подписка на соцсети -->
+<section id="social" class="py-5">
+  <div class="container text-center">
+    <h2 class="section-heading mb-4">Подпишитесь на мои социальные сети</h2>
+    <div class="d-flex justify-content-center flex-wrap gap-4">
+      <a href="https://wa.me/79119866308" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-whatsapp fa-3x"></i>
+      </a>
+      <a href="https://t.me/+dcXq8lbU7p05ZjNi" target="_blank" aria-label="Telegram" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-telegram fa-3x"></i>
+      </a>
+      <a href="https://vk.com/osteopat.biketova" target="_blank" aria-label="VK" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-vk fa-3x"></i>
+      </a>
+      <a href="https://www.youtube.com/channel/UCxta34TZ-FLfosrG_AJCqAg" target="_blank" aria-label="YouTube" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-youtube fa-3x"></i>
+      </a>
+      <a href="https://www.instagram.com/osteopat_biketova/" target="_blank" aria-label="Instagram" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-instagram fa-3x"></i>
+      </a>
+    </div>
+  </div>
+</section> 
+<!-- Футер -->
+<footer class="py-4 bg-dark text-white">
+  <div class="container text-center">
+    <p class="mb-3">&copy; 2024 Остеопат Бикетова</p>
+    <!--
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="privacy.html" class="text-white text-decoration-underline-hover" rel="noopener noreferrer">Политика конфиденциальности</a>
+      </li>
+      <li class="list-inline-item mx-2 text-white">|</li>
+      <li class="list-inline-item">
+        <a href="#" class="text-white text-decoration-underline-hover" rel="noopener noreferrer">Карта сайта</a>
+      </li>
+      <li class="list-inline-item mx-2 text-white">|</li>
+      <li class="list-inline-item">
+        <a href="https://wa.me/79522672726" target="_blank" class="text-white text-decoration-underline-hover" rel="noopener noreferrer">Разработчик сайта</a>
+      </li>
+    </ul>
+    -->
+  </div>
 </footer>
