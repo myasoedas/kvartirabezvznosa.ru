@@ -1,7 +1,7 @@
 # blogicum/blog/urls.py
 from django.urls import path
 
-from .views import (CategoryPostsListView, CommentDeleteView,
+from .views import (CategoryPostsListView, CommentDeleteView, rss_feed,
                     CommentUpdateView, IndexListView, PostCommentView,
                     PostDetailView, UserProfileEditView, UserProfileView)
                     
@@ -23,5 +23,6 @@ urlpatterns = [
     path(
         'posts/<int:post_id>/delete_comment/<int:comment_id>/',
         CommentDeleteView.as_view(), name='delete_comment'),
+    path('rss-feed.xml', rss_feed, name='rss_feed'),
     path('', IndexListView.as_view(), name='index'),
 ]

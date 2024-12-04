@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.db.models import Count
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -171,3 +171,93 @@ class PostDetailView(DetailView, PaginatorMixin):
         context.update(self.get_paginated_context(comments))
         context['form'] = CommentForm()
         return context
+
+
+def rss_feed(request):
+    """Генерация RSS-канала для лендинга."""
+    rss_content = f"""
+    <?xml version="1.0" encoding="utf-8"?>
+    <rss version="2.0" xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/">
+        <channel>
+            <title>Остеопат Бикетова — Турбо-страницы</title>
+            <link>https://osteopatbiketova.ru/</link>
+            <description>Остеопат Бикетова: услуги, квалификация, контакты</description>
+            <language>ru</language>
+            
+            <!-- Услуги -->
+            <item>
+                <title>Лечение кривошеи</title>
+                <link>https://osteopatbiketova.ru/#services</link>
+                <description>Исправление кривошеи с восстановлением естественного положения шейных позвонков.</description>
+                <pubDate>Wed, 04 Dec 2024 08:00:00 +0000</pubDate>
+                <yandex:full-text>
+                    <![CDATA[
+                    <header>
+                        <h1>Лечение кривошеи</h1>
+                        <figure>
+                            <img src="https://osteopatbiketova.ru/static/img/index/krivosheya.jpg" alt="Лечение кривошеи">
+                        </figure>
+                    </header>
+                    <p>Чувствуете напряжение в шее или ограниченность движений? Остеопат поможет исправить кривошею, восстановив естественное положение шейных позвонков.</p>
+                    ]]>
+                </yandex:full-text>
+            </item>
+            
+            <item>
+                <title>Лечение ЛОР-заболеваний</title>
+                <link>https://osteopatbiketova.ru/#services</link>
+                <description>Устранение причин синуситов, отитов и других ЛОР-заболеваний остеопатическими методами.</description>
+                <pubDate>Tue, 03 Dec 2024 08:00:00 +0000</pubDate>
+                <yandex:full-text>
+                    <![CDATA[
+                    <header>
+                        <h1>Лечение ЛОР-заболеваний</h1>
+                        <figure>
+                            <img src="https://osteopatbiketova.ru/static/img/index/lor.jpg" alt="Лечение ЛОР-заболеваний">
+                        </figure>
+                    </header>
+                    <p>Страдаете от частых синуситов, отитов или проблем с дыханием? Остеопатический подход может помочь улучшить работу ЛОР-органов, устраняя причины недугов.</p>
+                    ]]>
+                </yandex:full-text>
+            </item>
+            
+            <!-- О враче -->
+            <item>
+                <title>О враче</title>
+                <link>https://osteopatbiketova.ru/#about</link>
+                <description>Бикетова Александра Викторовна — врач-остеопат с более чем 10-летним опытом работы.</description>
+                <pubDate>Mon, 02 Dec 2024 08:00:00 +0000</pubDate>
+                <yandex:full-text>
+                    <![CDATA[
+                    <header>
+                        <h1>О враче</h1>
+                        <figure>
+                            <img src="https://osteopatbiketova.ru/static/img/index/osteopat-biketova.jpeg" alt="Остеопат Бикетова Александра">
+                        </figure>
+                    </header>
+                    <p>Врач-остеопат с более чем 10-летним опытом работы, специализирующийся на лечении боли в спине, суставах, а также ЛОР-заболеваний и аллергий.</p>
+                    <p>Образование: Санкт-Петербургская государственная педиатрическая медицинская академия (2004–2010 гг.).</p>
+                    ]]>
+                </yandex:full-text>
+            </item>
+
+            <!-- Контакты -->
+            <item>
+                <title>Контакты</title>
+                <link>https://osteopatbiketova.ru/#contact</link>
+                <description>Контактная информация для записи к врачу-остеопату.</description>
+                <pubDate>Mon, 02 Dec 2024 08:00:00 +0000</pubDate>
+                <yandex:full-text>
+                    <![CDATA[
+                    <header>
+                        <h1>Контакты</h1>
+                        <p>Санкт-Петербург, ул. Смолячкова, 12, к.2</p>
+                        <p>Телефон: +7 911 986 63 08</p>
+                        <p>Email: biketova_osteopat@mail.ru</p>
+                    ]]>
+                </yandex:full-text>
+            </item>
+        </channel>
+    </rss>
+    """
+    return HttpResponse(rss_content, content_type="application/rss+xml")

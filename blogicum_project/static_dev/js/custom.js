@@ -122,3 +122,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Изначально кнопка должна быть неактивной
     submitButton.disabled = true;
 });
+
+document.addEventListener('click', function (event) {
+    const menu = document.getElementById('navbarNav'); // Само меню
+    const toggler = document.querySelector('.navbar-toggler'); // Кнопка меню
+
+    // Проверяем, если меню открыто и клик не на меню и не на кнопке
+    if (menu.classList.contains('show') && !menu.contains(event.target) && !toggler.contains(event.target)) {
+        toggler.click(); // Программно "нажимаем" на кнопку, чтобы закрыть меню
+    }
+});

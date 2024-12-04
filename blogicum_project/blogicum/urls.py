@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 from blog.views import UserRegisterView
 
@@ -17,6 +18,7 @@ urlpatterns = [
          UserRegisterView.as_view(),
          name='registration'),
     path('ckeditor/', include('django_ckeditor_5.urls')),
+    path('favicon.ico', RedirectView.as_view(url='/static/img/fav/favicon.ico', permanent=True)),
     path('pages/', include('pages.urls')),
     path('', include('blog.urls')),
 ]
