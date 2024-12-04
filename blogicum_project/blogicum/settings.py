@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_ckeditor_5',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [

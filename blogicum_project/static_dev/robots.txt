@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+Sitemap: https://osteopatbiketova.ru/sitemap.xml
+Sitemap: https://osteopatbiketova.ru/rss-feed.xml
