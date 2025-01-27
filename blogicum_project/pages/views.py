@@ -1,4 +1,3 @@
-# blogicum/pages/views.py
 from django.shortcuts import render
 from django.views.defaults import page_not_found, permission_denied
 from django.views.generic import TemplateView

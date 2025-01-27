@@ -176,8 +176,8 @@ def robots_txt_view(request):
         lines = [
             "User-agent: *",
             "Disallow: /admin/",
-            "Sitemap: https://osteopatbiketova.ru/sitemap.xml",
-            "Sitemap: https://osteopatbiketova.ru/rss-feed.xml",
+            "Sitemap: https://osteopat-violetta.ru/sitemap.xml",
+            "Sitemap: https://osteopat-violetta.ru/rss-feed.xml",
         ]
         return HttpResponse("\n".join(lines), content_type="text/plain")
 
@@ -189,22 +189,22 @@ def rss_feed(request):
             xmlns:turbo="http://turbo.yandex.ru"
             version="2.0">
             <channel>
-                <title>Остеопат Бикетова Санкт-Петербург</title>
-                <link>https://osteopatbiketova.ru/</link>
+                <title>Остеопат Виолетта Санкт-Петербург и Сертолово</title>
+                <link>https://osteopat-violetta.ru/</link>
                 <description>Эффективное лечение боли в спине, суставах и ЛОР-заболеваний без медикаментов</description>
                 <language>ru</language>
 
                 <!-- Главная страница -->
                 <item turbo="true">
-                    <link>https://osteopatbiketova.ru/</link>
+                    <link>https://osteopat-violetta.ru/</link>
                     <turbo:content>
                         <![CDATA[
                         <header>
-                            <h1>Остеопат в Санкт-Петербурге</h1>
+                            <h1>Остеопат в Санкт-Петербурге и Сертолово</h1>
                             <figure>
-                                <img src="https://osteopatbiketova.ru/static/img/logo.jpg" alt="Логотип Остеопат Бикетова">
+                                <img src="https://osteopat-violetta.ru/static/img/logo.jpg" alt="Логотип Остеопат Виолетта">
                             </figure>
-                            <h2>Бикетова Александра Викторовна</h2>
+                            <h2>Виолетта Игоревна Валетчик</h2>
                             <p>Эффективное лечение боли в спине, суставах и ЛОР-заболеваний без медикаментов</p>
                         </header>
                         <section>
@@ -212,42 +212,42 @@ def rss_feed(request):
                             <ul>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/krivosheya.jpg" alt="Лечение кривошеи">
+                                        <img src="https://osteopat-violetta.ru/static/img/krivosheya.jpg" alt="Лечение кривошеи">
                                         <figcaption>Лечение кривошеи</figcaption>
                                     </figure>
                                     <p>Чувствуете напряжение в шее или ограниченность движений? Остеопат поможет восстановить естественное положение шейных позвонков.</p>
                                 </li>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/lor.jpg" alt="Лечение ЛОР-заболеваний">
+                                        <img src="https://osteopat-violetta.ru/static/img/lor.jpg" alt="Лечение ЛОР-заболеваний">
                                         <figcaption>Лечение ЛОР-заболеваний</figcaption>
                                     </figure>
                                     <p>Страдаете от частых синуситов, отитов или проблем с дыханием? Остеопатический подход поможет устранить причины.</p>
                                 </li>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/allergiya.jpg" alt="Лечение аллергии">
+                                        <img src="https://osteopat-violetta.ru/static/img/allergiya.jpg" alt="Лечение аллергии">
                                         <figcaption>Лечение аллергии</figcaption>
                                     </figure>
                                     <p>Мучает аллергия? Остеопат поможет устранить причины реакций и восстановить баланс организма.</p>
                                 </li>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/index/sustavi.jpg" alt="Лечение болезней суставов">
+                                        <img src="https://osteopat-violetta.ru/static/img/index/sustavi.jpg" alt="Лечение болезней суставов">
                                         <figcaption>Лечение болезней суставов</figcaption>
                                     </figure>
                                     <p>Боли в суставах мешают двигаться свободно? Остеопат поможет снять напряжение, улучшить подвижность и устранить причины дискомфорта.</p>
                                 </li>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/index/zhkt.jpg" alt="Лечение заболеваний ЖКТ">
+                                        <img src="https://osteopat-violetta.ru/static/img/index/zhkt.jpg" alt="Лечение заболеваний ЖКТ">
                                         <figcaption>Лечение заболеваний ЖКТ</figcaption>
                                     </figure>
                                     <p>Проблемы с пищеварением и постоянный дискомфорт? Остеопат поможет восстановить работу ЖКТ, устранив причины нарушений.</p>
                                 </li>
                                 <li>
                                     <figure>
-                                        <img src="https://osteopatbiketova.ru/static/img/index/endokrinaya-sistema.jpg" alt="Лечение эндокринных патологий">
+                                        <img src="https://osteopat-violetta.ru/static/img/index/endokrinaya-sistema.jpg" alt="Лечение эндокринных патологий">
                                         <figcaption>Лечение эндокринных патологий</figcaption>
                                     </figure>
                                     <p>Страдаете от гормональных сбоев или проблем с эндокринной системой? Остеопат поможет восстановить баланс в организме и улучшить общее состояние.</p>
@@ -258,8 +258,8 @@ def rss_feed(request):
                         <section>
                             <h2>О враче</h2>
                             <figure>
-                                <img src="https://osteopatbiketova.ru/static/img/biketova.jpg" alt="Бикетова Александра Викторовна">
-                                <figcaption>Бикетова Александра Викторовна</figcaption>
+                                <img src="https://osteopat-violetta.ru/static/img/biketova.jpg" alt="Бикетова Александра Викторовна">
+                                <figcaption>Виолетта Игоревна Валетчик</figcaption>
                             </figure>
                             <p>Врач-остеопат с 10-летним опытом работы. Специализация: лечение боли в спине, суставах, а также ЛОР-заболеваний и аллергий.</p>
                             <p><strong>Образование:</strong></p>
@@ -277,22 +277,20 @@ def rss_feed(request):
 
                         <section>
                             <h2>Запишитесь на консультацию</h2>
-                            <p><strong>Адрес:</strong> Санкт-Петербург, ул. Смолячкова, 12, к.2</p>
-                            <p><strong>Телефон:</strong> <a href="tel:+79119866308">+7 911 986 63 08</a></p>
-                            <p><strong>Email:</strong> <a href="mailto:biketova_osteopat@mail.ru">biketova_osteopat@mail.ru</a></p>
-                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/79119866308">Написать</a></p>
+                            <p><strong>Адрес:</strong> Санкт-Петербург,  Байконурская д 15.</p>
+                            <p><strong>Телефон:</strong> <a href="tel:+79052294650">+7(905)229-46-50</a></p>
+                            <p><strong>Email:</strong> <a href="mailto:veta1981@yandex.ru ">veta1981@yandex.ru </a></p>
+                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/79052294650">Написать</a></p>
                             <iframe src="https://yandex.ru/map-widget/v1/?ll=30.345564%2C59.971724&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgoxNDk2NTI3ODA2ElPQoNC-0YHRgdC40Y8sINCh0LDQvdC60YIt0J_QtdGC0LXRgNCx0YPRgNCzLCDRg9C70LjRhtCwINCh0LzQvtC70Y_Rh9C60L7QstCwLCAxMtC6MiIKDRa_8kEV2-JvQg%2C%2C&z=17.78" 
                                 width="560" height="400" frameborder="0" allowfullscreen="true" style="position:relative;">
                             </iframe>
                         </section>
-
+                        
                         <footer>
-                            <p>© 2024 Остеопат Бикетова</p>
+                            <p>© 2025 Остеопат Виолетта</p>
                             <ul>
-                                <li><a href="https://vk.com/osteopat.biketova" target="_blank">ВКонтакте</a></li>
-                                <li><a href="https://t.me/+dcXq8lbU7p05ZjNi" target="_blank">Telegram</a></li>
-                                <li><a href="https://www.instagram.com/osteopat_biketova/" target="_blank">Instagram</a></li>
-                                <li><a href="https://www.youtube.com/channel/UCxta34TZ-FLfosrG_AJCqAg" target="_blank">Youtube</a></li>
+                                <li><a href="https://vk.com/club136944002" target="_blank">ВКонтакте</a></li>
+                                <li><a href="https://t.me/B3a56" target="_blank">Telegram</a></li>
                             </ul>
                         </footer>
                         ]]>
