@@ -8,6 +8,12 @@ DATABASE_PASSWORD = config("DATABASE_PASSWORD")
 DATABASE_HOST = config("DATABASE_HOST")
 DATABASE_PORT = config("DATABASE_PORT")
 
+print(f"DATABASE_NAME: {DATABASE_NAME}")
+print(f"DATABASE_USER: {DATABASE_USER}")
+print(f"DATABASE_PASSWORD: {DATABASE_PASSWORD}")
+print(f"DATABASE_HOST: {DATABASE_HOST}")
+print(f"DATABASE_PORT: {DATABASE_PORT}")
+
 # Проверка подключения
 try:
     # Установка подключения к PostgreSQL

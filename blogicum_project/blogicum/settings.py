@@ -1,4 +1,3 @@
-# blogicum/blogicum/settings.py
 import os
 from pathlib import Path
 from decouple import config
@@ -8,14 +7,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '213.171.26.116',
-    'osteopatbiketova.ru',
-    'www.osteopatbiketova.ru',
+    'osteopatvioletta.ru',
+    'www.osteopatvioletta.ru',
+    'osteopat-violetta.ru',
+    'www.osteopat-violetta.ru',
 ]
 
 INSTALLED_APPS = [
