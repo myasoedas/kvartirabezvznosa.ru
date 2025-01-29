@@ -3,13 +3,14 @@
 {% load static %}
 <section id="contact" class="py-5 bg-light">
   <div class="container">
-    <h2 class="section-heading text-center mb-5">Запишитесь на прием к остеопату</h2>
+    <h2 class="section-heading text-center mb-5">Запишитесь на прием</h2>
     <div class="row align-items-center">
       <div class="col-md-6 d-flex justify-content-center">
         <img src="{% static 'img/logo.png' %}" 
              alt="Фото врача остеопата - Виолетта Валетчик" 
-             class="img-fluid rounded-circle shadow-lg" 
+             class="img-fluid rounded-circle shadow-lg mb-md-0 mb-4" 
              style="max-width: 300px; min-width: 150px; height: auto;">
+    
       </div>
       <div class="col-md-6 mb-4">
         <h2></h2>
@@ -28,10 +29,34 @@
   </div>
 </section>
 
+<!-- Видео тур по кабинету -->
+<section id="video-tur" class="py-5">
+  <div class="container">
+    <h2 class="section-heading">Видео тур по кабинету</h2>
+    <!-- Верхний ряд карточек -->
+    <div class="row">
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="w-100 border-0 shadow-none p-0">
+          <video width="100%" height="auto" controls 
+                 style="border-radius: 15px; overflow: hidden;">
+              <source src="{% static 'img/index/vhod-02.mp4' %}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Подписка на соцсети -->
-<section id="social" class="py-5">
+<section id="social" class="py-5 bg-light">
   <div class="container text-center">
-    <h2 class="section-heading mb-4">Подпишитесь на мои социальные сети</h2>
+    <h2 class="section-heading mb-4">Подпишитесь :-)</h2>
     <div class="d-flex justify-content-center flex-wrap gap-4">
       <a href="https://wa.me/79052294650" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer" class="text-dark">
         <i class="fab fa-whatsapp fa-3x"></i>
@@ -47,7 +72,41 @@
 </section> 
 <!-- Футер -->
 <footer class="py-4 bg-dark text-white">
-  <div class="container text-center">
-    <p class="mb-3">&copy; 2025 Остеопат Виолетта</p>
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <!-- Колонка "Полезные ссылки" -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5>Полезные ссылки</h5>
+        <ul class="list-unstyled">
+          <li><a href="#services" class="text-white text-decoration-none">Услуги</a></li>
+          <li><a href="#about" class="text-white text-decoration-none">О враче</a></li>
+          <li><a href="#certificates" class="text-white text-decoration-none">Квалификация</a></li>
+          <li><a href="#contact" class="text-white text-decoration-none">Контакты</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка "Контакты" -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5>Контакты</h5>
+        <ul class="list-unstyled">
+          <li><a href="tel:+79052294650" class="text-white text-decoration-none">+7 905 229 46 50</a></li>
+          <li><a href="mailto:info@osteopat-violetta.ru" class="text-white text-decoration-none">info@osteopat-violetta.ru</a></li>
+          <li>Санкт-Петербург, Россия</li>
+        </ul>
+      </div>
+
+      <!-- Колонка "Социальные сети" -->
+      <div class="col-12 col-md-4 mb-3 text-center text-md-start">
+        <h5>Мои соцсети</h5>
+        <a href="https://wa.me/79052294650" target="_blank" class="text-white me-3"><i class="fab fa-whatsapp fa-lg"></i></a>
+        <a href="https://t.me/B3a56" target="_blank" class="text-white me-3"><i class="fab fa-telegram fa-lg"></i></a>
+        <a href="https://vk.com/club136944002" target="_blank" class="text-white"><i class="fab fa-vk fa-lg"></i></a>
+      </div>
+    </div>
+
+    <!-- Нижняя строка с копирайтом -->
+    <div class="text-center mt-4">
+      <p class="mb-0">&copy; 2025 Остеопат Виолетта</p>
+    </div>
   </div>
 </footer>

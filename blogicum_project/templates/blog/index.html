@@ -1,225 +1,382 @@
 <!-- blogicum/templates/blog/index.html -->
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Врач-остеопат в СПб и Волосово Бикетова Александра{% endblock %}
+{% block title %}Остеопат Виолетта в Санкт-Петербурге и Сертолово{% endblock %}
 {% block content %}
 
 <!-- Услуги -->
 <section id="services" class="py-5">
-  <div class="container">
-    <h2 class="section-heading">Услуги врача остеопата</h2>
-    <!-- Верхний ряд карточек -->
-    <div class="row">
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
-        <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/krivosheya.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body mt-auto">
-            <h3 class="card-title">Лечение кривошеи</h3>
-            <p class="card-text">Чувствуете напряжение в шее или ограниченность движений? Остеопат поможет исправить кривошею, восстановив естественное положение шейных позвонков.</p>
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
-            <!-- <a href="#" class="btn btn-secondary mt-auto">Подробнее об услуге</a> -->
-          </div>
-        </div>
-      </div>
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
-        <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/lor.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body mt-auto">
-            <h3 class="card-title">Лечение ЛОР-заболеваний</h3>
-            <p class="card-text">Страдаете от частых синуситов, отитов или проблем с дыханием? Остеопатический подход может помочь улучшить работу ЛОР-органов, устраняя причины недугов.</p>
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
-        <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/alergiya.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body mt-auto">
-            <h3 class="card-title">Лечение аллергии</h3>
-            <p class="card-text">Мучает аллергия и постоянная заложенность носа? Остеопат поможет устранить дисбаланс в организме, который может быть причиной аллергических реакций.</p>
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>       
+<div class="container">
+  <h2 class="section-heading">Услуги врача остеопата</h2>
+  <div class="row">
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse1">
+                  <h3 class="card-title">Неврологические проблемы у детей</h3>
+                </a>
+              </div>
+              <div id="collapse1" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Если у вашего ребёнка кривошея, преимущественный поворот головы в одну сторону,  асимметрия головы, повышенный или пониженный тонус, остеопат поможет исправить данную патологию без грубого вмешательства в организм ребёнка. 
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Нижний ряд карточек с отступом сверху -->
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse2">
+                  <h3 class="card-title">Лечение ЛОР заболеваний у детей и взрослых</h3>
+                </a>
+              </div>
+              <div id="collapse2" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Частые отиты, аденоидиты, синуситы, храп, хронические тонзиллиты, частые ОРВИ. Остеопатический подход поможет выявить причину и улучшить состояние организма.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse3">
+                  <h3 class="card-title">Лечение беременных и кормящих матерей</h3>
+                </a>
+              </div>
+              <div id="collapse3" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Головные боли, боли в спине, отчётность и многое другое, что мешает наслаждаться материнством. Остеопатическая коррекция безболезненно и эффективно вернёт радость быть мамой.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse4">
+                  <h3 class="card-title">Ортодонтические проблемы</h3>
+                </a>
+              </div>
+              <div id="collapse4" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Нарушение прикуса, щелчки ВНЧС. Рекомендуется посещение остеопата как перед постановкой пластины, капы, брекет-системы, так и во время ношения, что позволяет сократить время лечения и достичь лучшего результата.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse5">
+                  <h3 class="card-title">Ортопедические проблемы</h3>
+                </a>
+              </div>
+              <div id="collapse5" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Нарушение осанки, сколиоз, вальгусные и варусные изменения в нижних конечностях. С помощью остеопатической коррекции возможно своевременно исправить данные изменения в организме.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse6">
+                  <h3 class="card-title">Аллергии</h3>
+                </a>
+              </div>
+              <div id="collapse6" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Мучают аллергические проявления в организме в виде постоянной заложенности носа, непереносимости продуктов, кожных изменений? Остеопатическая работа направлена на выявление причины и коррекции изменений для улучшения качества жизни.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse7">
+                  <h3 class="card-title">Болезни суставов</h3>
+                </a>
+              </div>
+              <div id="collapse7" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Боли в шее, между лопаток, пояснице, в плечевых и коленных суставах, суставах кистей и стоп. Остеопат поможет диагностировать причину и мягко, но в то же время эффективно, воздействовать на неё, что существенно облегчает состояние.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse8">
+                  <h3 class="card-title">Заболевания ж.к.т</h3>
+                </a>
+              </div>
+              <div id="collapse8" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Нарушение переваривания пищи, частое вздутие кишечника, изжога, отрыжка, нарушение стула. Остеопатическая помощь с младенческого возраста и до пожилых лет поможет справится с данными недугами.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="card mb-4 w-100">
+        <div class="container mt-3">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header mt-auto">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse9">
+                  <h3 class="card-title">Эндокринные патологии</h3>
+                </a>
+              </div>
+              <div id="collapse9" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body mt-auto">
+                  <p class="card-text">
+                    Нарушение функции щитовидной железы, нарушение менструального цикла...Это и многое другое помогает скорректировать остеопатия.
+                  </p>
+                </div>
+                <div class="card-body mt-auto">
+                  <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Запишитесь на прием</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- О враче -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-heading">О враче</h2>
+    <!-- Верхний ряд карточек -->
     <div class="row">
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
         <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/sustavi.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Лечение болезней суставов</h3>
-            <p class="card-text">Боли в суставах мешают двигаться свободно? Остеопат поможет снять напряжение, улучшить подвижность и устранить причины дискомфорта.</p>
+            <img src="{% static 'img/index/osteopat-biketova.jpeg' %}" 
+                 class="img-fluid" 
+                 alt="Фото врача остеопата Виолетты Валетчик" 
+                 loading="lazy"
+                 style="width: 100%; height: auto; object-fit: contain;">     
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
+        <div class="card mb-4 w-100">
+          <div class="card-body mt-auto">
+            <h3 class="card-title">Приветствую вас!</h3>
           </div>
           <div class="card-body mt-auto">
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+            <p class="card-text">Я врач-остеопат Валетчик Виолетта Игоревна.</p>
+            <p class="card-text">Закончила Санкт-Петербургскую Педитарическую Медицинскую Академию.</p>
+            <p class="card-text">Интернатуру по Терапии с основами медико-социальной экспертизы.</p>
+            <p class="card-text">Специализацию по мануальной терапии в СПбГПМУ.</p>
+            <p class="card-text">Специализацию по Остеопатии в институте остеопатии Мохова при СЗГМУ им. Мечникова.</p>
+            <p class="card-text">Несколько лет преподавала на кафедре Остеопатии.</p>
+          </div>
+          <div class="card-body mt-auto">
+            
           </div>
         </div>
       </div>
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+    </div>
+    <!-- 2 ряд карточек с отступом сверху -->
+    <div class="row">
+      <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
         <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/zhkt.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Лечение заболеваний ЖКТ</h3>
-            <p class="card-text">Проблемы с пищеварением и постоянный дискомфорт? Остеопат поможет восстановить работу ЖКТ, устранив причины нарушений.</p>
+          <div class="card-body mt-auto">
+            <h3 class="card-title">Продолжаем знакомиться!</h3>
           </div>
           <div class="card-body mt-auto">
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
+            <p class="card-text">На данный момент прохожу обучение по Биодинамическому направлению Остеопатии и внедряю в практику.</p>
+            <p class="card-text">Провожу ежемесячные дыхательные практики для всех желающий.</p>
+            <p class="card-text">Очень люблю свою работу и она уже давно стала неотъемлемой частью моей жизни, поэтому я не работаю Остеопатом, я живу Остеопатией.</p>
+            <p class="card-text">Занимаюсь лечением беременных женщин, новорожденных, детей любого возраста, взрослых и пожилых людей.</p>
+            </p>
+          </div>
+          <div class="card-body mt-auto">
+            <a href="https://wa.me/79052294650" class="btn btn-primary mt-auto">Добро пожаловать на приём!</a>
           </div>
         </div>
       </div>
-      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+      <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
         <div class="card mb-4 w-100">
-          <div class="card-img-container">
-            <img src="{% static 'img/index/endokrinaya-sistema.jpg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy">
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Лечение эндокринных патологий</h3>
-            <p class="card-text">Страдаете от гормональных сбоев или проблем с эндокринной системой? Остеопат поможет восстановить баланс в организме и улучшить общее состояние.</p>
-          </div>
-          <div class="card-body mt-auto">
-            <a href="/#contact" class="btn btn-primary mt-auto">Запишитесь на консультацию</a>
-          </div>
+          
+            <img src="{% static 'img/index/osteopat-biketova-2.jpeg' %}" 
+                 class="img-fluid" 
+                 alt="Остеопат Виолетта держит мальчика за голову - лечит" 
+                 loading="lazy"
+                 style="width: 100%; height: auto; object-fit: contain;"> 
+             <img src="{% static 'img/index/osteopat-biketova-2.jpeg' %}" class="card-img-top" alt="Кривошея - изображение" loading="lazy"> 
+          
         </div>
       </div>
     </div> 
   </div>
 </section>
-<!-- О враче -->
-<section id="about" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="section-heading text-center mb-5">О враче</h2>
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <img src="{% static 'img/index/osteopat-biketova.jpeg' %}" 
-             alt="Бикетова Александра Викторовна" 
-             class="img-fluid rounded shadow-sm mx-auto d-block" 
-             style="max-width: 90%; height: auto;" 
-             loading="lazy">
-      </div>
-      <div class="col-md-6">
-        <h3 class="font-weight-bold">Бикетова Александра Викторовна</h3>
-        <p>Врач-остеопат с более чем 10-летним опытом работы, специализирующийся на лечении боли в спине, суставах, а также ЛОР-заболеваний и аллергий.</p>
-        <p>Прошла обучение в Санкт-Петербургской государственной педиатрической медицинской академии и регулярно повышает квалификацию.</p>
-        <h4 class="font-weight-bold mt-4">Образование</h4>
-        <ul>
-          <li>Санкт-Петербургская государственная педиатрическая медицинская академия (2004–2010 гг.)</li>
-          <li>Санкт-Петербургский государственный университет (2013–2017 гг.)</li>
-        </ul>
-      </div>
-    </div>
-    <div class="row mt-5 align-items-center">
-      <div class="col-md-6">
-        <h4 class="font-weight-bold">Повышение квалификации</h4>
-        <ul class="list-unstyled">
-          <li>2013 г. – СПбГУ, программа повышения квалификации «Общие принципы мануальной медицины, остеопатии».</li>
-          <li>2014 г. – СПбГУ, программа «Принципы остеопатической диагностики и коррекции соматических дисфункций позвоночника и таза».</li>
-          <li>2015 г. – СПбГУ, программа «Мануальная терапия».</li>
-          <li>2015 г. – СПбГУ, программа «Принципы остеопатической диагностики и коррекции конечностей, костей черепа».</li>
-          <li>2016 г. – СПбГУ, программа «Остеопатическая диагностика и коррекция нервной системы и внутренних органов».</li>
-          <li>2019 г. – Институт остеопатической медицины, курс «Остеопатические аспекты педиатрии».</li>
-        </ul>
-      </div>
-      <div class="col-md-6">
-        <img src="{% static 'img/index/osteopat-biketova-2.jpeg' %}" 
-             alt="Бикетова Александра Викторовна" 
-             class="img-fluid rounded shadow-sm mx-auto d-block" 
-             style="max-width: 90%; height: auto;" 
-             loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
+
 <!-- Мои дипломы, удостоверения, сертификаты -->
 <section id="certificates" class="py-5">
   <div class="container">
-    <h2 class="section-heading text-center mb-5">Мои дипломы, удостоверения, сертификаты</h2>
-    <div class="row g-4"> <!-- Используем g-4 для равномерного промежутка между карточками -->
+    <h2 class="section-heading text-center mb-5">Дипломы, удостоверения, сертификаты</h2>
+    <div class="row g-4"> 
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/diplom-1.png' %}" target="_blank">
-            <img src="{% static 'img/index/diplom-1.png' %}" class="img-thumbnail" alt="Диплом 1" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom1.jpg' %}" target="_blank">
+            <img src="{% static 'img/index/diplom1.jpg' %}" class="img-thumbnail" alt="Диплом 1" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2010 г. Диплом</h5>
-            <p class="card-text">Санкт-Петербургская государственная педиатрическая медицинская академия</p>
-            <p class="card-text">Квалификация: Врач по специальности Педиатрия</p>
-          </div>
         </div>
       </div>
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/diplom-2.png' %}" target="_blank">
-            <img src="{% static 'img/index/diplom-2.png' %}" class="img-thumbnail" alt="Диплом 2" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom2.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom2.webp' %}" class="img-thumbnail" alt="Диплом 2" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2017 г. Диплом о переподготовке</h5>
-            <p class="card-text">Северо-Западный государственный медицинский университет имени И.И. Мечникова</p>
-            <p class="card-text">Допущена: к ведению профессиональной деятельности в сфере Остеопатия</p>
-          </div>
         </div>
       </div>
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/udostoverenie-1.png' %}" target="_blank">
-            <img src="{% static 'img/index/udostoverenie-1.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom3.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom3.webp' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2013 г. Удостоверение о повышении квалификации</h5>
-            <p class="card-text">Санкт-Петербургский государственный университет</p>
-            <p class="card-text">Квалификация: Общие принципы мануальной медицины, остеопатии.</p>
-          </div>
         </div>
       </div>
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/udostoverenie-2.png' %}" target="_blank">
-            <img src="{% static 'img/index/udostoverenie-2.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom4.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom4.webp' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2015 г. Удостоверение о повышении квалификации</h5>
-            <p class="card-text">Санкт-Петербургский государственный университет</p>
-            <p class="card-text">Квалификация: Остеопатическая диагностика и коррекция внутрикостных соматических дисфункций и черепных нервов. Висцеральная остеопатия</p>
-          </div>
         </div>
       </div>
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/udostoverenie-3.png' %}" target="_blank">
-            <img src="{% static 'img/index/udostoverenie-3.png' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom6.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom6.webp' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2015 г. Удостоверение о повышении квалификации</h5>
-            <p class="card-text">Санкт-Петербургский государственный университет</p>
-            <p class="card-text">Остеопатичекая диагностика и коррекция соматических дисфункций конечностей, костей черепа</p>
-          </div>
         </div>
       </div>
       <div class="col-md-4 d-flex">
-        <div class="card mb-4 w-100">
-          <a href="{% static 'img/index/sertifikat-1.png' %}" target="_blank">
-            <img src="{% static 'img/index/sertifikat-1.png' %}" class="img-thumbnail" alt="Диплом 4" loading="lazy">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom7.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom7.webp' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
           </a>
-          <div class="card-body">
-            <h5 class="card-title">2017 г. Сертификат специалиста</h5>
-            <p class="card-text">Северо-Западный государственный медицинский университет имени И.И. Мечникова</p>
-            <p class="card-text">Допущена: к медицинской деятельности по специальности Остеопатия</p>
-          </div>
         </div>
       </div>
+      <div class="col-md-4 d-flex">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom8.webp' %}" target="_blank">
+            <img src="{% static 'img/index/diplom8.webp' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="w-100 border-0 shadow-none p-0">
+          <a href="{% static 'img/index/diplom9.jpg' %}" target="_blank">
+            <img src="{% static 'img/index/diplom9.jpg' %}" class="img-thumbnail" alt="Диплом 3" loading="lazy">
+          </a>
+        </div>
+      </div>
+      
     </div>
     <!-- Другие карточки аналогично -->
   </div>
 </section>
+
+
 
 {% endblock %}
