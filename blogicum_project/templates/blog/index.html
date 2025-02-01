@@ -377,6 +377,78 @@
   </div>
 </section>
 
+<!-- Контакты и форма записи -->
+{% load static %}
+<section id="contact" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">Запишитесь на прием</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 d-flex justify-content-center">
+        <img src="{% static 'img/logo.png' %}" 
+             alt="Фото врача остеопата - Виолетта Валетчик" 
+             class="img-fluid rounded-circle shadow-lg mb-md-0 mb-4" 
+             style="max-width: 300px; min-width: 150px; height: auto;">
+    
+      </div>
+      <div class="col-md-6 mb-4">
+        <h2></h2>
+        <h3>Контактная информация</h3>
+        <p><i class="fas fa-map-marker-alt me-2"></i><a href="https://yandex.ru/maps/?rtext=~г.+Санкт-Петербург,+ул.+Байконурская,+15" 
+            target="_blank" class="text-decoration-none link-dark">г. Санкт-Петербург, ул. Байконурская д. 15</a>
+        </p>
+        <p><i class="fas fa-map-marker-alt me-2"></i><a href="https://yandex.ru/maps/?rtext=~г.+Сертолово,+ул.+Центральная,+1,+к1" 
+          target="_blank" class="text-decoration-none link-dark">г. Сертолово, ул. Центральная д. 1 к 1</a>
+        </p>
+        <p><i class="fas fa-phone me-2"></i><a href="tel:+79052294650" class="text-decoration-none link-dark">+7(905)229-46-50</a></p>
+        <p><i class="fas fa-envelope me-2"></i><a href="mailto:veta1981@yandex.ru" class="text-decoration-none link-dark">veta1981@yandex.ru</a></p>
+        <p><i class="fab fa-whatsapp me-2"></i><a href="https://wa.me/79052294650" class="text-decoration-none link-dark">WhatsApp: +79052294650</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Видео тур по кабинету -->
+<section id="video-tur" class="py-5">
+  <div class="container">
+    <h2 class="section-heading">Видео тур по кабинету</h2>
+    <!-- Верхний ряд карточек -->
+    <div class="row">
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        <div class="w-100 border-0 shadow-none p-0">
+          <video width="100%" height="auto" controls 
+                 style="border-radius: 15px; overflow: hidden;">
+              <source src="{% static 'img/index/vhod-02.mp4' %}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Подписка на соцсети -->
+<section id="social" class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="section-heading mb-4">Подпишитесь :-)</h2>
+    <div class="d-flex justify-content-center flex-wrap gap-4">
+      <a href="https://wa.me/79052294650" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-whatsapp fa-3x"></i>
+      </a>
+      <a href="https://t.me/B3a56" target="_blank" aria-label="Telegram" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-telegram fa-3x"></i>
+      </a>
+      <a href="https://vk.com/club136944002" target="_blank" aria-label="VK" rel="noopener noreferrer" class="text-dark">
+        <i class="fab fa-vk fa-3x"></i>
+      </a>
+    </div>
+  </div>
+</section> 
+
 
 
 {% endblock %}
