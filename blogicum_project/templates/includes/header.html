@@ -1,6 +1,7 @@
 {% load static %}
 <header>
     <nav class="navbar navbar-light bg-white fixed-top">
+        {% with request.resolver_match.view_name as view_name %}
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center logo-section">
                 <a href="/" class="navbar-brand d-flex align-items-center">
@@ -20,10 +21,22 @@
                     <li class="nav-item"><a class="nav-link" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О враче</a></li>
                     <li class="nav-item"><a class="nav-link" href="#certificates" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Квалификация</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Контакты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео тур по кабинету</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы пациентов</a></li>
                     <li class="nav-item"><a class="nav-link" href="#social" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Социальные сети</a></li>
                 </ul>
-    
+                <div class="d-flex align-items-center social-icons">
+                    <a class="nav-link" href="/posts/list/" >Блог Остеопата</a>
+                </div>
+                <div class="d-flex align-items-center social-icons">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="/admin/blog/post/add/" >Написать пост</a>
+                        <a class="nav-link" href="{% url 'blog:profile' user.username %}" >{{ user.username }}</a>
+                        <a class="nav-link" href="{% url 'logout' %}" >Выйти</a>
+                    {% else %}
+                        <a class="nav-link" href="/auth/login/" >Войти</a>
+                        <a class="nav-link" href="/auth/registration/" >Регистрация</a>
+                    {% endif %}
+                </div>
                 <div class="d-flex align-items-center social-icons">
                     <a class="nav-link px-2" href="https://wa.me/79052294650" target="_blank" rel="noopener" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
@@ -37,18 +50,8 @@
                 </div>
             </div>
         </div>
+        {% endwith %}
     </nav>
     
-    
 </header>
-<br>
-<!-- Hero Section -->
-<section id="hero-section" class="hero-section" >
-  <div class="container">
-    <h1>Остеопат в Санкт-Петербурге и Сертолово</h1>
-    <h2>Валетчик Виолетта Игоревна</h2>
-    <p>Эффективное лечение без медикаментов</p>
-    <a href="https://wa.me/79052294650" class="btn btn-primary btn-lg mt-4">Записаться на прием</a>
-  </div>
-</section>
 <br>

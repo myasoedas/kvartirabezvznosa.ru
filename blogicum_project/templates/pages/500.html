@@ -2,7 +2,16 @@
 {% extends "base.html" %}
 {% block title %}Ошибка сервера{% endblock %}
 {% block content %}
+  <br>
+  <br>
   <h1>Ошибка сервера</h1>
   <p>На сервере что-то пошло не так!</p>
   <a href="{% url 'blog:index' %}">Вернуться на главную</a>
+  <br>
+  <section id="hero-section" class="hero-section" >
+    <div class="container">
+      <h1>Ошибка сервера - ошибка 500</h1>
+      <p>На сервере что-то пошло не так!</p>
+    </div>
+  </section>
 {% endblock %}

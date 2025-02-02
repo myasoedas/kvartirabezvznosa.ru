@@ -4,6 +4,17 @@
 {% block title %}Остеопат Виолетта в Санкт-Петербурге и Сертолово{% endblock %}
 {% block content %}
 
+<!-- Hero Section -->
+<section id="hero-section" class="hero-section" >
+  <div class="container">
+    <h1>Остеопат в Санкт-Петербурге и Сертолово</h1>
+    <h2>Валетчик Виолетта Игоревна</h2>
+    <p>Эффективное лечение без медикаментов</p>
+    <a href="https://wa.me/79052294650" class="btn btn-primary btn-lg mt-4">Записаться на прием</a>
+  </div>
+</section>
+<br>
+
 <!-- Услуги -->
 <section id="services" class="py-5">
 <div class="container">
@@ -378,7 +389,6 @@
 </section>
 
 <!-- Контакты и форма записи -->
-{% load static %}
 <section id="contact" class="py-5 bg-light">
   <div class="container">
     <h2 class="section-heading text-center mb-5">Запишитесь на прием</h2>
@@ -407,25 +417,31 @@
   </div>
 </section>
 
-<!-- Видео тур по кабинету -->
+<!-- Видео отзывы -->
 <section id="video-tur" class="py-5">
   <div class="container">
-    <h2 class="section-heading">Видео тур по кабинету</h2>
+    <h2 class="section-heading">Видео отзывы пациентов</h2>
     <!-- Верхний ряд карточек -->
     <div class="row">
       <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
-        
+        <video width="100%" height="auto" controls 
+               style="border-radius: 15px; overflow: hidden;">
+          <source src="{% static 'img/index/violetta-about-me.mp4' %}" type="video/mp4">
+        </video>
       </div>
       <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
         <div class="w-100 border-0 shadow-none p-0">
           <video width="100%" height="auto" controls 
                  style="border-radius: 15px; overflow: hidden;">
-              <source src="{% static 'img/index/vhod-02.mp4' %}" type="video/mp4">
+            <source src="{% static 'img/index/violetta-otziv-01.mp4' %}" type="video/mp4">
           </video>
         </div>
       </div>
       <div class="col-12 mt-4 col-md-6 col-lg-4 d-flex">
-        
+        <video width="100%" height="auto" controls 
+               style="border-radius: 15px; overflow: hidden;">
+          <source src="{% static 'img/index/violetta-otziv-02.mp4' %}" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>

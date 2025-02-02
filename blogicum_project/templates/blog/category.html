@@ -1,25 +1,26 @@
-<!-- blogicum/templates/blog/category.html -->
 {% extends "base.html" %}
-{% block title %}
-  Публикации в категории {{ category.title }}
-{% endblock %}
+{% block title %}Публикации в категории {{ category.title }}{% endblock %}
 {% block content %}
-<header class="text-center mb-5">
-  <h1 class="text-center">Публикации в категории - {{ category.title }}</h1>
-  <p class="col-12 col-md-10 col-lg-8 mx-auto lead">{{ category.description }}</p>
-</header>
-<section class="container my-4">
-  <div class="row g-4">
-    {% for post in page_obj %}
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex">
-      <article class="card w-100 h-100">
-        {% include "includes/post_card.html" %}
-      </article>
+<section id="posts-feed" class="py-5">
+  <div class="container">
+    <header class="text-center mb-5">
+      <h1 class="section-heading">Публикации в категории – {{ category.title }}</h1>
+      <p class="lead mx-auto" style="max-width: 800px;">{{ category.description }}</p>
+    </header>
+    <div class="row">
+      {% for post in page_obj %}
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <article>
+          {% include "includes/post_card.html" %}
+        </article>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
+    <div class="row">
+      <div class="col-12">
+        {% include "includes/paginator.html" %}
+      </div>
+    </div>
   </div>
 </section>
-<nav aria-label="Пагнинатор">
-  {% include "includes/paginator.html" %}
-</nav>
 {% endblock %}

@@ -28,6 +28,16 @@ class CommentDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('blog:post_detail',
                        kwargs={'post_id': self.object.post.id})
+    
+
+class PostDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'blog/create.html'
+    pk_url_kwarg = 'post_id'
+    def get_success_url(self):
+        return reverse('blog:index')
+    def handle_no_permission(self):
+        return HttpResponseRedirect(self.get_object().get_absolute_url())
 
 
 class CommentUpdateView(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
@@ -55,6 +65,35 @@ class PostCommentView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return self.object.post.get_absolute_url()
+    
+
+class PostEditView(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
+    model = Post
+    template_name = 'blog/create.html'
+    fields = ['title', 'text', 'image', 'category', 'location', 'pub_date']
+    pk_url_kwarg = 'post_id'
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+    def handle_no_permission(self):
+        return redirect(self.get_object().get_absolute_url())
+    
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'text', 'image', 'category', 'location', 'pub_date']
+    template_name = 'blog/create.html'
+    def get_form(self, form_class=None):
+        # Получаем форму
+        form = super().get_form(form_class)
+        # Настраиваем виджет CKEditor для поля "text"
+        form.fields['text'].widget = CKEditor5Widget(config_name='default')
+        return form
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse('blog:profile',
+                       kwargs={'username': self.request.user.username})
 
 
 class UserLoginView(LoginView):
@@ -109,10 +148,25 @@ class UserRegisterView(CreateView):
         return redirect(self.success_url)
 
 
-class IndexListView(PostQueryMixin, PostCommentCountMixin, PaginatorMixin, ListView):
+class IndexView(PostQueryMixin, PostCommentCountMixin, PaginatorMixin, ListView):
     model = Post
     context_object_name = 'page_obj'
     template_name = 'blog/index.html'
+
+    def get_queryset(self):
+        return self.get_filtered_posts(published_only=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context.update(self.get_paginated_context(queryset))
+        return context
+    
+
+class ListView(PostQueryMixin, PostCommentCountMixin, PaginatorMixin, ListView):
+    model = Post
+    context_object_name = 'page_obj'
+    template_name = 'blog/posts_list.html'
 
     def get_queryset(self):
         return self.get_filtered_posts(published_only=True)

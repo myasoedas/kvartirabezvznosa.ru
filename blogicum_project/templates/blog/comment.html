@@ -1,4 +1,3 @@
-<!-- blogicum/templates/blog/comment.html -->
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% block title %}
@@ -9,33 +8,35 @@
   {% endif %}
 {% endblock %}
 {% block content %}
-  {% if user.is_authenticated %}
-    <section class="container d-flex justify-content-center">
-      <article class="card w-100 comment-form-container">
+<section id="comment-action" class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="card col-12 col-md-8 col-lg-6 mb-4">
         <header class="card-header text-center">
           {% if '/edit_comment/' in request.path %}
-            <h4>Редактирование комментария</h4>
+            <h4 class="mb-0">Редактирование комментария</h4>
           {% else %}
-            <h4>Удаление комментария</h4>
+            <h4 class="mb-0">Удаление комментария</h4>
           {% endif %}
         </header>
         <div class="card-body">
-          <form method="post"
+          <form method="post">
             {% if '/edit_comment/' in request.path %}
               action="{% url 'blog:edit_comment' post_id=comment.post_id comment_id=comment.id %}"
-            {% endif %}>
+            {% endif %}
             {% csrf_token %}
             {% if not '/delete_comment/' in request.path %}
               {% bootstrap_form form %}
             {% else %}
               <p class="text-muted">{{ comment.text }}</p>
             {% endif %}
-            <footer class="mt-4 d-flex justify-content-center">
+            <div class="d-grid gap-2 mt-4">
               {% bootstrap_button button_type="submit" content="Отправить" %}
-            </footer>
+            </div>
           </form>
         </div>
       </article>
-    </section>
-  {% endif %}
+    </div>
+  </div>
+</section>
 {% endblock %}
