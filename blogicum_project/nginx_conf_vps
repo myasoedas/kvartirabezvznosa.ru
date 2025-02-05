@@ -1,0 +1,51 @@
+server {
+    server_name osteopat-violetta.ru www.osteopat-violetta.ru osteopatvioletta.ru www.osteopatvioletta.ru;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/violetta/dev/osteopat-violetta/blogicum_project;
+    }
+
+    location /media/ {
+        root /home/violetta/dev/osteopat-violetta/blogicum_project;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/violetta/dev/osteopat-violetta/run/osteopat.sock;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/osteopatvioletta.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/osteopatvioletta.ru/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = www.osteopatvioletta.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = osteopatvioletta.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = www.osteopat-violetta.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = osteopat-violetta.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name osteopat-violetta.ru www.osteopat-violetta.ru osteopatvioletta.ru www.osteopatvioletta.ru;
+    return 404; # managed by Certbot
+
+}

@@ -19,18 +19,22 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
+    # стандартные приложения Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # сторонние приложения
     'django_bootstrap5',
-    'pages.apps.PagesConfig',
-    'blog.apps.BlogConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_ckeditor_5',
     'django.contrib.sitemaps',
+    'storages',
+    # ваши приложения
+    'pages.apps.PagesConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -153,13 +157,52 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
+# Настройка аутентификации для Cloud.ru S3
+AWS_TENANT_ID = config('AWS_TENANT_ID')
+# Формат tenant_id:key_id
+AWS_ACCESS_KEY_ID = f"{AWS_TENANT_ID}:{config('AWS_ACCESS_KEY_ID')}"  
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
+# обязательно для Cloud.ru
+AWS_S3_ADDRESSING_STYLE = "path"  
+
+# Дополнительные параметры для boto3 (если требуется версия 1.36+)
+AWS_S3_CONFIG = {
+    #"request_checksum_calculation": "when_required",
+    #"response_checksum_validation": "when_required",
+    "s3": {"addressing_style": "path"},
+    "signature_version": "s3v4",
+}
+
+# Формирование домена для доступа к статике
+# Если вы хотите, чтобы URL файлов имели вид:
+# https://s3.cloud.ru/bucket-violetta/static/...
+# можно использовать значение из .env (AWS_S3_CUSTOM_DOMAIN), либо сформировать его:
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL.replace('https://', '')}/{AWS_STORAGE_BUCKET_NAME}"
+AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
+
+
+# Указываем кастомный storage backend для статики
+STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
+
+# URL для доступа к статическим файлам
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
+# Пути для локальной статики
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
+    os.path.join(BASE_DIR, 'static_dev'),
 ]
 
-STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#   BASE_DIR / 'static_dev',
+# ]
+
+# STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

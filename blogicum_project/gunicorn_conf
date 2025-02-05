@@ -1,0 +1,12 @@
+[Unit]
+Description=gunicorn daemon for osteopat-violetta
+After=network.target
+
+[Service]
+User=violetta
+Group=www-data
+WorkingDirectory=/home/violetta/dev/osteopat-violetta/blogicum_project
+ExecStart=/home/violetta/dev/osteopat-violetta/venv/bin/gunicorn --workers 3 --bind unix:/home/violetta/dev/osteopat-violetta/run/osteopat.sock blogicum.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
