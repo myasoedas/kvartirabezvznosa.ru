@@ -16,15 +16,15 @@
             <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#services">Услуги</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about">О враче</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#mystory">Видео рассказ о себе</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#fotogalery">Фото галерея</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#certificates">Дипломы и сертификаты</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#blog">Новые статьи в блоге</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы пациентов</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#contact">Контакты</a></li>
-                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#social">Социальные сети</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#services" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О враче</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#mystory" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео рассказ о себе</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#fotogalery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Фото галерея</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#certificates" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Дипломы и сертификаты</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#blog" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Новые статьи в блоге</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы пациентов</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#social" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Социальные сети</a></li>
                     {% with request.resolver_match.view_name as view_name %}
                     <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог остеопата</a></li>
                     {% if user.is_authenticated %}
