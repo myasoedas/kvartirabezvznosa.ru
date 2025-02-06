@@ -155,3 +155,7 @@ logs/
 sent_emails/
 
 index-old.html
+
+.aws/
+
+header2.html

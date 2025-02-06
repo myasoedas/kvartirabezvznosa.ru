@@ -1,5 +1,6 @@
 {% load static %}
 {% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html prefix="place: https://ogp.me/ns/place#" lang="ru">
   <head>
@@ -26,9 +27,10 @@
     
     <link rel="canonical" href="https://osteopat-violetta.ru/">
     <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image/x-icon">
-
+    
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <link rel="alternate" hreflang="ru" href="https://osteopatvioletta.ru/">
@@ -98,8 +100,10 @@
     {% block content %}{% endblock %}
     
     {% include "includes/footer.html" %}
+    
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/css_class_activate_monitoring.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    
   </body>
 </html>

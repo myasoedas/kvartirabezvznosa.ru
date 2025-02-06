@@ -270,9 +270,10 @@
       <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
         <div class="card mb-4 w-100">
           <div class="card-body mt-auto">
-            <h3 class="card-title">Приветствую вас!</h3>
+            
           </div>
           <div class="card-body mt-auto">
+            <h3 class="card-title">Приветствую вас!</h3>
             <p class="card-text">Я врач-остеопат Валетчик Виолетта Игоревна.</p>
             <p class="card-text">Закончила Санкт-Петербургскую Педитарическую Медицинскую Академию.</p>
             <p class="card-text">Интернатуру по Терапии с основами медико-социальной экспертизы.</p>
@@ -291,11 +292,13 @@
       <div class="col-12 mt-4 col-md-6 col-lg-6 d-flex">
         <div class="card mb-4 w-100">
           <div class="card-body mt-auto">
-            <h3 class="card-title">Продолжаем знакомиться!</h3>
+            
           </div>
           <div class="card-body mt-auto">
+            <h3 class="card-title">Продолжаем знакомиться!</h3>
             <p class="card-text">На данный момент прохожу обучение по Биодинамическому направлению Остеопатии и внедряю в практику.</p>
             <p class="card-text">Провожу ежемесячные дыхательные практики для всех желающий.</p>
+            <p class="card-text">Работала остеопатом в клинике Медика, клинике Остеопатии Мохова и в клинике Доктора Симкина. Продолжаю работу в городе Череповце в МЦ Оптима.</p>
             <p class="card-text">Очень люблю свою работу и она уже давно стала неотъемлемой частью моей жизни, поэтому я не работаю Остеопатом, я живу Остеопатией.</p>
             <p class="card-text">Занимаюсь лечением беременных женщин, новорожденных, детей любого возраста, взрослых и пожилых людей.</p>
             </p>
@@ -397,10 +400,23 @@
   </div>
   </div>
 </div>
-
-
+<!-- Блог Остеопата -->
+<section id="blog" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">Новые статьи в блоге</h2>
+    <div class="row">
+      {% for post in page_obj %}
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <article>
+          {% include "includes/post_card.html" %}
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 <!-- Видео отзывы -->
-<section id="video-tur" class="py-5 bg-light">
+<section id="video-tur" class="py-5">
   <div class="container">
     <h2 class="section-heading">Видео отзывы пациентов</h2>
     <!-- Верхний ряд карточек -->
@@ -425,9 +441,8 @@
     </div>
   </div>
 </section>
-
 <!-- Контакты -->
-<section id="contact" class="py-5">
+<section id="contact" class="py-5 bg-light">
   <div class="container">
     <h2 class="section-heading text-center mb-5">Запишитесь на прием</h2>
     <div class="row align-items-center">
@@ -454,9 +469,8 @@
     </div>
   </div>
 </section>
-
 <!-- Подписка на соцсети -->
-<section id="social" class="py-5 bg-light">
+<section id="social" class="py-5">
   <div class="container text-center">
     <h2 class="section-heading mb-4">Подпишитесь</h2>
     <div class="d-flex justify-content-center flex-wrap gap-4">

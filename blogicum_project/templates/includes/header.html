@@ -1,44 +1,42 @@
 {% load static %}
 <header>
     <nav class="navbar navbar-light bg-white fixed-top">
-        {% with request.resolver_match.view_name as view_name %}
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center logo-section">
                 <a href="/" class="navbar-brand d-flex align-items-center">
                     <img src="{% static 'img/logo.png' %}" alt="Логотип сайта Остеопат Виолетта" class="rounded-circle logo-spacing" loading="lazy">
-                    <span class="ms-3">Остеопат Виолетта</span>
+                    <span class="ml-3">Остеопат Виолетта</span>
                 </a>
             </div>
     
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#services" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Услуги</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О враче</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#mystory" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео рассказ о себе</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#fotogalery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Фото галерея</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#certificates" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Дипломы и сертификаты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы пациентов</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Контакты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#social" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Социальные сети</a></li>
-                </ul>
-                <div class="d-flex align-items-center social-icons">
-                    <a class="nav-link" href="/posts/list/" >Блог Остеопата</a>
-                </div>
-                <div class="d-flex align-items-center social-icons">
+            <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#services">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about">О враче</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#mystory">Видео рассказ о себе</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#fotogalery">Фото галерея</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#certificates">Дипломы и сертификаты</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#blog">Новые статьи в блоге</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы пациентов</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#contact">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#social">Социальные сети</a></li>
+                    {% with request.resolver_match.view_name as view_name %}
+                    <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог остеопата</a></li>
                     {% if user.is_authenticated %}
-                        <a class="nav-link" href="/admin/blog/post/add/" >Написать пост</a>
-                        <a class="nav-link" href="{% url 'blog:profile' user.username %}" >{{ user.username }}</a>
-                        <a class="nav-link" href="{% url 'logout' %}" >Выйти</a>
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/admin/blog/post/add/">Написать пост</a></li>
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></li>
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'logout' %}">Выйти</a></li>
                     {% else %}
-                        <a class="nav-link" href="/auth/login/" >Войти</a>
-                        <a class="nav-link" href="/auth/registration/" >Регистрация</a>
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/login/">Войти</a></li>
+                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/registration/">Регистрация</a></li>
                     {% endif %}
-                </div>
+                    {% endwith %}
+                </ul>
                 <div class="d-flex align-items-center social-icons">
                     <a class="nav-link px-2" href="https://wa.me/79052294650" target="_blank" rel="noopener" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
@@ -52,8 +50,6 @@
                 </div>
             </div>
         </div>
-        {% endwith %}
     </nav>
-    
 </header>
 <br>
