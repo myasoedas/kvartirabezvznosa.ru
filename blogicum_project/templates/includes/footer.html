@@ -7,7 +7,7 @@
         <h5>Полезные ссылки</h5>
         <ul class="list-unstyled">
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
-          <!--
+          {% if request.path == "/" %}
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#services">Услуги</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#about">О враче</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#mystory">Видео рассказ о себе</a></li>
@@ -17,7 +17,7 @@
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы пациентов</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#contact">Контакты</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#social">Социальные сети</a></li>
-          -->
+          {% endif %}
           {% with request.resolver_match.view_name as view_name %}
           <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог остеопата</a></li>
           {% if user.is_authenticated %}
@@ -51,6 +51,9 @@
     <!-- Нижняя строка с копирайтом -->
     <div class="text-center mt-4">
       <p class="mb-0">&copy; 2025 Остеопат Виолетта</p>
+      <a class="text-reset text-decoration-none py-0" href="https://wa.me/79522672726">
+        <p class="mb-0">Full Stack разработчик: Александр Мясоед</p>
+      </a>
     </div>
   </div>
 </footer>
