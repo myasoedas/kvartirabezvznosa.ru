@@ -8,8 +8,9 @@ from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy as _
 from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.timezone import now
+from django.core.validators import MaxLengthValidator
 
-from .constants import CHAR_FIELD_MAX_LENGTH, SELF_TEXT_MAX_LENGTH
+from .constants import CHAR_FIELD_MAX_LENGTH, SELF_TEXT_MAX_LENGTH, COMMENT_TEXT_MAX_LENGTH
 
 User = get_user_model()
 
@@ -62,10 +63,7 @@ class Category(PublishableModel, TitleModel):
     slug = models.SlugField(
         unique=True,
         verbose_name='Идентификатор',
-        help_text=(
-            'Идентификатор страницы для URL; разрешены символы латиницы,'
-            ' цифры, дефис и подчёркивание.',
-        )
+        help_text='Идентификатор страницы для URL; разрешены символы латиницы, цифры, дефис и подчёркивание.'
     )
 
     class Meta:
@@ -108,6 +106,7 @@ class Post(PublishableModel, TitleModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name='posts',
         verbose_name='Местоположение'
     )
 
@@ -115,6 +114,7 @@ class Post(PublishableModel, TitleModel):
         Category,
         null=True,
         on_delete=models.SET_NULL,
+        related_name='posts',
         verbose_name='Категория'
     )
 
@@ -144,7 +144,10 @@ class Comment(PublishableModel, models.Model):
         related_name='comments',  # Добавляем related_name
         verbose_name='Автор'
     )
-    text = models.TextField(verbose_name='Текст комментария')
+    text = models.TextField(
+        verbose_name='Текст комментария',
+        validators=[MaxLengthValidator(COMMENT_TEXT_MAX_LENGTH)]
+    )
 
     class Meta:
         verbose_name = 'Комментарий'

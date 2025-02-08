@@ -230,6 +230,7 @@ def robots_txt_view(request):
         lines = [
             "User-agent: *",
             "Disallow: /admin/",
+            "Allow: /static/",
             "Sitemap: https://osteopat-violetta.ru/sitemap.xml",
             "Sitemap: https://osteopat-violetta.ru/rss-feed.xml",
         ]
