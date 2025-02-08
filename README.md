@@ -1,8 +1,8 @@
-# Веб-приложение Blogicum
+# Сайт риелтора: Карина Дерябина - kvartirabezvznosa.ru
 
-**Blogicum** — это многопользовательское веб-приложение для ведения блога, разработанное на Django 3.2. Приложение предоставляет пользователям возможность создавать, редактировать и управлять публикациями, а также взаимодействовать через комментарии.
+**Сайт kvartirabezvznosa.ru** — это многопользовательское веб-приложение, разработанное на Django 3.2, python 3.9 с лендингом на главной странице (лидогенератором) и блогом риелтора Карина Дерябина - генератором естественного трафика. Приложение предоставляет пользователям возможность получать лиды с лендинга, создавать, редактировать и управлять публикации в блоге, а также взаимодействовать с пользователями через комментарии.
 
-## Подробный гайд по запуску Blogicum в продакшен-среде на Ubuntu 22.04
+## Подробный гайд по запуску сайта kvartirabezvznosa.ru в продакшен-среде на Ubuntu 22.04 в cloud.ru
 
 ### Технологический стек
 
@@ -12,6 +12,7 @@
 - **Gunicorn**: WSGI-сервер для запуска Django
 - **Nginx**: Веб-сервер для обработки запросов
 - **Ubuntu**: 22.04
+- **VSCod**: 22.04
 
 ### Требования
 
@@ -21,20 +22,41 @@
 - **PostgreSQL 12** (или выше)
 - **Git** для управления версиями
 
-### Не забудьте создать в корне проекта файл .env со следующими переменными:
+### Создайте в корне проекта файл .env со следующими переменными:
 ```python
-DATABASE_NAME=blogicum_db
-DATABASE_USER=имя_пользователя_базы_данных
-DATABASE_PASSWORD=пароль_базы_данных
+DATABASE_NAME=usernamebd
+DATABASE_USER=username
+DATABASE_PASSWORD=password
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
-SECRET_KEY=secret_key_django_settings
+
+SECRET_KEY=django-insecure-secret_key
+
 EMAIL_HOST=smtp.yandex.ru
 EMAIL_PORT=465
 EMAIL_USE_SSL=True
-EMAIL_HOST_USER=имя_почтового_ящика@yandex.ru
-EMAIL_HOST_PASSWORD=пароль_почтового_ящика
+EMAIL_HOST_USER=info@yandex.com
+EMAIL_HOST_PASSWORD=password
+
+# Подключение бакета cloud.ru
+# Параметры аутентификации
+AWS_TENANT_ID=9e12c22...2fa665e89
+AWS_ACCESS_KEY_ID=34929ade...7235f27c7b516
+AWS_SECRET_ACCESS_KEY=1d6173d...d27047e582
+
+# Параметры бакета
+AWS_STORAGE_BUCKET_NAME=bucket-name
+AWS_S3_ENDPOINT_URL=https://s3.cloud.ru
+AWS_S3_REGION_NAME=ru-central-1
+AWS_S3_SIGNATURE_VERSION=s3v4
+
+# Если хотите использовать доменное имя вида https://s3.cloud.ru/bucket-name/static/
+# сформируйте его из endpoint и имени бакета:
+AWS_S3_CUSTOM_DOMAIN=bucket-name.s3.cloud.ru
 ```
+
+PS: Для подключения к s3 хранилищу cloud.ru необходимо использовать: boto3==1.35.0 
+PS: только версия boto3==1.35.0 работает все что новее - работать не будет!
 
 ### При установке CKEDITOR 5 текст в поле рекдактирования слишком светлый и его плохо видно на белом фоне. Чтобы исправить эту проблему необходимо найти папку 
 ```ssh
@@ -51,10 +73,6 @@ EMAIL_HOST_PASSWORD=пароль_почтового_ящика
     font-size: 16px; /* Устанавливаем размер шрифта */
 }
 ```
-
-Для подключения к s3 хранилищу cloud.ru необходимо использовать: boto3==1.35.0 
-PS: только версия boto3==1.35.0 работает все что новее - работать не будет!
-
 
 # Инструкция по подключению Django 3.2 к S3‑хранилищу Cloud.ru
 
