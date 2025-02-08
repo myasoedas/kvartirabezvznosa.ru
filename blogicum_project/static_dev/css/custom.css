@@ -403,3 +403,27 @@ p {
 .gallery img:hover {
   transform: scale(1.05);
 }
+
+.custom-pagination {
+  background-color: #ffffff; /* Белый фон */
+  color: #004d30; /* Темно-зеленый текст */
+  border: 2px solid #004d30; /* Темно-зеленая рамка */
+  border-radius: 5px;
+  padding: 6px 12px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  text-align: center;
+}
+
+.custom-pagination:hover,
+.custom-pagination:focus {
+  background-color: #28a745; /* Ярко-зеленый цвет при наведении */
+  color: #ffffff; /* Белый текст остается */
+  border-color: #28a745;
+}
+
+.custom-pagination.active {
+  background-color: #004d30; /* Темно-зеленый фон для активной кнопки */
+  color: #ffffff; /* Белый текст */
+  border-color: #004d30;
+  pointer-events: none;
+}
