@@ -8,12 +8,12 @@ from pathlib import Path
 
 
 # 🔹 Конфигурация S3
-AWS_TENANT_ID = "9e12c22...2fa665e89"
-AWS_ACCESS_KEY_ID = "34929ade...f27c7b516"
-AWS_SECRET_ACCESS_KEY = "1d6173...cd27047e582"
-AWS_S3_ENDPOINT_URL = "https://s3.cloud.ru"
-AWS_S3_REGION_NAME = "ru-central-1"
-AWS_BUCKET_NAME = "bucket-name"
+AWS_TENANT_ID = config('AWS_TENANT_ID')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_BUCKET_NAME = config('AWS_S3_SIGNATURE_VERSION')
 
 # 🔹 Создаем клиента S3 с дополнительными параметрами для новой версии boto3
 session = boto3.session.Session()
