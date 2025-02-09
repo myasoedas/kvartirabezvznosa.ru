@@ -19,4 +19,8 @@ AWS_STORAGE_BUCKET_NAME=your_bucket_name
 AWS_S3_ENDPOINT_URL=https://s3.cloud.ru
 AWS_S3_REGION_NAME=your_region_name
 AWS_S3_SIGNATURE_VERSION=s3v4
+<<<<<<< HEAD
 AWS_S3_CUSTOM_DOMAIN=your_custom_domain
+=======
+AWS_S3_CUSTOM_DOMAIN=your_custom_domain
+>>>>>>> 0ea7173 (Внес изменения в примеры конфигурационных файлов в соответсвии с текущими данными проекта)

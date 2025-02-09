@@ -12,10 +12,12 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'osteopatvioletta.ru',
-    'www.osteopatvioletta.ru',
-    'osteopat-violetta.ru',
-    'www.osteopat-violetta.ru',
+    'kvartirabezvznosa.ru',
+    'www.kvartirabezvznosa.ru',
+    'bezvznosa.ru',
+    'www.bezvznosa.ru',
+    'ipotekabezvznosa.ru',
+    'www.ipotekabezvznosa.ru',
 ]
 
 INSTALLED_APPS = [
@@ -176,7 +178,7 @@ AWS_S3_CONFIG = {
 
 # Формирование домена для доступа к статике
 # Если вы хотите, чтобы URL файлов имели вид:
-# https://s3.cloud.ru/bucket-violetta/static/...
+# https://s3.cloud.ru/kvartirabezvznosa/static/...
 # можно использовать значение из .env (AWS_S3_CUSTOM_DOMAIN), либо сформировать его:
 # AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL.replace('https://', '')}/{AWS_STORAGE_BUCKET_NAME}"
 AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
