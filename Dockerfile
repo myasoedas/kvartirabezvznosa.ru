@@ -15,5 +15,8 @@ RUN pip install --upgrade pip && \
 # Копируем весь исходный код в контейнер
 COPY . /app/
 
-# Запускаем Gunicorn с 3 воркерами, слушая порт 8000
-CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "blogicum.wsgi:application"]
+# Устанавливаем PYTHONPATH, чтобы можно было импортировать blogicum
+ENV PYTHONPATH=/app/blogicum_project
+
+# Запускаем Gunicorn с 3 воркерами
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "blogicum_project.blogicum.wsgi:application"]
