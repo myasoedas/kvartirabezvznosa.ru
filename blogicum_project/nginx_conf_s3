@@ -17,11 +17,7 @@ server {
 
     location / {
         include proxy_params;
-<<<<<<< HEAD
-        proxy_pass http://unix:/home/karina/kvartirabezvznosa/run/osteopat.sock;
-=======
         proxy_pass http://unix:/home/karina/kvartirabezvznosa/run/rieltor.sock;
->>>>>>> 0ea7173 (Внес изменения в примеры конфигурационных файлов в соответсвии с текущими данными проекта)
     }
 
     listen 443 ssl; # managed by Certbot
@@ -52,20 +48,12 @@ server {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
-<<<<<<< HEAD
-    if ($host = www.bezvznosa.ru) {
-=======
     if ($host = www.ipotekabezvznosa.ru) {
->>>>>>> 0ea7173 (Внес изменения в примеры конфигурационных файлов в соответсвии с текущими данными проекта)
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-<<<<<<< HEAD
-    if ($host = bezvznosa.ru) {
-=======
     if ($host = ipotekabezvznosa.ru) {
->>>>>>> 0ea7173 (Внес изменения в примеры конфигурационных файлов в соответсвии с текущими данными проекта)
         return 301 https://$host$request_uri;
     } # managed by Certbot
 

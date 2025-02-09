@@ -9,11 +9,15 @@ WORKDIR /app
 
 # Копируем файл зависимостей и устанавливаем пакеты
 COPY requirements.txt /app/
+
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Копируем весь исходный код в контейнер
 COPY . /app/
+
+# Создаем папку логов
+RUN mkdir -p /app/blogicum_project/logs && touch /app/blogicum_project/logs/django_debug.log
 
 # Устанавливаем PYTHONPATH, чтобы можно было импортировать blogicum
 ENV PYTHONPATH=/app/blogicum_project

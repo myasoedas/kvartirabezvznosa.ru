@@ -13,7 +13,7 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
 AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-AWS_BUCKET_NAME = config('AWS_S3_SIGNATURE_VERSION')
+AWS_BUCKET_NAME = config('AWS_BUCKET_NAME')
 
 # 🔹 Создаем клиента S3 с дополнительными параметрами для новой версии boto3
 session = boto3.session.Session()

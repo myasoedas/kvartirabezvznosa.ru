@@ -2,59 +2,29 @@ server {
     server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
 
     location = /favicon.ico { access_log off; log_not_found off; }
+
     location /static/ {
-        root /home/karina/kvartirabezvznosa/blogicum_project;
+        alias /app/static/;
     }
 
     location /media/ {
-        root /home/karina/kvartirabezvznosa/blogicum_project;
+        alias /app/media/;
     }
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/karina/kvartirabezvznosa/run/rieltor.sock;
+        proxy_pass http://web:8000;
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/kvartirabezvznosa.ru/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
+    ssl_certificate /etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kvartirabezvznosa.ru/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
 
 server {
-    if ($host = www.kvartirabezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = kvartirabezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = www.bezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = bezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-     if ($host = www.ipotekabezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = ipotekabezvznosa.ru) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
     listen 80;
     server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
-    return 404; # managed by Certbot
-
+    return 301 https://$host$request_uri;
 }
