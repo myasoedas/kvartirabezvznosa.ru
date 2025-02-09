@@ -1,10 +1,10 @@
 server {
-    server_name osteopat-violetta.ru www.osteopat-violetta.ru osteopatvioletta.ru www.osteopatvioletta.ru;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
 
     location = /favicon.ico { access_log off; log_not_found off; }
 
     location /static/ {
-        proxy_pass https://s3.cloud.ru/bucket-violetta/static/;
+        proxy_pass https://s3.cloud.ru/kvartirabezvznosa/static/;
         proxy_set_header Host s3.cloud.ru;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -12,45 +12,54 @@ server {
     }
 
     location /media/ {
-        root /home/violetta/dev/osteopat-violetta/blogicum_project;
+        root /home/karina/kvartirabezvznosa/blogicum_project;
     }
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/violetta/dev/osteopat-violetta/run/osteopat.sock;
+        proxy_pass http://unix:/home/karina/kvartirabezvznosa/run/osteopat.sock;
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/osteopatvioletta.ru/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/osteopatvioletta.ru/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/kvartirabezvznosa.ru/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
 }
 
 server {
-    if ($host = www.osteopatvioletta.ru) {
+    if ($host = www.kvartirabezvznosa.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = osteopatvioletta.ru) {
+    if ($host = kvartirabezvznosa.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = www.osteopat-violetta.ru) {
+    if ($host = www.bezvznosa.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = osteopat-violetta.ru) {
+    if ($host = bezvznosa.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = www.bezvznosa.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = bezvznosa.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
     listen 80;
-    server_name osteopat-violetta.ru www.osteopat-violetta.ru osteopatvioletta.ru www.osteopatvioletta.ru;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
     return 404; # managed by Certbot
 
 }
