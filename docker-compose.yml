@@ -1,12 +1,52 @@
 version: "3.9"
 
 services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Для получения информации о запущенных контейнерах
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      # Здесь будут храниться сертификаты, генерируемые Let's Encrypt
+      - certbot_certs:/etc/nginx/certs:ro
+      # Дополнительные конфиги для виртуальных хостов (папку можно создать пустой)
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:ro
+      # Статические HTML-страницы (например, для ошибок)
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - app_net
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx_letsencrypt
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certbot_certs:/etc/nginx/certs:rw
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:rw
+      - ./nginx/html:/usr/share/nginx/html:rw
+    depends_on:
+      - nginx-proxy
+    networks:
+      - app_net
+
   web:
     build: .
     container_name: django_app
     command: gunicorn --workers 3 --bind 0.0.0.0:8000 blogicum_project.blogicum.wsgi:application
     env_file:
       - .env
+    environment:
+      # Указываем домены, по которым будет доступно приложение
+      - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      # Эти домены будут использованы для запроса сертификатов
+      - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      # Email для уведомлений от Let's Encrypt
+      - LETSENCRYPT_EMAIL=your_email@example.com
     volumes:
       - .:/app
       - ./logs:/app/blogicum_project/logs
@@ -15,8 +55,6 @@ services:
       - db
     networks:
       - app_net
-    expose:
-      - "8000"
 
   db:
     image: postgres:15
@@ -30,32 +68,6 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app_net
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx_server
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - certbot_certs:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    depends_on:
-      - web
-    networks:
-      - app_net
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot_certs:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew; sleep 12h & wait \$!; done;"
     networks:
       - app_net
 
