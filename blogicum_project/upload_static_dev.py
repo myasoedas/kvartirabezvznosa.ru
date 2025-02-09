@@ -1,7 +1,11 @@
 import os
 import boto3
 import mimetypes
+
 from botocore.client import Config  # Импорт Config из botocore
+from decouple import config
+from pathlib import Path
+
 
 # 🔹 Конфигурация S3
 AWS_TENANT_ID = "9e12c22...2fa665e89"
