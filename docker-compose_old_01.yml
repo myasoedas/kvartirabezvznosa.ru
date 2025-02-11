@@ -42,10 +42,11 @@ services:
     env_file:
       - .env
     environment:
-      # Указываем домены, по которым будет доступно приложение,
-      # и для которых будет запрошен сертификат
+      # Указываем домены, по которым будет доступно приложение
       - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      # Эти домены будут использованы для запроса сертификатов
       - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      # Email для уведомлений от Let's Encrypt
       - LETSENCRYPT_EMAIL=your_email@example.com
     volumes:
       - .:/app

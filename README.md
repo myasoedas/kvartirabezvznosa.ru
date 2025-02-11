@@ -22,6 +22,348 @@
 - **PostgreSQL 12** (или выше)
 - **Git** для управления версиями
 
+---
+
+### Краткий обзор основных компонентов проекта:
+
+---
+
+### 1. Основные папки и файлы
+
+- **.github/workflows/**  
+  Здесь находятся файлы GitHub Actions, отвечающие за автоматизацию (CI/CD, деплой и т.д.). Это позволяет тебе запускать тесты, сборку Docker-образов и деплой на сервер по push в репозиторий.
+
+- **blogicum_project/**  
+  Главная директория проекта на Django. В ней располагаются файлы управления (manage.py), настройки (settings.py), а также дополнительные скрипты, такие как upload_static_dev.py для загрузки статики в S3‑хранилище Cloud.ru. Помимо этого, внутри находятся модули самого приложения (например, blogicum).
+
+- **nginx/conf.d/**  
+  Конфигурационные файлы для Nginx, которые используются для настройки обратного прокси, SSL‑терминации и маршрутизации запросов к приложению.
+
+- **tests/**  
+  Папка с тестами, где, вероятно, содержатся юнит‑тесты или интеграционные тесты для проверки корректности работы приложения.
+
+- **.env.example**  
+  Пример файла с переменными окружения, содержащий настройки для подключения к базе данных, почтовому серверу, AWS/Cloud.ru S3 и другие параметры. Этот файл помогает правильно настроить локальное или продакшн‑окружение, не раскрывая реальные секреты.
+
+- **.gitignore**  
+  Файл, в котором указаны файлы и директории, исключаемые из системы контроля версий (например, конфиденциальные настройки, venv, кеши и т.п.).
+
+- **Dockerfile**  
+  Скрипт для сборки Docker‑образа приложения. Он описывает этапы сборки твоего Django‑проекта, что важно для создания стабильного продакшн‑окружения.
+
+- **docker-compose.yml**  
+  Файл для оркестрации нескольких Docker‑контейнеров (например, для приложения, базы данных, Nginx и т.д.). Это позволяет тебе легко запускать весь стек локально или на сервере.
+
+- **requirements.txt**  
+  Список зависимостей Python, необходимых для работы проекта. Здесь указаны версии Django, библиотеки для работы с PostgreSQL, а также прочие модули, включая зависимости для интеграции с S3 (boto3 и т.п.).
+
+- **setup.cfg**  
+  Конфигурационный файл для настройки параметров сборки, тестирования или линтинга проекта. Он помогает поддерживать стандарты кода и автоматизировать проверки.
+
+- **README.md**  
+  Подробная инструкция по запуску и деплою сайта. В нём описан стек технологий, настройка переменных окружения, интеграция с S3‑хранилищем Cloud.ru, а также пошаговые рекомендации по установке и настройке окружения (на примере Ubuntu 22.04).
+
+- **LICENSE**  
+  Файл с информацией о лицензировании проекта.
+
+---
+
+### 2. Ключевые особенности проекта
+
+- **Django 3.2 и Python 3.9**  
+  Проект построен на стабильной версии Django, с подробными инструкциями по деплою и настройке, в том числе для интеграции с облачным хранилищем Cloud.ru.
+
+- **Интеграция с Cloud.ru S3**  
+  В проекте реализована настройка для хранения статики через S3‑хранилище Cloud.ru. Для этого настроен кастомный storage backend (`storage_backends.py`), а также есть инструкция по настройке AWS CLI и загрузке статики.
+
+- **Контейнеризация**  
+  Использование Docker и docker-compose позволяет создавать воспроизводимые окружения как для разработки, так и для продакшена.
+
+- **CI/CD**  
+  Файлы GitHub Actions в папке `.github/workflows` автоматизируют сборку, тестирование и деплой проекта.
+
+---
+
+Ниже приведена обновлённая подробная инструкция по созданию и настройке общего SSL‑сертификата от Let's Encrypt для доменов:
+
+- kvartirabezvznosa.ru  
+- www.kvartirabezvznosa.ru  
+- bezvznosa.ru  
+- www.bezvznosa.ru  
+- ipotekabezvznosa.ru  
+- www.ipotekabezvznosa.ru
+
+при условии, что твои сервисы (Django 3.2 с Gunicorn, Nginx‑proxy и Certbot‑companion) работают в отдельных Docker‑контейнерах. Инструкция учитывает твои рабочие файлы.
+
+---
+
+## Шаг 1. Предварительные условия
+
+1. **DNS‑записи**  
+   Убедись, что для всех указанных доменов (как с www, так и без) настроены корректные A‑записи, которые указывают на IP твоего VPS. Только так ACME‑валидация сможет пройти успешно.
+
+2. **Структура проекта**  
+   В корне проекта (например, `/path/to/kvartirabezvznosa.ru`) должны располагаться следующие файлы и каталоги:
+   
+   ```
+   /path/to/kvartirabezvznosa.ru/
+   ├── docker-compose.yml
+   ├── Dockerfile
+   ├── .env
+   ├── nginx/
+   │   ├── conf.d/
+   │   │   └── default.conf        <-- твой конфиг, описанный ниже
+   │   ├── vhost.d/              <-- для виртуальных хостов (можно оставить пустой)
+   │   └── html/                 <-- статичные HTML-страницы (например, для ошибок)
+   └── certbot/
+       ├── conf/                 <-- для конфигурационных файлов и сертификатов
+       └── www/                  <-- для файлов ACME‑challenge
+   ```
+   
+   Создать папки для Certbot можно командой:
+   
+   ```bash
+   mkdir -p /path/to/kvartirabezvznosa.ru/certbot/conf /path/to/kvartirabezvznosa.ru/certbot/www
+   ```
+
+---
+
+## Шаг 2. Настройка файла docker-compose.yml
+
+Используй следующий обновлённый вариант `docker-compose.yml` (он соответствует твоим рабочим файлам):
+
+```yaml
+version: "3.9"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Для получения информации о запущенных контейнерах
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      # Здесь будут храниться сертификаты, генерируемые Let's Encrypt
+      - certbot_certs:/etc/nginx/certs:ro
+      # Дополнительные конфиги для виртуальных хостов (папку можно создать пустой)
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:ro
+      # Статические HTML-страницы (например, для ошибок)
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - app_net
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx_letsencrypt
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:rw
+      - ./nginx/html:/usr/share/nginx/html:rw
+    depends_on:
+      - nginx-proxy
+    networks:
+      - app_net
+
+  web:
+    build: .
+    container_name: django_app
+    command: gunicorn --workers 3 --bind 0.0.0.0:8000 blogicum_project.blogicum.wsgi:application
+    env_file:
+      - .env
+    environment:
+      # Указываем домены, по которым будет доступно приложение,
+      # и для которых будет запрошен сертификат
+      - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      - LETSENCRYPT_EMAIL=your_email@example.com
+    volumes:
+      - .:/app
+      - ./logs:/app/blogicum_project/logs
+      - ./media:/app/media
+    depends_on:
+      - db
+    networks:
+      - app_net
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  certbot_certs:
+```
+
+**Пояснения:**  
+- **nginx-proxy** использует именованный volume `certbot_certs` для сертификатов (сертификаты будут храниться в этом volume и монтироваться в `/etc/nginx/certs` внутри контейнера).  
+- **letsencrypt** (образ jrcs/letsencrypt-nginx-proxy-companion) использует тома `./certbot/conf` и `./certbot/www` для сохранения конфигурации и для ACME‑challenge.  
+- **web** (твой Django‑приложение) имеет переменные окружения VIRTUAL_HOST, LETSENCRYPT_HOST и LETSENCRYPT_EMAIL, которые companion‑контейнер использует для запроса сертификатов для всех доменов.
+
+---
+
+## Шаг 3. Настройка Nginx конфигурации
+
+В файле `nginx/conf.d/default.conf` размести следующую конфигурацию (как ты уже сделал на VPS):
+
+```nginx
+#################################################################
+# HTTP: Обработка ACME-челленджа и редирект всех запросов на HTTPS
+#################################################################
+server {
+    listen 80;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
+
+    # Обработка ACME-челленджа для Certbot (используется для получения и продления сертификатов)
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        try_files $uri =404;
+    }
+
+    # Редирект всех остальных запросов с HTTP на HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+#################################################################
+# HTTPS: Основной блок для обслуживания запросов с SSL
+#################################################################
+server {
+    listen 443 ssl http2;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
+
+    # SSL сертификаты (убеди­сь, что сертификат покрывает все домены)
+    ssl_certificate /etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kvartirabezvznosa.ru/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256';
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Обработка favicon – отключаем логирование для уменьшения лишних записей
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    # Проксирование запросов к статикам, которые хранятся на S3
+    location /static/ {
+        proxy_pass https://s3.cloud.ru/kvartirabezvznosa/static/;
+        proxy_set_header Host s3.cloud.ru;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Отдача медиафайлов, которые находятся в контейнере Django
+    location /media/ {
+        alias /app/media/;
+    }
+
+    # Проксирование всех остальных запросов к приложению Django
+    location / {
+        proxy_pass http://web:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+**Замечания:**  
+- Директива `root /var/www/certbot;` в блоке ACME‑challenge соответствует тому, куда монтируется папка `./certbot/www` (в контейнере letsencrypt – `/var/www/certbot`).  
+- Пути к сертификатам в блоке HTTPS настроены так, что сертификат, сформированный для основного домена `kvartirabezvznosa.ru`, будет применён. При запросе сертификата companion‑контейнер объединит все домены из переменной LETSENCRYPT_HOST в один сертификат.
+
+---
+
+## Шаг 4. Сборка и запуск контейнеров
+
+1. **Перейди в корень проекта** (где находится docker-compose.yml).  
+2. **Собери и запусти контейнеры** командой:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+   Контейнеры:
+   - **nginx-proxy** будет слушать порты 80 и 443.
+   - **letsencrypt** автоматически обнаружит контейнер web (на основе переменных VIRTUAL_HOST и LETSENCRYPT_HOST) и запросит сертификат для всех указанных доменов.
+   - **web** запустит твое Django‑приложение через Gunicorn.
+   - **db** запустит PostgreSQL.
+
+---
+
+## Шаг 5. Проверка выдачи сертификатов
+
+1. **Проверь логи контейнера letsencrypt:**
+
+   ```bash
+   docker-compose logs letsencrypt
+   ```
+
+   В логах должно быть сообщение о том, что сертификат успешно получен и сохранён (путь, например, `/etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem`).
+
+2. **Открой в браузере** любой из доменов (например, https://kvartirabezvznosa.ru) и убедись, что сайт доступен по HTTPS, а сертификат действителен.
+
+---
+
+## Шаг 6. Автоматическое обновление сертификатов
+
+Контейнер **letsencrypt** автоматически продлевает сертификаты (обычно за 30 дней до истечения).  
+Убедись, что:
+- Именованный volume `certbot_certs` сохраняется между перезапусками контейнеров.
+- Папки `./certbot/conf` и `./certbot/www` корректно смонтированы (как указано в docker-compose.yml).
+
+Если потребуется принудительное обновление, можно выполнить:
+
+```bash
+docker-compose exec letsencrypt certbot renew --dry-run
+```
+
+Это позволит проверить, что процесс обновления работает без ошибок.
+
+---
+
+## Итоговая последовательность действий
+
+1. **DNS:** Настроить A‑записи для всех доменов, указывающие на твой сервер.
+2. **Структура проекта:** В корне проекта создать папки:
+   - `/path/to/kvartirabezvznosa.ru/certbot/conf`
+   - `/path/to/kvartirabezvznosa.ru/certbot/www`
+   
+   а также иметь каталоги `nginx/conf.d`, `nginx/vhost.d` и `nginx/html`.
+3. **docker-compose.yml:** Использовать приведённый файл, в котором контейнеры nginx‑proxy, letsencrypt и web настроены для автоматической выдачи сертификата.
+4. **nginx конфигурация:** Файл `nginx/conf.d/default.conf` должен содержать блоки для обработки ACME‑challenge и для HTTPS с сертификатами.
+5. **Запуск:** Из корня проекта выполнить `docker-compose up -d`.
+6. **Проверка:** Убедиться в успешном получении сертификата через логи letsencrypt и открыть домены в браузере.
+7. **Обновление:** Контейнер letsencrypt автоматически продлевает сертификаты; можно проверить процесс через `certbot renew --dry-run`.
+
+---
+
 ### Создайте в корне проекта файл .env со следующими переменными:
 ```python
 DATABASE_NAME=usernamebd
