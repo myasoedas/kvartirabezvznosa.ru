@@ -132,7 +132,7 @@
 
 Используй следующий обновлённый вариант `docker-compose.yml` (он соответствует твоим рабочим файлам):
 
-```yaml
+```yml
 version: "3.9"
 
 services:
@@ -159,12 +159,15 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx_letsencrypt
     restart: always
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx_proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - ./nginx/vhost.d:/etc/nginx/vhost.d:rw
       - ./nginx/html:/usr/share/nginx/html:rw
+      - certbot_certs:/etc/nginx/certs:rw
     depends_on:
       - nginx-proxy
     networks:
@@ -181,7 +184,8 @@ services:
       # и для которых будет запрошен сертификат
       - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
       - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
-      - LETSENCRYPT_EMAIL=your_email@example.com
+      - LETSENCRYPT_EMAIL=myasoedas@yandex.ru
+      - VIRTUAL_PORT=8000
     volumes:
       - .:/app
       - ./logs:/app/blogicum_project/logs
@@ -213,6 +217,7 @@ networks:
 volumes:
   postgres_data:
   certbot_certs:
+
 ```
 
 **Пояснения:**  
