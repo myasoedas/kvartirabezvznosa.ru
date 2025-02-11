@@ -32,6 +32,7 @@ services:
       - ./certbot/www:/var/www/certbot
       - ./nginx/vhost.d:/etc/nginx/vhost.d:rw
       - ./nginx/html:/usr/share/nginx/html:rw
+      - certbot_certs:/etc/nginx/certs:rw
     depends_on:
       - nginx-proxy
     networks:
