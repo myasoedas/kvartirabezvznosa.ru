@@ -47,6 +47,7 @@ services:
       - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
       - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
       - LETSENCRYPT_EMAIL=your_email@example.com
+      - VIRTUAL_PORT=8000
     volumes:
       - .:/app
       - ./logs:/app/blogicum_project/logs
