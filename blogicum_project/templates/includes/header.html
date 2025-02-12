@@ -4,8 +4,8 @@
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center logo-section">
                 <a href="/" class="navbar-brand d-flex align-items-center">
-                    <img src="{% static 'img/logo.png' %}" alt="Логотип сайта Остеопат Виолетта" class="rounded-circle logo-spacing" loading="lazy">
-                    <span class="ml-3">Остеопат Виолетта</span>
+                    <img src="{% static 'img/logo.png' %}" alt="Логотип сайта Купи квартиру в Москве" class="rounded-circle logo-spacing" loading="lazy">
+                    <span class="ml-3">Карина Дерябина</span>
                 </a>
             </div>
     
@@ -18,17 +18,17 @@
                     <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
                     {% if request.path == "/" %}
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#services" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Услуги</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О враче</a></li>
+                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О себе</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#mystory" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео рассказ о себе</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#fotogalery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Фото галерея</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#certificates" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Дипломы и сертификаты</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#blog" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Новые статьи в блоге</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы пациентов</a></li>
+                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы клиентов</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Контакты</a></li>
                         <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#social" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Социальные сети</a></li>
                     {% endif %}
                     {% with request.resolver_match.view_name as view_name %}
-                    <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог остеопата</a></li>
+                    <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог о недвижимости</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/admin/blog/post/add/">Написать пост</a></li>
                     <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></li>
@@ -41,15 +41,17 @@
                     <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/posts/10/">Политика конфиденциальности</a></li>
                 </ul>
                 <div class="d-flex align-items-center social-icons">
-                    <a class="nav-link px-2" href="https://wa.me/79052294650" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <a class="nav-link px-2" href="https://wa.me/79032354416" target="_blank" rel="noopener" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a class="nav-link px-2" href="https://t.me/B3a56" target="_blank" rel="noopener" aria-label="Telegram">
+                    <a class="nav-link px-2" href="https://t.me/kazhdomu_po_kvartire" target="_blank" rel="noopener" aria-label="Telegram">
                         <i class="fab fa-telegram"></i>
                     </a>
+                    <!--
                     <a class="nav-link px-2" href="https://vk.com/club136944002" target="_blank" rel="noopener" aria-label="ВКонтакте">
                         <i class="fab fa-vk"></i>
                     </a>
+                    -->
                 </div>
             </div>
         </div>
