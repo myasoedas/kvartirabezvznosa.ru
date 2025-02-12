@@ -9,17 +9,17 @@
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
           {% if request.path == "/" %}
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#services">Услуги</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#about">О враче</a></li>
+          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#about">О себе</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#mystory">Видео рассказ о себе</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#fotogalery">Фото галерея</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#certificates">Дипломы и сертификаты</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#blog">Новые статьи в блоге</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы пациентов</a></li>
+          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы клиентов</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#contact">Контакты</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#social">Социальные сети</a></li>
           {% endif %}
           {% with request.resolver_match.view_name as view_name %}
-          <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог остеопата</a></li>
+          <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог о недвижимости</a></li>
           {% if user.is_authenticated %}
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/admin/blog/post/add/">Написать пост</a></li>
           <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></li>
@@ -35,22 +35,32 @@
       <div class="col-12 col-md-4 mb-3">
         <h5>Контакты</h5>
         <ul class="list-unstyled">
-          <li><a href="tel:+79052294650" class="text-white text-decoration-none">+7 905 229 46 50</a></li>
-          <li><a href="mailto:veta1981@yandex.ru" class="text-white text-decoration-none">veta1981@yandex.ru</a></li>
-          <li>Санкт-Петербург, Россия</li>
+          <li><a href="tel:+79052294650" class="text-white text-decoration-none">+7 903 235 44 16</a></li>
+          <li><a href="mailto:veta1981@yandex.ru" class="text-white text-decoration-none">deryabinakarina@mail.ru</a></li>
+          <li>Москва, Россия</li>
         </ul>
       </div>
       <!-- Колонка "Социальные сети" -->
       <div class="col-12 col-md-4 mb-3 text-center text-md-start">
         <h5>Мои соцсети</h5>
-        <a href="https://wa.me/79052294650" target="_blank" class="text-white me-3"><i class="fab fa-whatsapp fa-lg"></i></a>
-        <a href="https://t.me/B3a56" target="_blank" class="text-white me-3"><i class="fab fa-telegram fa-lg"></i></a>
-        <a href="https://vk.com/club136944002" target="_blank" class="text-white"><i class="fab fa-vk fa-lg"></i></a>
-      </div>
+        <a href="https://wa.me/79032354416" target="_blank" class="text-white me-3" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp fa-lg"></i>
+        </a>
+        <a href="https://t.me/kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Telegram">
+            <i class="fab fa-telegram fa-lg"></i>
+        </a>
+        <a href="https://instagram.com/kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Инстаграм">
+            <i class="fab fa-instagram fa-lg"></i>
+        </a>
+        <a href="https://www.threads.net/@kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Threads">
+            <i class="fas fa-comment-dots fa-lg"></i>
+        </a>
+    </div>
+    
     </div>
     <!-- Нижняя строка с копирайтом -->
     <div class="text-center mt-4">
-      <p class="mb-0">&copy; 2025 Остеопат Виолетта</p>
+      <p class="mb-0">&copy; 2025 Карина Дерябина</p>
       <a class="text-reset text-decoration-none py-0" href="https://wa.me/79522672726">
         <p class="mb-0">Веб разработчик: Александр Мясоед</p>
       <a class="text-reset text-decoration-none py-0" href="/posts/10/">
