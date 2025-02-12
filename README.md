@@ -128,9 +128,41 @@
 
 ---
 
-## Шаг 2. Настройка файла docker-compose.yml
+## Шаг 2. Настройка файла Dockerfile и docker-compose.yml
 
-Используй следующий обновлённый вариант `docker-compose.yml` (он соответствует твоим рабочим файлам):
+Используй следующий обновлённый вариант `Dockerfile`:
+```
+# Используем официальный образ Python 3.9-slim
+FROM python:3.9-slim
+
+# Отключаем буферизацию вывода для корректного логирования
+ENV PYTHONUNBUFFERED=1
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем файл зависимостей и устанавливаем пакеты
+COPY requirements.txt /app/
+
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Копируем весь исходный код в контейнер
+COPY . /app/
+
+# Создаем папку логов
+RUN mkdir -p /app/blogicum_project/logs && touch /app/blogicum_project/logs/django_debug.log
+
+# Устанавливаем PYTHONPATH, чтобы можно было импортировать blogicum
+ENV PYTHONPATH=/app/blogicum_project
+
+# Запускаем Gunicorn с 3 воркерами
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "blogicum_project.blogicum.wsgi:application"]
+
+```
+---
+
+Используй следующий обновлённый вариант `docker-compose.yml`:
 
 ```yml
 version: "3.9"
@@ -161,6 +193,7 @@ services:
     restart: always
     environment:
       - NGINX_PROXY_CONTAINER=nginx_proxy
+      - LETSENCRYPT_REFRESH_INTERVAL=3600
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certbot/conf:/etc/letsencrypt
@@ -228,6 +261,15 @@ volumes:
 ---
 
 ## Шаг 3. Настройка Nginx конфигурации
+
+Создайте в корне проекта папки: 
+nginx/conf.d/
+nginx/vhost.d/
+nginx/html/
+
+certbot/conf/
+certbot/www/
+
 
 В файле `nginx/conf.d/default.conf` размести следующую конфигурацию (как ты уже сделал на VPS):
 
@@ -297,6 +339,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+
 ```
 
 **Замечания:**  
@@ -307,65 +350,620 @@ server {
 
 ## Шаг 4. Сборка и запуск контейнеров
 
-1. **Перейди в корень проекта** (где находится docker-compose.yml).  
-2. **Собери и запусти контейнеры** командой:
+Создайте в корне проекта файл:
+.github/workflow/deploy.yml
 
-   ```bash
-   docker-compose up -d
-   ```
+```yml
+name: Deploy to VPS
 
-   Контейнеры:
-   - **nginx-proxy** будет слушать порты 80 и 443.
-   - **letsencrypt** автоматически обнаружит контейнер web (на основе переменных VIRTUAL_HOST и LETSENCRYPT_HOST) и запросит сертификат для всех указанных доменов.
-   - **web** запустит твое Django‑приложение через Gunicorn.
-   - **db** запустит PostgreSQL.
+on:
+  push:
+    branches:
+      - main  # Автоматический деплой при каждом пуше в ветку main
 
----
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-## Шаг 5. Проверка выдачи сертификатов
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-1. **Проверь логи контейнера letsencrypt:**
+      # (Опционально: добавьте шаги тестирования или сборки)
 
-   ```bash
-   docker-compose logs letsencrypt
-   ```
+      - name: Generate .env file and Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          script: |
+            cd /home/karina/kvartirabezvznosa   # Убедитесь, что этот путь совпадает с расположением репозитория на VPS
+            echo "Генерируем файл .env из секретов..."
+            cat > .env <<EOF
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+            DATABASE_USER=${{ secrets.DATABASE_USER }}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            DATABASE_HOST=db
+            DATABASE_PORT=5432
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            EMAIL_HOST=${{ secrets.EMAIL_HOST }}
+            EMAIL_PORT=${{ secrets.EMAIL_PORT }}
+            EMAIL_USE_SSL=${{ secrets.EMAIL_USE_SSL }}
+            EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
+            EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}
+            AWS_TENANT_ID=${{ secrets.AWS_TENANT_ID }}
+            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+            AWS_S3_ENDPOINT_URL=${{ secrets.AWS_S3_ENDPOINT_URL }}
+            AWS_S3_REGION_NAME=${{ secrets.AWS_S3_REGION_NAME }}
+            AWS_S3_SIGNATURE_VERSION=${{ secrets.AWS_S3_SIGNATURE_VERSION }}
+            AWS_S3_CUSTOM_DOMAIN=${{ secrets.AWS_S3_CUSTOM_DOMAIN }}
+            EOF
 
-   В логах должно быть сообщение о том, что сертификат успешно получен и сохранён (путь, например, `/etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem`).
+            echo ".env создан. Обновляем код и запускаем контейнеры..."
+            git pull origin main
+            docker-compose pull
+            docker-compose up -d --build
 
-2. **Открой в браузере** любой из доменов (например, https://kvartirabezvznosa.ru) и убедись, что сайт доступен по HTTPS, а сертификат действителен.
-
----
-
-## Шаг 6. Автоматическое обновление сертификатов
-
-Контейнер **letsencrypt** автоматически продлевает сертификаты (обычно за 30 дней до истечения).  
-Убедись, что:
-- Именованный volume `certbot_certs` сохраняется между перезапусками контейнеров.
-- Папки `./certbot/conf` и `./certbot/www` корректно смонтированы (как указано в docker-compose.yml).
-
-Если потребуется принудительное обновление, можно выполнить:
-
-```bash
-docker-compose exec letsencrypt certbot renew --dry-run
 ```
 
-Это позволит проверить, что процесс обновления работает без ошибок.
+Этот файл нужен для автоматического деплоя Github Actions в ваш VPS сервер.
+
+Настройте файл settings.py вашего веб проекта:
+
+```py
+import os
+from pathlib import Path
+from decouple import config
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = config('SECRET_KEY')
+
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    "kvartirabezvznosa.ru",
+    "www.kvartirabezvznosa.ru",
+    "bezvznosa.ru",
+    "www.bezvznosa.ru",
+    "ipotekabezvznosa.ru",
+    "www.ipotekabezvznosa.ru",
+]
+
+INSTALLED_APPS = [
+    # стандартные приложения Django
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # сторонние приложения
+    'django_bootstrap5',
+    'django_cleanup.apps.CleanupConfig',
+    'django_ckeditor_5',
+    'django.contrib.sitemaps',
+    'storages',
+    # ваши приложения
+    'pages.apps.PagesConfig',
+    'blog.apps.BlogConfig',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# Путь для загрузки файлов, включая видео
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Привязка загруженных файлов к пользователю
+CKEDITOR_RESTRICT_BY_USER = False
+
+# Разрешение на загрузку любых файлов, не только изображений
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
+
+# Конфигурация CKEditor
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|', 'alignment', '|',
+            'imageUpload', 'insertImage', 'mediaEmbed', '|',
+            'undo', 'redo', '|', 'fontSize', 'fontFamily', 'highlight', '|',
+            'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+            'horizontalLine', 'specialCharacters', 'sourceEditing'
+        ],
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', 'imageStyle:full', 'imageStyle:side',
+                'linkImage'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells'
+            ]
+        },
+        'mediaEmbed': {
+            'previewsInData': True
+        },
+        'height': 500,  # Adjust editor height
+        'width': 'auto',  # Adjust editor width
+    }
+}
+
+ROOT_URLCONF = 'blogicum.urls'
+
+TEMPLATES_DIR = BASE_DIR / 'templates'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [TEMPLATES_DIR],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'blogicum.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DATABASE_PORT', default='5432'),
+
+    }
+}
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+handler404 = 'pages.views.custom_404_view'
+handler403 = 'pages.views.custom_403_view'
+handler500 = 'pages.views.custom_500_view'
+
+LANGUAGE_CODE = 'ru-RU'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/auth/login/'
+
+TIME_ZONE = 'Europe/Moscow'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Настройка аутентификации для Cloud.ru S3
+AWS_TENANT_ID = config('AWS_TENANT_ID')
+# Формат tenant_id:key_id
+AWS_ACCESS_KEY_ID = f"{AWS_TENANT_ID}:{config('AWS_ACCESS_KEY_ID')}"  
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
+# обязательно для Cloud.ru
+AWS_S3_ADDRESSING_STYLE = "path"  
+
+# Дополнительные параметры для boto3 (если требуется версия 1.36+)
+AWS_S3_CONFIG = {
+    #"request_checksum_calculation": "when_required",
+    #"response_checksum_validation": "when_required",
+    "s3": {"addressing_style": "path"},
+    "signature_version": "s3v4",
+}
+
+# Формирование домена для доступа к статике
+# Если вы хотите, чтобы URL файлов имели вид:
+# https://s3.cloud.ru/kvartirabezvznosa/static/...
+# можно использовать значение из .env (AWS_S3_CUSTOM_DOMAIN), либо сформировать его:
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL.replace('https://', '')}/{AWS_STORAGE_BUCKET_NAME}"
+AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
+
+
+# Указываем кастомный storage backend для статики
+STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
+
+# URL для доступа к статическим файлам
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
+# Пути для локальной статики
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_dev'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+# STATICFILES_DIRS = [
+#   BASE_DIR / 'static_dev',
+# ]
+
+# STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Настройки для отправки почты через SMTP Яндекса
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Добавляем таймауты для повышения надежности
+EMAIL_TIMEOUT = 10  # Таймаут для подключения (в секундах)
+
+# Добавляем обработку ошибок при сбоях отправки почты
+EMAIL_USE_LOCALTIME = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django_debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',  # 'INFO' 'WARNING' 'DEBUG' 
+            'propagate': True,
+        },
+    },
+}
+
+```
 
 ---
 
-## Итоговая последовательность действий
+### Проверка получения и установкеи бесплатных SSL сертификатов
 
-1. **DNS:** Настроить A‑записи для всех доменов, указывающие на твой сервер.
-2. **Структура проекта:** В корне проекта создать папки:
-   - `/path/to/kvartirabezvznosa.ru/certbot/conf`
-   - `/path/to/kvartirabezvznosa.ru/certbot/www`
-   
-   а также иметь каталоги `nginx/conf.d`, `nginx/vhost.d` и `nginx/html`.
-3. **docker-compose.yml:** Использовать приведённый файл, в котором контейнеры nginx‑proxy, letsencrypt и web настроены для автоматической выдачи сертификата.
-4. **nginx конфигурация:** Файл `nginx/conf.d/default.conf` должен содержать блоки для обработки ACME‑challenge и для HTTPS с сертификатами.
-5. **Запуск:** Из корня проекта выполнить `docker-compose up -d`.
-6. **Проверка:** Убедиться в успешном получении сертификата через логи letsencrypt и открыть домены в браузере.
-7. **Обновление:** Контейнер letsencrypt автоматически продлевает сертификаты; можно проверить процесс через `certbot renew --dry-run`.
+Ниже приведена подробная инструкция по получению и установке бесплатного SSL‑сертификата для веб‑приложения на Django 3.2, размещённого в Docker‑контейнерах, с использованием автоматического решения от Let’s Encrypt через контейнеры nginx‑proxy и letsencrypt‑nginx‑proxy‑companion.
+
+---
+
+## Шаг 1. Подготовка файлов проекта
+
+### Dockerfile для Django‑приложения
+
+Убедись, что твой Dockerfile выглядит примерно так:
+
+```dockerfile
+# Используем официальный образ Python 3.9-slim
+FROM python:3.9-slim
+
+# Отключаем буферизацию вывода для корректного логирования
+ENV PYTHONUNBUFFERED=1
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем файл зависимостей и устанавливаем пакеты
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Копируем весь исходный код в контейнер
+COPY . /app/
+
+# Создаем папку логов
+RUN mkdir -p /app/blogicum_project/logs && touch /app/blogicum_project/logs/django_debug.log
+
+# Устанавливаем PYTHONPATH, чтобы можно было импортировать blogicum
+ENV PYTHONPATH=/app/blogicum_project
+
+# Запускаем Gunicorn с 3 воркерами на порту 8000
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "blogicum_project.blogicum.wsgi:application"]
+```
+
+### docker-compose.yml
+
+Файл docker-compose.yml должен содержать описание следующих сервисов:
+
+- **nginx-proxy:**  
+  Использует образ `jwilder/nginx-proxy` для автоматического формирования конфигураций на основе переменных окружения, монтирует Docker socket и том для сертификатов.
+
+- **letsencrypt:**  
+  Использует образ `jrcs/letsencrypt-nginx-proxy-companion`, который взаимодействует с nginx‑proxy для получения сертификатов у Let’s Encrypt. Здесь обязательно нужно задать переменную `NGINX_PROXY_CONTAINER` (со значением имени контейнера nginx‑proxy) и примонтировать том для сертификатов с правами записи.
+
+- **web:**  
+  Сервис с твоим Django‑приложением, который запускается с помощью gunicorn на порту 8000. Здесь задаются переменные окружения для генерации сертификатов – `VIRTUAL_HOST`, `LETSENCRYPT_HOST`, `LETSENCRYPT_EMAIL` и `VIRTUAL_PORT`.
+
+- **db:**  
+  Контейнер с PostgreSQL.
+
+Пример файла:
+
+```yaml
+version: "3.9"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      # Здесь будут храниться сертификаты, полученные от Let’s Encrypt
+      - certbot_certs:/etc/nginx/certs:ro
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:ro
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - app_net
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx_letsencrypt
+    restart: always
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx_proxy
+      # В продакшене обычно интервал проверки оставляют 3600 секунд (1 час)
+      - LETSENCRYPT_REFRESH_INTERVAL=3600
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:rw
+      - ./nginx/html:/usr/share/nginx/html:rw
+      - certbot_certs:/etc/nginx/certs:rw
+    depends_on:
+      - nginx-proxy
+    networks:
+      - app_net
+
+  web:
+    build: .
+    container_name: django_app
+    command: gunicorn --workers 3 --bind 0.0.0.0:8000 blogicum_project.blogicum.wsgi:application
+    env_file:
+      - .env
+    environment:
+      # Домены, по которым будет доступно приложение и для которых будет получен сертификат:
+      - VIRTUAL_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      - LETSENCRYPT_HOST=kvartirabezvznosa.ru,www.kvartirabezvznosa.ru,bezvznosa.ru,www.bezvznosa.ru,ipotekabezvznosa.ru,www.ipotekabezvznosa.ru
+      - LETSENCRYPT_EMAIL=myasoedas@yandex.ru   # Используй свой реальный email
+      - VIRTUAL_PORT=8000
+    volumes:
+      - .:/app
+      - ./logs:/app/blogicum_project/logs
+      - ./media:/app/media
+    depends_on:
+      - db
+    networks:
+      - app_net
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  certbot_certs:
+```
+
+### Конфигурация Nginx (default.conf)
+
+Пример файла default.conf (этот файл используется nginx‑proxy или его auto‑генерация companion’ом):
+
+```nginx
+#################################################################
+# HTTP: Обработка ACME-челленджа и редирект всех запросов на HTTPS
+#################################################################
+server {
+    listen 80;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        try_files $uri =404;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+#################################################################
+# HTTPS: Основной блок для обслуживания запросов с SSL
+#################################################################
+server {
+    listen 443 ssl http2;
+    server_name kvartirabezvznosa.ru www.kvartirabezvznosa.ru bezvznosa.ru www.bezvznosa.ru ipotekabezvznosa.ru www.ipotekabezvznosa.ru;
+
+    ssl_certificate /etc/letsencrypt/live/kvartirabezvznosa.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kvartirabezvznosa.ru/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256';
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location /static/ {
+        proxy_pass https://s3.cloud.ru/kvartirabezvznosa/static/;
+        proxy_set_header Host s3.cloud.ru;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /media/ {
+        alias /app/media/;
+    }
+
+    location / {
+        proxy_pass http://web:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+---
+
+## Шаг 2. Запуск контейнеров и получение сертификатов
+
+1. **Запусти контейнеры:**
+
+   Из корня проекта выполни:
+
+   ```bash
+   sudo docker-compose up -d --build
+   ```
+
+2. **Проверь статус контейнеров:**
+
+   ```bash
+   sudo docker ps
+   ```
+
+   Убедись, что все контейнеры запущены.
+
+3. **Получение сертификатов:**
+
+   Контейнер `letsencrypt` автоматически обнаружит переменные `VIRTUAL_HOST` и `LETSENCRYPT_HOST` у сервиса `web` и начнет процесс получения сертификатов для указанных доменов.  
+   Для проверки можно посмотреть логи:
+
+   ```bash
+   sudo docker logs nginx_letsencrypt
+   ```
+
+   В логах должны появиться сообщения об успешной регистрации аккаунта, верификации доменов, получении сертификатов и установке их в том `certbot_certs`.
+
+4. **Проверка сертификатов в nginx‑proxy:**
+
+   Выполни в контейнере `nginx_proxy` команду:
+
+   ```bash
+   sudo docker exec -it nginx_proxy ls -l /etc/nginx/certs
+   ```
+
+   Ты должен увидеть символические ссылки на сертификаты для каждого домена (например, для `kvartirabezvznosa.ru`).
+
+---
+
+## Шаг 3. Настройка автоматического продления сертификатов
+
+Контейнер `letsencrypt` (companion) периодически проверяет состояние сертификатов. Переменная `LETSENCRYPT_REFRESH_INTERVAL=3600` означает, что companion проверяет сертификаты каждый час.  
+Когда до истечения срока действия сертификата останется менее 30 дней, companion автоматически инициирует процесс продления.
+
+Проверить работу автоматического продления можно следующим образом:
+
+1. Просмотр логов контейнера:
+
+   ```bash
+   sudo docker logs nginx_letsencrypt
+   ```
+
+   В логах будут появляться сообщения о проверке и, при необходимости, о продлении сертификатов.
+
+2. В продакшене интервал проверки обычно оставляют равным 3600 секунд (1 час), чтобы не перегружать систему лишними запросами к API Let’s Encrypt.
+
+---
+
+## Шаг 4. Доступ к сайту по HTTPS
+
+1. Открой браузер и перейди по адресу, например:
+
+   ```
+   https://kvartirabezvznosa.ru
+   ```
+
+2. Проверь, что соединение защищено (в браузере появится зеленый замок, сертификат валиден).
+
+3. Если сертификат отображается корректно, а сайт работает – установка SSL завершена.
+
+---
+
+## Резюме
+
+- **Dockerfile**: собирает контейнер с Django‑приложением, работающим на Gunicorn (порт 8000).
+- **docker-compose.yml**: содержит сервисы `nginx-proxy`, `letsencrypt` и `web`. Переменные окружения (VIRTUAL_HOST, LETSENCRYPT_HOST, LETSENCRYPT_EMAIL, VIRTUAL_PORT) позволяют автоматически получить и установить сертификаты для указанных доменов.
+- **Конфигурация Nginx**: обрабатывает HTTP, редиректит на HTTPS и проксирует запросы к Django‑приложению.
+- **Автоматическое продление**: companion проверяет сертификаты каждый час и продлевает их, когда до окончания срока действия остаётся менее 30 дней.
+
+Эта инструкция описывает весь процесс – от подготовки файлов до получения, установки и автоматического продления SSL‑сертификатов для веб‑приложения Django, размещённого в Docker‑контейнерах.
 
 ---
 
@@ -823,3 +1421,22 @@ python upload_static_dev.py
 
 Эта инструкция содержит все необходимые этапы для подключения вашего Django‑приложения к S3‑хранилищу от Cloud.ru, включая установку и настройку AWS CLI, настройку переменных окружения, конфигурацию Django, создание кастомного storage backend, применение политики бакета, сбор статики и тестирование загрузки файлов. Если возникнут вопросы или потребуется дополнительная настройка, используйте логирование и отладочные команды для диагностики, а также обращайтесь за поддержкой.
 
+### Инструкция по установке
+
+1. Зарегистрируйтесь в Cloud.ru и создайте сервер VPS. Подключитесь к VPS серверу по SSH через публичный ключ. Для подключения используйте VSCod.
+2. Зарегистрируйтесь в GitHub и создайте пустой без каких либо файлов публичный репозиторий.
+3. На локальном ПК создайте папку, которая должна называться также, как ваш репозиторий GitHub. Клонируйте репозиторий с кодом веб приложения на локальный компьютер.
+```
+git clone https://github.com/myasoedas/kvartirabezvznosa.ru.git .
+```
+Точка на конце позволяет клонировать код без создания папки.
+4. Отвяжите клонированный репозиторий на локальной машине от удаленного репозитория в GitHub.
+5. Привяжите клонированный репозиторий на локальной машине к вашему новому пустому публичного репозиторию на GitHub.
+6. На локальном ПК сгенерируйте публичный и приватный ключи для доступа через SSH.
+7. Настройте удаленный доступ вашего нового репозитория к серверу VPS по SSH через публичный ключ. В настройки вашего репозитория загрузите приватный ключ, в настройки SSH вашего сервера VPS загрузите публичный ключ.
+8. Настройте доступ по SSH к вашему GitHub. Добавьте публичный ключ в глобальные настройки вашего аккаунта GitHub. Добавьте в секреты репозиторя все необходимые для работы веб приложения переменные окружения из файла .env.
+9. Схема работы: на локальном ПК пищете код, через git push отправляете изменения кода на локальном ПК в удаленный репозиторий GitHub, где запускается скрипт GitHub Actions который автоматически обновляет код на сервере VPS и выполняет деплой веб приложения в докер контейнерах.
+10. Перед тем как выполнить первый деплой на сервере VPS необходимо создать бакет s3 хранилище на Cloud.ru. Создайте папки static и media.
+11. На локальном ПК установите клиент awscli, который работает в командной строке, отредактируйте его конфиги чтобы он получил доступ к управлению бакетом в Cloud.ru с локального ПК.
+12. Через клиент awscli загрузите политики для бакета относительно папок static и media, чтобы они стали доступными по ссылке.
+13. Запишите в конфиги на локальном ПК настройки подключения к бакетам.
