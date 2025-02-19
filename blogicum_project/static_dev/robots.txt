@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /admin/
-Sitemap: https://osteopatbiketova.ru/sitemap.xml
-Sitemap: https://osteopatbiketova.ru/rss-feed.xml
+Sitemap: https://kvartirabezvznosa.ru/sitemap.xml
+Sitemap: https://kvartirabezvznosa.ru/rss-feed.xml

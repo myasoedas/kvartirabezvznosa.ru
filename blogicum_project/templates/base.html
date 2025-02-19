@@ -1,33 +1,30 @@
 {% load static %}
-{% load django_bootstrap5 %}
-
 <!DOCTYPE html>
 <html prefix="place: https://ogp.me/ns/place#" lang="ru">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Купить квартиру в Москве без первоначального взноса — даже с плохой кредитной историей!{% endblock %}</title> 
+    <title>{% block title %}Купить квартиру без первоначального взноса - возможно!{% endblock %}</title> 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Одобрение ипотеки за 6 часов. Переезд через 30 дней. Гарантируем одобрение или вернем деньги! Тел:8(903)235-44-16">
-    <meta name="author" content="Карина Игоревна Дерябина">
+    <meta name="description" content="Одобрение ипотеки за 6 часов. Ключи от квартиры через 30 дней. Тел:+79032354416">
+    <meta name="author" content="Карина Дерябина">
     <meta name="robots" content="index, follow">
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Купить квартиру в Москве без первоначального взноса — даже с плохой кредитной историей!">
-    <meta property="og:description" content="Одобрение ипотеки за 6 часов. Переезд через 30 дней. Гарантируем одобрение или вернем деньги! Тел:8(903)235-44-16">
+    <meta property="og:title" content="Купить квартиру без первоначального взноса - возможно!">
+    <meta property="og:description" content="Одобрение ипотеки за 6 часов. Ключи от квартиры через 30 дней. Тел:+79032354416">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kvartirabezvznosa.ru/">
-    <meta property="og:image" content="https://kvartirabezvznosa.ru/static/img/index/hero_section_img-1.jpg">
-    <meta property="og:image:alt" content="Купить квартиру в Москве без первоначального взноса — даже с плохой кредитной историей!">
-    <meta property="og:site_name" content="Купить квартиру в Москве">
+    <meta property="og:image" content="https://kvartirabezvznosa.ru/static/og_image.jpg">
+    <meta property="og:image:alt" content="Купить квартиру без первоначального взноса - возможно!">
+    <meta property="og:site_name" content="Купить квартиру без первоначального взноса">
     <meta property="og:locale" content="ru_RU">
     <meta property="office1:place:location:latitude" content="55.766131">
     <meta property="office1:place:location:longitude" content="37.604205">
     
     <link rel="canonical" href="https://kvartirabezvznosa.ru/">
-    <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'custom.css'%}">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
@@ -53,13 +50,13 @@
     <!-- /Yandex.Metrika counter -->
 
   </head>
-  <body>
+  <body class="root">
     <!-- schema.org counter -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "RealEstateAgent",
-        "name": "Купить квартиру в Москве",
+        "name": "Купить квартиру без первоначального взноса",
         "telephone": "+79032354416",
         "department": [
           {
@@ -68,7 +65,7 @@
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Москва",
-              "streetAddress": "ул. Тверская, 18к1, 127006"
+              "streetAddress": "ул. Тверская, дом 18, корпус 1"
             },
             "geo": {
               "@type": "GeoCoordinates",
@@ -80,17 +77,13 @@
       }
     </script>
     <!-- /schema.org counter -->
-     
-    {% include "includes/header.html" %}
-    <br>
-    
-    {% block content %}{% endblock %}
-    
-    {% include "includes/footer.html" %}
-    
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/css_class_activate_monitoring.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
-    
+    <div class="page">
+      <!--
+      {% include "includes/header.html" %}
+      {% block content %}{% endblock %}
+      {% include "includes/footer.html" %}
+      -->
+    </div>
+    <script src="{% static 'custom.js' %}"></script>
   </body>
 </html>
