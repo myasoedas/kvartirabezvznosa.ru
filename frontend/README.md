@@ -464,3 +464,8 @@ npx webpack --mode production
 }
 ```
 
+После каждого git push выполняется автоматический деплой докер контейнеров.
+Чтобы измнения в коде фронтенда вступили в силу необходимо на VPS сервере в корне проекта выполнить команду:
+```bash
+docker-compose run --rm web python blogicum_project/manage.py collectstatic
+```
