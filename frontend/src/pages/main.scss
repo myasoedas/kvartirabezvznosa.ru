@@ -1,0 +1,74 @@
+@use "../vendor/normalize.css" as *;
+@use '../vendor/fonts.css' as *;
+
+@use '../blocks/root/root.scss' as *;
+@use '../blocks/page/page.scss' as *;
+
+/* Базовые настройки */
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900; // По умолчанию для заголовков самый жирный шрифт
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 900; // Самый жирный вариант
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Параграфы */
+p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: #444; // Чуть светлее основного текста
+}
+
+/* Курсивные заголовки */
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Курсивные параграфы */
+p em {
+  font-style: italic;
+  font-weight: 400;
+}

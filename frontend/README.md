@@ -77,6 +77,8 @@ frontend/
 2. **Установите необходимые пакеты** для сборки фронтенда:
    ```bash
    npm install --save-dev webpack webpack-cli babel-loader @babel/core @babel/preset-env css-loader sass-loader sass style-loader mini-css-extract-plugin clean-webpack-plugin
+
+   npm install --save-dev webpack-remove-empty-scripts
    ```
 
 **Пояснения:**
@@ -110,22 +112,24 @@ module.exports = {
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
 
   return {
-    // Точки входа: основной SCSS и JS файлы
+    // Определяем точки входа: стили (SCSS), скрипты (JS), и favicon.
     entry: {
-      main: path.resolve(__dirname, 'src', 'styles', 'main.scss'),
-      app: path.resolve(__dirname, 'src', 'scripts', 'index.js'),
+      main: path.resolve(__dirname, 'src', 'pages', 'main.scss'),
+      app: path.resolve(__dirname, 'src', 'scripts', 'app.js'),
+      favicon: path.resolve(__dirname, 'src', 'images', 'fav', 'favicon.ico'), // Теперь favicon тоже обрабатывается
     },
     output: {
-      // Результат сборки будет помещаться в папку static_dev внутри blogicum_project
+      // Собранные файлы будут помещаться в папку blogicum_project/static_dev
       path: path.resolve(__dirname, '..', 'blogicum_project', 'static_dev'),
-      filename: isProd ? 'js/[name].[contenthash].js' : 'js/[name].js',
+      filename: isProd ? 'js/[name].js' : 'js/[name].js',
       // publicPath указывает, как файлы будут доступны в шаблонах Django
-      publicPath: '/landing_karina/build/',
+      publicPath: '/static/',
     },
     module: {
       rules: [
@@ -150,25 +154,28 @@ module.exports = (env, argv) => {
           },
         },
         {
-          // Обработка шрифтов и изображений
-          test: /\.(woff(2)?|ttf|eot|otf|png|jpe?g|gif|svg)$/,
+          // Обработка шрифтов
+          test: /\.(woff(2)?|ttf|eot|otf)$/,
           type: 'asset/resource',
           generator: {
-            filename: (pathData) => {
-              // Если путь содержит "fonts", сохраняем в fonts/, иначе в images/
-              if (pathData.filename.includes('fonts')) {
-                return 'fonts/[name][ext]';
-              }
-              return 'images/[name][ext]';
-            },
+            filename: 'fonts/[name][ext]',
+          },
+        },
+        {
+          // Обработка изображений, включая WEBP и favicon
+          test: /\.(png|jpe?g|gif|svg|webp|ico)$/, // Добавлен WEBP
+          type: 'asset/resource',
+          generator: {
+            filename: 'images/[name][ext]', // Все изображения + favicon хранятся в images/
           },
         },
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(), // Очищает папку сборки перед каждой сборкой
+      new RemoveEmptyScriptsPlugin(), // Удаляет пустые JS-файлы, созданные для SCSS точки входа
+      new CleanWebpackPlugin(),       // Очищает папку сборки перед каждой сборкой
       new MiniCssExtractPlugin({
-        filename: isProd ? 'css/[name].[contenthash].css' : 'css/[name].css'
+        filename: isProd ? 'css/[name].css' : 'css/[name].css'
       }),
     ],
     mode: isProd ? 'production' : 'development',
@@ -182,37 +189,6 @@ module.exports = (env, argv) => {
 - **publicPath**: Указан для корректного формирования URL при подключении файлов в Django-шаблонах.
 - **Loaders**: Обрабатывают SCSS, CSS, JS, шрифты и изображения.
 - **Plugins**: `CleanWebpackPlugin` очищает папку сборки, а `MiniCssExtractPlugin` извлекает CSS в отдельный файл.
-
----
-
-## Шаг 7. Настройка Django для статики
-
-Откройте файл **blogicum_project/settings.py** и внесите следующие изменения:
-
-```python
-from pathlib import Path
-import os
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-STATIC_URL = '/static/'
-
-# Исходные файлы сборки (build) будут находиться в blogicum_project/static_dev
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'blogicum_project', 'static_dev'),
-]
-
-# Финальная папка для статики, куда collectstatic копирует файлы
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-```
-
-После сборки Webpack файлы будут лежать в **blogicum_project/static_dev**. Затем при выполнении:
-   
-```bash
-python manage.py collectstatic --noinput
-```
-
-файлы будут скопированы в папку **static** (или загружены в S3, если настроено).
 
 ---
 
@@ -285,3 +261,206 @@ python manage.py collectstatic --noinput
    Ваш CI/CD процесс запускает сборку и деплой, обновляя продакшен-среду.
 
 Эта инструкция должна быть понятной и повторяемой, обеспечивая разделение исходного кода фронтенда в папке `frontend/` и финальной сборки в `blogicum_project/static_dev/`, с дальнейшей интеграцией в шаблоны Django. Если возникнут дополнительные вопросы или потребуется уточнение – пишите!
+
+---
+
+Добавим файл **normalize.css**. Его можно скачать с сайта: https://necolas.github.io/normalize.css/
+
+Скопируйте содержимое файла normalize.css в браузере и вставьте в файл vendor/normalize.css. 
+
+Подключите normalize.css в файле main.scss .
+
+```scss
+@use "../vendor/normalize.css" as *;
+``` 
+
+---
+
+### Загрузка бесплатных шрифтов Inter
+
+Перейдите на сайт: https://gwfh.mranftl.com/
+
+В поиске напишите: Inter
+
+Проставьте галки cyrillic latin
+
+Выберите размер шрифтов для основного текста и заголовков 400 (regular), 700, 900
+
+Cкачайте шрифты и поместите их в папку vendor/fonts/
+
+Создайте файл vendor/fonts.scss и скопируйте в него код с сайта для подключения шрифтов.
+
+```css
+/* inter-regular - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/inter-v18-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-italic - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/inter-v18-cyrillic_latin-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-700 - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/inter-v18-cyrillic_latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-700italic - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../fonts/inter-v18-cyrillic_latin-700italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-900 - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/inter-v18-cyrillic_latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-900italic - cyrillic_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 900;
+  src: url('../fonts/inter-v18-cyrillic_latin-900italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+  ```
+Я отредактирвал исходный файл и добавил путь до шрифтов ../vendor/fonts/ вместо исходного ../fonts/ .
+
+Создайте файл page/main.scss - в этот файл мы будем подключать все файлы стилей.
+
+```scss
+@use '../vendor/fonts.scss' as *;
+```
+
+Добавим в main.scss стили для заголовков и параграфов
+
+```scss
+@use '../../node_modules/normalize-scss/sass/normalize' as *;
+@use '../vendor/fonts.scss' as *;
+
+/* Базовые настройки */
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900; // По умолчанию для заголовков самый жирный шрифт
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 900; // Самый жирный вариант
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Параграфы */
+p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: #444; // Чуть светлее основного текста
+}
+
+/* Курсивные заголовки */
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Курсивные параграфы */
+p em {
+  font-style: italic;
+  font-weight: 400;
+}
+```
+
+После каждого изменения в файле конфигурации webpack нужно очищать его кеш:
+
+```bash
+rm -rf node_modules/.cache
+```
+
+Команда запуска сборки webpack для продакшен:
+```bash
+npx webpack --mode production
+```
+
+Проверяем папку static_dev там должны быть все наши файлы и минифицированные файлы css и js.
+
+Вносим правки в html шаблон base.html чтобы подключить стили и скрипты.
+
+```html
+<head>
+
+<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+<link rel="stylesheet" href="{% static 'css/main.css'%}">
+</head>
+```
+
+```html
+<body class="root">
+
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+В папке blocks создадим файл root/root.scss:
+
+```scss
+.root {
+  margin: 0;
+  padding: 0;
+
+  background: #2A2C2F;
+}
+```
+

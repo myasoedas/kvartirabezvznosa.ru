@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /admin/
-Sitemap: https://kvartirabezvznosa.ru/sitemap.xml
-Sitemap: https://kvartirabezvznosa.ru/rss-feed.xml
