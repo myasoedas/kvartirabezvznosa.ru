@@ -469,3 +469,23 @@ npx webpack --mode production
 ```bash
 docker-compose run --rm web python blogicum_project/manage.py collectstatic
 ```
+
+```bash
+docker-compose run --rm web python blogicum_project/manage.py migrate
+
+docker-compose run --rm web python blogicum_project/manage.py collectstatic
+
+docker-compose run --rm web python blogicum_project/manage.py runserver
+
+docker-compose down && docker-compose up --build
+
+docker-compose up -d
+
+docker-compose ps
+
+docker-compose exec certbot ls /etc/letsencrypt/live
+
+dig kvartirabezvznosa.ru +short
+
+docker-compose down && docker-compose up --build
+```
