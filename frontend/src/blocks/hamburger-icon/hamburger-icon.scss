@@ -1,0 +1,40 @@
+/* Стиль для кнопки гамбургер */
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30px;
+  height: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto; /* Прижимает к правому краю */
+  margin-right: 5px;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Добавляем правильные стили для полосок гамбургера */
+.hamburger-icon .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #f0f6f9;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Анимация для крестика */
+.hamburger-icon.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-icon.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+

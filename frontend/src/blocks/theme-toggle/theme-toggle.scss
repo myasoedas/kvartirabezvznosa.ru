@@ -1,0 +1,12 @@
+@use "../../vendor/variables";
+
+.theme-toggle {
+    padding: 5px 10px;
+    background-color: var(--button-color);
+    color: var(--h-text-color);
+    border: none;
+    border-radius: 4px;
+    
+  }
+  
+  

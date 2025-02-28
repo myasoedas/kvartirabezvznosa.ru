@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
@@ -11,7 +12,6 @@ module.exports = (env, argv) => {
     entry: {
       main: path.resolve(__dirname, 'src', 'pages', 'main.scss'),
       app: path.resolve(__dirname, 'src', 'scripts', 'app.js'),
-      favicon: path.resolve(__dirname, 'src', 'images', 'fav', 'favicon.ico'), // Теперь favicon тоже обрабатывается
     },
     output: {
       // Собранные файлы будут помещаться в папку blogicum_project/static_dev
@@ -50,14 +50,6 @@ module.exports = (env, argv) => {
             filename: 'fonts/[name][ext]',
           },
         },
-        {
-          // Обработка изображений, включая WEBP и favicon
-          test: /\.(png|jpe?g|gif|svg|webp|ico)$/, // Добавлен WEBP
-          type: 'asset/resource',
-          generator: {
-            filename: 'images/[name][ext]', // Все изображения + favicon хранятся в images/
-          },
-        },
       ],
     },
     plugins: [
@@ -65,6 +57,15 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),       // Очищает папку сборки перед каждой сборкой
       new MiniCssExtractPlugin({
         filename: isProd ? 'css/[name].css' : 'css/[name].css'
+      }),
+      // Копирование всех изображений из папки src/images в выходную папку images
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, 'src', 'images'),
+            to: 'images',
+          },
+        ],
       }),
     ],
     mode: isProd ? 'production' : 'development',

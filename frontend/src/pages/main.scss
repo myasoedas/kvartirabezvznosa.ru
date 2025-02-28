@@ -1,48 +1,61 @@
 @use "../vendor/normalize.css" as *;
-@use '../vendor/fonts.css' as *;
+@use "../vendor/fonts.css" as *;
+@use "../vendor/mixins" as *;
+@use "../vendor/themes" as *;
+@use "../vendor/variables" as *;
 
-@use '../blocks/root/root.scss' as *;
-@use '../blocks/page/page.scss' as *;
+@use "../blocks/root/root.scss" as *;
+@use "../blocks/page/page.scss" as *;
+@use "../blocks/header/header.scss" as *;
+@use "../blocks/header/__logo/header__logo.scss" as *;
+@use "../blocks/header/__logo-link/header__logo-link.scss" as *;
+@use "../blocks/header/__name-link/header__name-link.scss" as *;
+@use "../blocks/hamburger-icon/hamburger-icon.scss" as *;
+@use "../blocks/popup-menu/popup-menu.scss" as *;
+@use "../blocks/header/__left/header__left.scss" as *;
+@use "../blocks/header/__right/header__right.scss" as *;
+@use "../blocks/theme-toggle/theme-toggle.scss" as *;
 
 /* Заголовки */
 h1, h2, h3, h4, h5 {
   font-family: 'Inter', sans-serif;
-  font-weight: 900; // По умолчанию для заголовков самый жирный шрифт
+  font-weight: 900;
+  color: var(--h-text-color);
   line-height: 1.2;
   margin: 0 0 16px;
 }
 
 h1 {
-  font-size: 36px;
-  font-weight: 900; // Самый жирный вариант
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 900;
 }
 
 h2 {
-  font-size: 30px;
+  font-size: clamp(24px, 3.5vw, 30px);
   font-weight: 700;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: clamp(20px, 3vw, 24px);
   font-weight: 700;
 }
 
 h4 {
-  font-size: 20px;
+  font-size: clamp(18px, 2.5vw, 20px);
   font-weight: 700;
 }
 
 h5 {
-  font-size: 18px;
+  font-size: clamp(16px, 2vw, 18px);
   font-weight: 700;
 }
 
 /* Параграфы */
 p {
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 18px);
   font-weight: 400;
+  color: var(--p-text-color);
   margin-bottom: 16px;
-  color: #444; // Чуть светлее основного текста
 }
 
 /* Курсивные заголовки */
@@ -53,10 +66,12 @@ h4 em,
 h5 em {
   font-style: italic;
   font-weight: 700;
+  color: var(--h-text-color);
 }
 
 /* Курсивные параграфы */
 p em {
   font-style: italic;
   font-weight: 400;
+  color: var(--p-text-color);
 }

@@ -1,61 +1,33 @@
 {% load static %}
-<header>
-    <nav class="navbar navbar-light bg-white fixed-top">
-        <div class="container d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center logo-section">
-                <a href="/" class="navbar-brand d-flex align-items-center">
-                    <img src="{% static 'img/logo.png' %}" alt="Фото лица Карина Дерябина" class="rounded-circle logo-spacing" loading="lazy">
-                    <span class="ml-3">Карина Дерябина</span>
-                </a>
-            </div>
-    
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="header__logo-link">
+            <img
+            class="header__logo"
+            src="{% static 'images/header/header-logo.png' %}"
+            alt="Логотип - фронтальное фото лица Карины Дерябиной"
+            >
+        </a>
+        <a href="/" class="header__name-link">
+            Карина Дерябина
+        </a>
+    </div>
+    <div class="header__right">
+        <button class="hamburger-icon" id="hamburger-icon">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+    <!-- Попап меню -->
+    <div class="popup-menu" id="popup-menu">
+        <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="https://wa.me/79522672726">WhatsApp</a></li>
+        <li><button id="theme-toggle" class="theme-toggle">
+                Сменить тему
             </button>
-    
-            <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
-                    {% if request.path == "/" %}
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#services" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Об услуге</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">О себе</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#mystory" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео рассказ о себе</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#fotogalery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Фото галерея</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#certificates" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Дипломы и сертификаты</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#blog" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Новые статьи в блоге</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#video-tur" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Видео отзывы клиентов</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Контакты</a></li>
-                        <li class="nav-item"><a class="nav-link text-reset text-decoration-none py-0" href="#social" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Социальные сети</a></li>
-                    {% endif %}
-                    {% with request.resolver_match.view_name as view_name %}
-                    <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог о недвижимости</a></li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/admin/blog/post/add/">Написать пост</a></li>
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></li>
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'logout' %}">Выйти</a></li>
-                    {% else %}
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/login/">Войти</a></li>
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/registration/">Регистрация</a></li>
-                    {% endif %}
-                    {% endwith %}
-                    <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/posts/10/">Политика конфиденциальности</a></li>
-                </ul>
-                <div class="d-flex align-items-center social-icons">
-                    <a class="nav-link px-2" href="https://wa.me/79032354416" target="_blank" rel="noopener" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a class="nav-link px-2" href="https://t.me/kazhdomu_po_kvartire" target="_blank" rel="noopener" aria-label="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a class="nav-link px-2" href="https://instagram.com/kazhdomu_po_kvartire" target="_blank" rel="noopener" aria-label="Инстаграм">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="nav-link px-2" href="https://www.threads.net/@kazhdomu_po_kvartire" target="_blank" rel="noopener" aria-label="Threads">
-                        <i class="fas fa-comments"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+        </li>
+        </ul>
+    </div>
 </header>
-<br>

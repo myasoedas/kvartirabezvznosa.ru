@@ -1,0 +1,44 @@
+/* Стиль для попап меню (скрыто по умолчанию) */
+.popup-menu {
+    display: none; /* Изначально меню скрыто */
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%); /* Центрирование по горизонтали */
+    background: #2a2c2f;
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Убираем стандартные отступы и точки списка */
+.popup-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popup-menu li {
+    margin-bottom: 10px;
+}
+
+/* Стили для ссылок */
+.popup-menu a {
+    display: block; /* Чтобы ссылки занимали всю ширину родителя */
+    padding: 8px 15px; /* Отступы от границ */
+    color: #f0f6f9;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Плавное затемнение */
+}
+
+/* Затемнение при наведении */
+.popup-menu a:hover {
+    color: #cccccc; /* Более темный оттенок */
+}
+
+/* Когда меню открыто, показываем его */
+.popup-menu.open {
+    display: block;
+}

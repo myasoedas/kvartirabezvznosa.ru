@@ -1,0 +1,34 @@
+.header {
+    margin: 0; /*обнулить внешние отступы*/
+    padding: 0; /*обнулить внутрение оступы*/
+    max-width: 100%;    /* header не будет превышать ширину родительского элемента */
+    height: 50px;      /* Высота будет изменяться пропорционально ширине */
+    background: var(--header-bg-color); /*цвет фона - темный*/
+  
+    display: flex; /*Определил блок header как флекс контейнер*/
+    flex-direction: row; /*выстроить блоки в линию по горизонтали слева на право*/
+    align-items: center; /*выровнять блоки по центру по вертикали*/
+    justify-content: space-between; /*прижать блоки к левому и правому краю, равномерно распределив по ширине контейнера*/
+    
+    font-family: 'Inter', Arial, sans-serif; /*Использовать шрифт Inter*/
+    color: var(--h-text-color); /*Цвет шрифта - белый*/
+  
+    /*Сглаживание шрифтов*/
+    -webkit-font-smoothing: antialiased; /*сглаживание шрифтов в Safari и во всех браузерах на платформе Chromium*/
+    -moz-osx-font-smoothing: grayscale; /*сглаживание шрифтов в Mozilla Firefox*/
+  }
+  
+  /*Медиазапрос - задать новые свойства блока для экранов с разрешением от 768px до 1280px*/
+  @media (min-width: 768px) {
+    .header {
+      padding: 0;
+    }
+  }
+  
+  /*Медиазапрос - задать новые свойства блока для экранов с разрешением от 1024px до 1279px*/
+  @media (min-width: 1024px) {
+    .header {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }

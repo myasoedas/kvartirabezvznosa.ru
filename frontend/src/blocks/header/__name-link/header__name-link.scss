@@ -1,0 +1,15 @@
+/* Стиль для ссылки с именем */
+.header__name-link {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f0f6f9 !important; /* Принудительно задать цвет */
+    text-decoration: none !important; /* Убираем подчеркивание */
+    transition: color 0.3s ease;
+}
+
+  
+  /* При наведении на ссылку с именем текст становится темнее */
+  .header__name-link:hover {
+    color: #cccccc !important; /* Более темный оттенок */
+  }
+  

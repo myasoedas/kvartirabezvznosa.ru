@@ -1,0 +1,24 @@
+@use 'variables' as *;
+
+:root {
+  /* Светлая тема по умолчанию */
+  --bg-color: #{$light-bg};
+  --page-bg-color: #{$light-page-bg};
+  --header-bg-color: #{$light-header-bg};
+  --h-text-color: #{$light-h-text};
+  --p-text-color: #{$light-p-text};
+  --line-color: #{$light-line};
+  --button-color: #{$light-button};
+  --primary-color: #{$light-primary};
+}
+
+.theme-dark {
+    --bg-color: #{$dark-bg};
+    --page-bg-color: #{$dark-page-bg};
+    --header-bg-color: #{$dark-header-bg};
+    --h-text-color: #{$dark-h-text};
+    --p-text-color: #{$dark-p-text};
+    --line-color: #{$dark-line};
+    --button-color: #{$dark-button};
+    --primary-color: #{$dark-primary};
+}

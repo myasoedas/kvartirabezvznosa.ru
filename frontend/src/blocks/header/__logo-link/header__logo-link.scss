@@ -1,0 +1,16 @@
+/* Стиль для ссылки с логотипом */
+.header__logo-link {
+    display: inline-block; /* Чтобы hover-эффект корректно применялся */
+  }
+  
+  /* При наведении на ссылку с логотипом, само изображение темнеет */
+  .header__logo-link:hover .header__logo {
+    filter: brightness(0.8); /* Уменьшаем яркость до 80% */
+    transition: filter 0.3s ease; /* Плавный переход */
+  }
+  
+  /* Добавляем плавный переход к самому логотипу */
+  .header__logo {
+    transition: filter 0.3s ease;
+  }
+  

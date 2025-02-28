@@ -1,0 +1,40 @@
+$font-family-base: 'Inter', sans-serif;
+
+/* Цвета для светлой темы */
+$light-bg: #FFFFFF;
+$light-page-bg: #FFFFFF;
+$light-header-bg: #FFFFFF;
+$light-h-text: #000000;
+$light-p-text: #707579;
+$light-line: #DFE1E5;
+$light-button: #3290EC;
+$light-primary: #1a73e8;
+
+/* Цвета для тёмной темы */
+$dark-bg: #03040a;
+$dark-page-bg: #0e1117;
+$dark-header-bg: #2A2C2F;
+$dark-h-text: #ffffff;
+$dark-p-text: #AAAAAA;
+$dark-line: #191919;
+$dark-button: #8774E1;
+$dark-primary: #1a73e8;
+
+/*
+Светлая тема:
+Фон: #FFFFFF
+Кнопка: #3290EC
+Обводка строки для ввода текста: #DFE1E5
+Заголовок: #000000
+Основной текст: #707579
+Разделительная линия: #DFE1E5
+
+Темная тема:
+Фон: #212121
+Фон хедера: #2A2C2F
+Кнопка: #8774E1
+Обводка строки для ввода текста: #8774E1
+Заголовок: #ffffff
+Основной текст: #AAAAAA
+Разделительная линия: #191919
+*/
