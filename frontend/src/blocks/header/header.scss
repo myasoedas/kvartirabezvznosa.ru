@@ -1,3 +1,7 @@
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
 .header {
     margin: 0; /*обнулить внешние отступы*/
     padding: 0; /*обнулить внутрение оступы*/
@@ -11,7 +15,7 @@
     justify-content: space-between; /*прижать блоки к левому и правому краю, равномерно распределив по ширине контейнера*/
     
     font-family: 'Inter', Arial, sans-serif; /*Использовать шрифт Inter*/
-    color: var(--h-text-color); /*Цвет шрифта - белый*/
+    color: var(--header-h-text-color); /*Цвет шрифта - белый*/
   
     /*Сглаживание шрифтов*/
     -webkit-font-smoothing: antialiased; /*сглаживание шрифтов в Safari и во всех браузерах на платформе Chromium*/

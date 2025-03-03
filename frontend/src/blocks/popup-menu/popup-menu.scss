@@ -1,44 +1,73 @@
-/* Стиль для попап меню (скрыто по умолчанию) */
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
 .popup-menu {
-    display: none; /* Изначально меню скрыто */
     position: absolute;
     top: 60px;
     left: 50%;
-    transform: translateX(-50%); /* Центрирование по горизонтали */
-    background: #2a2c2f;
-    width: 100%;
-    max-width: 200px;
+    transform: translateX(-50%) scale(0.9); /* Начальное состояние */
+    background: var(--popup-menu-bg-color);
+    width: 90%;
+    max-width: 300px;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) scale(1); /* Анимация появления */
+    }
 }
 
-/* Убираем стандартные отступы и точки списка */
-.popup-menu ul {
+/* Список в меню */
+.popup-menu__list {
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
-.popup-menu li {
+/* Пункты списка */
+.popup-menu__item {
     margin-bottom: 10px;
 }
 
-/* Стили для ссылок */
-.popup-menu a {
-    display: block; /* Чтобы ссылки занимали всю ширину родителя */
-    padding: 8px 15px; /* Отступы от границ */
-    color: #f0f6f9;
-    text-decoration: none;
-    transition: color 0.3s ease; /* Плавное затемнение */
-}
-
-/* Затемнение при наведении */
-.popup-menu a:hover {
-    color: #cccccc; /* Более темный оттенок */
-}
-
-/* Когда меню открыто, показываем его */
-.popup-menu.open {
+/* Ссылки */
+.popup-menu__link {
     display: block;
+    padding: 10px 15px;
+    color: var(--popup-menu-a);
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease, background 0.3s ease;
+
+    &:hover {
+        color: var(--popup-menu-a-hover);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .popup-menu {
+        width: 95%;
+        max-width: 300px;
+        padding: 8px;
+    }
+
+    .popup-menu__link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
 }

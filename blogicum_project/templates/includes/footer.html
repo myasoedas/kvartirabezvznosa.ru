@@ -1,73 +1,62 @@
-<!-- Футер -->
-<footer class="py-4 bg-dark text-white">
-  <div class="container">
-    <div class="row text-center text-md-start">
-      <!-- Колонка "Полезные ссылки" -->
-      <div class="col-12 col-md-4 mb-3">
-        <h5>Полезные ссылки</h5>
-        <ul class="list-unstyled">
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/">Главная страница</a></li>
-          {% if request.path == "/" %}
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#services">Услуги</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#about">О себе</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#mystory">Видео рассказ о себе</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#fotogalery">Фото галерея</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#certificates">Дипломы и сертификаты</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#blog">Новые статьи в блоге</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#video-tur">Видео отзывы клиентов</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#contact">Контакты</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="#social">Социальные сети</a></li>
-          {% endif %}
-          {% with request.resolver_match.view_name as view_name %}
-          <li class="nav-item "><a class="text-reset text-decoration-none py-0" href="/posts/list/">Блог о недвижимости</a></li>
-          {% if user.is_authenticated %}
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/admin/blog/post/add/">Написать пост</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="{% url 'logout' %}">Выйти</a></li>
-          {% else %}
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/login/">Войти</a></li>
-          <li class="nav-item"><a class="text-reset text-decoration-none py-0" href="/auth/registration/">Регистрация</a></li>
-          {% endif %}
-          {% endwith %}   
-        </ul>
+{% load static %}
+<footer class="footer">
+    <div class="footer__container">
+      
+      <!-- Секция "О компании" -->
+      <div class="footer__section footer__section--about">
+        <h2 class="footer__title">Карина Дерябина</h2>
+        <p class="footer__description">Эксперт по недвижимости в Москве и Краснодаре.</p>
+        <img
+            class="footer__logo"
+            src="{% static 'images/footer/footer-logo.png' %}"
+            alt="Логотип - фронтальное фото лица Карины Дерябиной"
+        >
       </div>
-      <!-- Колонка "Контакты" -->
-      <div class="col-12 col-md-4 mb-3">
-        <h5>Контакты</h5>
-        <ul class="list-unstyled">
-          <li><a href="tel:+79052294650" class="text-white text-decoration-none">+7 903 235 44 16</a></li>
-          <li><a href="mailto:veta1981@yandex.ru" class="text-white text-decoration-none">deryabinakarina@mail.ru</a></li>
-          <li>Москва, ул. Тверская, 18к1, 127006, Россия</li>
+  
+      <!-- Секция "Полезные ссылки" -->
+      <div class="footer__section footer__section--nav">
+        <h3 class="footer__title">Полезные ссылки</h3>
+        <ul class="footer__list">
+          <li class="footer__item"><a href="/" class="footer__link">Главная</a></li>
+          <li class="footer__item"><a href="#services" class="footer__link">Услуги</a></li>
+          <li class="footer__item"><a href="#about" class="footer__link">О себе</a></li>
+          <li class="footer__item"><a href="#contact" class="footer__link">Контакты</a></li>
+          <li class="footer__item"><a href="/posts/list/" class="footer__link">Блог</a></li>
         </ul>
       </div>
       
-      <!-- Колонка "Социальные сети" -->
-      <div class="col-12 col-md-4 mb-3 text-center text-md-start">
-        <h5>Мои соцсети</h5>
-        <a href="https://wa.me/79032354416" target="_blank" class="text-white me-3" aria-label="WhatsApp">
-            <i class="fab fa-whatsapp fa-lg"></i>
-        </a>
-        <a href="https://t.me/kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Telegram">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-        <a href="https://instagram.com/kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Инстаграм">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-        <a href="https://www.threads.net/@kazhdomu_po_kvartire" target="_blank" class="text-white me-3" aria-label="Threads">
-            <i class="fas fa-comment-dots fa-lg"></i>
-        </a>
+      <!-- Секция "Контакты" -->
+      <div class="footer__section footer__section--contacts">
+        <h3 class="footer__title">Контакты</h3>
+        <ul class="footer__list">
+          <li class="footer__item"><a href="https://wa.me/79032354416" class="footer__link">WhatsApp</a></li>
+          <li class="footer__item"><a href="tel:+79032354416" class="footer__link">+7 903 235 44 16</a></li>
+          <li class="footer__item"><a href="mailto:deryabinakarina@mail.ru" class="footer__link">deryabinakarina@mail.ru</a></li>
+          <li class="footer__item"><a href="https://yandex.com/maps/213/moscow/?ll=37.604206%2C55.766132&mode=routes&rtext=~55.766125%2C37.604193&rtt=auto&ruri=~&z=16.83" class="footer__link">Офис: г. Москва, ул. Тверская, 18к1</a></li>
+        </ul>
       </div>
-
+  
+      <!-- Секция "Социальные сети" -->
+      <div class="footer__section footer__section--social">
+        <h3 class="footer__title">Мои соцсети</h3>
+        <div class="footer__social-links">
+            <a href="https://wa.me/79032354416" class="footer__social-icon" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://t.me/kazhdomu_po_kvartire" class="footer__social-icon" aria-label="Telegram">
+              <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://instagram.com/kazhdomu_po_kvartire" class="footer__social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+      </div>
     </div>
-    <!-- Нижняя строка с копирайтом -->
-    <div class="text-center mt-4">
-      <p class="mb-0">&copy; 2025 Эксперт по недвижимости Карина Дерябина</p>
-      <a class="text-reset text-decoration-none py-0" href="https://wa.me/79522672726">
-        <p class="mb-0">Веб разработчик: Александр Мясоед</p>
-      <a class="text-reset text-decoration-none py-0" href="/posts/10/">
-        <p class="mb-0">Политика конфиденциальности</p>
-      </a>
-      </a>
+  
+    <!-- Нижний блок -->
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2025 Карина Дерябина - Эксперт по недвижимости</p>
+      <a href="https://wa.me/79522672726" class="footer__dev">Разработка: Александр Мясоед</a>
+      <a href="/posts/10/" class="footer__policy">Политика конфиденциальности</a>
     </div>
-  </div>
 </footer>

@@ -4,21 +4,63 @@
   /* Светлая тема по умолчанию */
   --bg-color: #{$light-bg};
   --page-bg-color: #{$light-page-bg};
-  --header-bg-color: #{$light-header-bg};
   --h-text-color: #{$light-h-text};
   --p-text-color: #{$light-p-text};
   --line-color: #{$light-line};
   --button-color: #{$light-button};
   --primary-color: #{$light-primary};
+
+  --header-bg-color: #{$light-header-bg};
+  --header-h-text-color: #{$light-header-h-text};
+  --header-p-text-color: #{$light-header-p-text};
+  --header-line-color: #{$light-header-line};
+  --header-button-color: #{$light-header-button};
+  --header-primary-color: #{$light-header-primary};
+
+  --hamburger-icon-bg-color: #{$light-hamburger-icon-bg-color};
+
+  --popup-menu-bg-color: #{$light-popup-menu-bg-color};
+  --popup-menu-a: #{$light-popup-menu-a};
+  --popup-menu-a-hover: #{$light-popup-menu-a-hover};
+
+  --theme-toggle-text: #{$light-theme-toggle-text};
+
+  --footer-bg-color: #{$light-footer-bg};
+  --footer-h-text-color: #{$light-footer-h-text};
+  --footer-p-text-color: #{$light-footer-p-text};
+  --footer-line-color: #{$light-footer-line};
+  --footer-button-color: #{$light-footer-button};
+  --footer-primary-color: #{$light-footer-primary};
 }
 
 .theme-dark {
     --bg-color: #{$dark-bg};
     --page-bg-color: #{$dark-page-bg};
-    --header-bg-color: #{$dark-header-bg};
     --h-text-color: #{$dark-h-text};
     --p-text-color: #{$dark-p-text};
     --line-color: #{$dark-line};
     --button-color: #{$dark-button};
     --primary-color: #{$dark-primary};
+
+    --header-bg-color: #{$dark-header-bg};
+    --header-h-text-color: #{$dark-header-h-text};
+    --header-p-text-color: #{$dark-header-p-text};
+    --header-line-color: #{$dark-header-line};
+    --header-button-color: #{$dark-header-button};
+    --header-primary-color: #{$dark-header-primary};
+
+    --hamburger-icon-bg-color: #{$dark-hamburger-icon-bg-color};
+
+    --popup-menu-bg-color: #{$dark-popup-menu-bg-color};
+    --popup-menu-a: #{$dark-popup-menu-a};
+    --popup-menu-a-hover: #{$dark-popup-menu-a-hover};
+
+    --theme-toggle-text: #{$dark-theme-toggle-text};
+
+    --footer-bg-color: #{$dark-footer-bg};
+    --footer-h-text-color: #{$dark-footer-h-text};
+    --footer-p-text-color: #{$dark-footer-p-text};
+    --footer-line-color: #{$dark-footer-line};
+    --footer-button-color: #{$dark-footer-button};
+    --footer-primary-color: #{$dark-footer-primary};
 }

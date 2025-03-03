@@ -6,15 +6,27 @@
 
 @use "../blocks/root/root.scss" as *;
 @use "../blocks/page/page.scss" as *;
+
 @use "../blocks/header/header.scss" as *;
 @use "../blocks/header/__logo/header__logo.scss" as *;
 @use "../blocks/header/__logo-link/header__logo-link.scss" as *;
 @use "../blocks/header/__name-link/header__name-link.scss" as *;
-@use "../blocks/hamburger-icon/hamburger-icon.scss" as *;
-@use "../blocks/popup-menu/popup-menu.scss" as *;
 @use "../blocks/header/__left/header__left.scss" as *;
 @use "../blocks/header/__right/header__right.scss" as *;
+
+@use "../blocks/hamburger-icon/hamburger-icon.scss" as *;
+
+@use "../blocks/popup-menu/popup-menu.scss" as *;
+
 @use "../blocks/theme-toggle/theme-toggle.scss" as *;
+
+@use "../blocks/posts-list/posts-list.scss" as *;
+@use "../blocks/post-card/post-card.scss" as *;
+@use "../blocks/paginator/paginator.scss" as *;
+@use "../blocks/post-detail/post-detail.scss" as *;
+
+@use "../blocks/footer/footer.scss" as *;
+
 
 /* Заголовки */
 h1, h2, h3, h4, h5 {

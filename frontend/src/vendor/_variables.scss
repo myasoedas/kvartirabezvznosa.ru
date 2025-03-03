@@ -1,40 +1,67 @@
 $font-family-base: 'Inter', sans-serif;
 
 /* Цвета для светлой темы */
-$light-bg: #FFFFFF;
+$light-bg: #F5F5F5;
 $light-page-bg: #FFFFFF;
-$light-header-bg: #FFFFFF;
-$light-h-text: #000000;
-$light-p-text: #707579;
-$light-line: #DFE1E5;
-$light-button: #3290EC;
-$light-primary: #1a73e8;
+$light-h-text: #333333;
+$light-p-text: #4F4F4F;
+$light-line: #DDDDDD;
+$light-button: #3478D4;
+$light-primary: #8774E1;
+
+$light-header-bg: #282A35;
+$light-header-h-text: #ffffff;
+$light-header-p-text: #AAAAAA;
+$light-header-line: #DDDDDD;
+$light-header-button: #3478D4;
+$light-header-primary: #8774E1;
+
+$light-hamburger-icon-bg-color: #f0f6f9;
+
+$light-popup-menu-bg-color: #2A2C2F; 
+$light-popup-menu-a: #ffffff; 
+$light-popup-menu-a-hover: #cccccc; 
+
+$light-theme-toggle-text: #ffffff;
+
+$light-post-card-bg-color: #ffffff;
+
+
+$light-footer-bg: #282A35;
+$light-footer-h-text: #ffffff;
+$light-footer-p-text: #AAAAAA;
+$light-footer-line: #DDDDDD;
+$light-footer-button: #3478D4;
+$light-footer-primary: #8774E1;
 
 /* Цвета для тёмной темы */
 $dark-bg: #03040a;
 $dark-page-bg: #0e1117;
-$dark-header-bg: #2A2C2F;
 $dark-h-text: #ffffff;
 $dark-p-text: #AAAAAA;
 $dark-line: #191919;
 $dark-button: #8774E1;
 $dark-primary: #1a73e8;
 
-/*
-Светлая тема:
-Фон: #FFFFFF
-Кнопка: #3290EC
-Обводка строки для ввода текста: #DFE1E5
-Заголовок: #000000
-Основной текст: #707579
-Разделительная линия: #DFE1E5
+$dark-header-bg: #2A2C2F;
+$dark-header-h-text: #ffffff;
+$dark-header-p-text: #AAAAAA;
+$dark-header-line: #191919;
+$dark-header-button: #8774E1;
+$dark-header-primary: #1a73e8;
 
-Темная тема:
-Фон: #212121
-Фон хедера: #2A2C2F
-Кнопка: #8774E1
-Обводка строки для ввода текста: #8774E1
-Заголовок: #ffffff
-Основной текст: #AAAAAA
-Разделительная линия: #191919
-*/
+$dark-hamburger-icon-bg-color: #f0f6f9;
+
+$dark-popup-menu-bg-color: #282A35; 
+$dark-popup-menu-a: #ffffff; 
+$dark-popup-menu-a-hover: #cccccc; 
+
+$dark-theme-toggle-text: #ffffff;
+
+
+$dark-footer-bg: #2A2C2F;
+$dark-footer-h-text: #ffffff;
+$dark-footer-p-text: #AAAAAA;
+$dark-footer-line: #191919;
+$dark-footer-button: #8774E1;
+$dark-footer-primary: #1a73e8;

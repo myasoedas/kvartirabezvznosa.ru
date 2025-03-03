@@ -1,0 +1,73 @@
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+
+    &__list {
+        display: flex;
+        gap: 0.6rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    &__item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+
+        &--active {
+            /* Убрали дублирующий фон */
+            font-weight: bold;
+        }
+    }
+
+    &__link {
+        display: inline-block;
+        padding: 10px 14px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--h-text-color);
+        text-decoration: none;
+        border-radius: 5px;
+        transition: color 0.3s ease, background 0.3s ease;
+
+        &:hover {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &--active {
+            color: #fff;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        &--arrow {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        &__list {
+            gap: 0.4rem;
+        }
+
+        &__link {
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        &__link--arrow {
+            font-size: 16px;
+        }
+    }
+}

@@ -1,22 +1,20 @@
 {% extends "base.html" %}
-{% block title %}Лента записей{% endblock %}
+{% block title %}Новые посты{% endblock %}
 {% block content %}
-<section id="posts-feed" class="py-5">
-  <div class="container">
-    <h2 class="section-heading text-center mb-5">Блог Остеопата</h2>
-    <div class="row">
+<section class="posts">
+  <div class="posts__container">
+    <h2 class="posts__heading">Блог эксперта по недвижимости</h2>
+    
+    <div class="posts__grid">
       {% for post in page_obj %}
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <article>
-          {% include "includes/post_card.html" %}
-        </article>
-      </div>
+      <article class="posts__card">
+        {% include "includes/post_card.html" %}
+      </article>
       {% endfor %}
     </div>
-    <div class="row">
-      <div class="col-12">
-        {% include "includes/paginator.html" %}
-      </div>
+    
+    <div class="posts__paginator">
+      {% include "includes/paginator.html" %}
     </div>
   </div>
 </section>

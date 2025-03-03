@@ -7,11 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
+    #'127.0.0.1',
+    #'localhost',
     "kvartirabezvznosa.ru",
     "www.kvartirabezvznosa.ru",
     "bezvznosa.ru",
@@ -157,41 +157,41 @@ USE_TZ = True
 
 
 # Настройка аутентификации для Cloud.ru S3
-#AWS_TENANT_ID = config('AWS_TENANT_ID')
+AWS_TENANT_ID = config('AWS_TENANT_ID')
 # Формат tenant_id:key_id
-#AWS_ACCESS_KEY_ID = f"{AWS_TENANT_ID}:{config('AWS_ACCESS_KEY_ID')}"  
-#AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-#AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-#AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
-#AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-#AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
+AWS_ACCESS_KEY_ID = f"{AWS_TENANT_ID}:{config('AWS_ACCESS_KEY_ID')}"  
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
 # обязательно для Cloud.ru
-#AWS_S3_ADDRESSING_STYLE = "path"  
+AWS_S3_ADDRESSING_STYLE = "path"  
 
 # Дополнительные параметры для boto3 (если требуется версия 1.36+)
-#AWS_S3_CONFIG = {
+AWS_S3_CONFIG = {
     #"request_checksum_calculation": "when_required",
     #"response_checksum_validation": "when_required",
-#    "s3": {"addressing_style": "path"},
-#    "signature_version": "s3v4",
-#}
+    "s3": {"addressing_style": "path"},
+    "signature_version": "s3v4",
+}
 
 # Формирование домена для доступа к статике
 # Если вы хотите, чтобы URL файлов имели вид:
 # https://s3.cloud.ru/kvartirabezvznosa/static/...
 # можно использовать значение из .env (AWS_S3_CUSTOM_DOMAIN), либо сформировать его:
 # AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL.replace('https://', '')}/{AWS_STORAGE_BUCKET_NAME}"
-#AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
+AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
 
 
 # Указываем кастомный storage backend для статики
-#STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
+STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
 
 # URL для доступа к статическим файлам
-#STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
 # Пути для локальной статики
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_dev'),

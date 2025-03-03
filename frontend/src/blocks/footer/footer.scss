@@ -1,0 +1,162 @@
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
+.footer {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-h-text-color);
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--footer-line-color);
+  border-radius: 20px 20px 20px 20px; /* Скругление углов */
+  @include transition(background-color, color);
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem; // ✅ Уменьшаем отступы между секциями на мобильных
+    }
+  }
+
+  &__section {
+    flex: 1 1 200px;
+    margin-bottom: 2rem; // ✅ Отступ между секциями на десктопе
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem; // ✅ Уменьшаем отступ на мобильных
+    }
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--footer-h-text-color);
+    margin-bottom: 0.8rem;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: var(--footer-p-text-color);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin-bottom: 0.5rem;
+  }
+
+  &__link {
+    color: var(--footer-h-text-color);
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: var(--footer-primary-color);
+    }
+  }
+
+  &__social-links {
+    display: flex;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
+  }
+
+  &__social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    background-color: var(--footer-button-color);
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; // ✅ Убираем нижнее подчеркивание
+
+  &:hover {
+    background-color: var(--footer-primary-color);
+    transform: scale(1.1);
+  }
+
+  i {
+    text-decoration: none; // ✅ Убираем возможное подчеркивание у иконок
+  }
+
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__bottom {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--footer-line-color);
+    margin-top: 2rem;
+    font-size: 14px;
+
+    @media (max-width: 768px) {
+      margin-top: 1rem;
+    }
+  }
+
+  &__copy,
+  &__dev,
+  &__policy {
+    display: block;
+    margin: 5px 0;
+    color: var(--footer-p-text-color);
+    text-decoration: none;
+    @include transition(color);
+  }
+
+  &__dev:hover,
+  &__policy:hover {
+    color: var(--footer-primary-color);
+  }
+
+  /* Стили для логотипа */
+  &__logo {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; // ✅ Делаем круглым
+    object-fit: cover;
+    margin-top: 0.5rem;
+
+    @media (max-width: 768px) {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  &__section--about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      align-items: flex-start;
+    }
+  }
+}

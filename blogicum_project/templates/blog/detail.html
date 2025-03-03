@@ -3,67 +3,55 @@
   {{ post.title }} | {% if post.location and post.location.is_published %}{{ post.location.name }}{% else %}Планета Земля{% endif %} | {{ post.pub_date|date:"d E Y" }}
 {% endblock %}
 {% block content %}
-<section id="post-detail" class="py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <article class="card col-12 col-md-10 col-lg-8 mb-4">
-        <div class="card-body">
-          {% if post.image %}
-            <figure class="mb-3 text-center">
-              <a href="{{ post.image.url }}" target="_blank">
-                <img class="img-fluid rounded img-thumbnail" src="{{ post.image.url }}" alt="Изображение для поста {{ post.title }}">
-              </a>
-            </figure>
-          {% endif %}
-          <header class="mb-3">
-            <h1 class="card-title">{{ post.title }}</h1>
-            <div class="card-subtitle mb-2 text-muted">
-              {% if not post.is_published %}
-                <p class="text-danger mb-0">Пост снят с публикации админом</p>
-              {% elif not post.category.is_published %}
-                <p class="text-danger mb-0">Выбранная категория снята с публикации админом</p>
-              {% endif %}
-              <p class="card-text">
-                {{ post.pub_date|date:"d E Y, H:i" }} | 
-                {% if post.location and post.location.is_published %}
-                  {{ post.location.name }}
-                {% else %}
-                  Планета Земля
-                {% endif %}
-                <br>
-                От автора <a class="text-muted" href="{% url 'blog:profile' post.author.username %}">@{{ post.author.username }}</a>
-                <br>
-                в категории {% include "includes/category_link.html" %}
-              </p>
-            </div>
-          </header>
-          
-          <section class="card-text">
-            {{ post.text|safe }}
-            <br>
-            <script src="https://yastatic.net/share2/share.js"></script>
-            <div class="ya-share2" data-curtain data-shape="round" data-limit="0" data-more-button-type="short" data-services="messenger,vkontakte,odnoklassniki,telegram,twitter,viber,whatsapp,moimir,pinterest"></div>
+<section class="post">
+  <div class="post__container">
+    <article class="post__card">
+      {% if post.image %}
+        <figure class="post__image-container">
+          <a class="post__image-link" href="{{ post.image.url }}" target="_blank">
+            <img class="post__image" src="{{ post.image.url }}" alt="Изображение для поста {{ post.title }}">
+          </a>
+        </figure>
+      {% endif %}
 
-            <!--
-            {% if user == post.author %}
-              <div class="mb-2">
-                <a class="btn btn-sm btn-outline-secondary" href="{% url 'blog:edit_post' post_id=post.id %}" role="button">
-                  Отредактировать публикацию
-                </a>
-                <a class="btn btn-sm btn-outline-danger" href="{% url 'blog:delete_post' post_id=post.id %}" role="button">
-                  Удалить публикацию
-                </a>
-              </div>
+      <header class="post__header">
+        <h1 class="post__title">{{ post.title }}</h1>
+        <div class="post__meta">
+          {% if not post.is_published %}
+            <p class="post__warning">Пост снят с публикации админом</p>
+          {% elif not post.category.is_published %}
+            <p class="post__warning">Выбранная категория снята с публикации админом</p>
+          {% endif %}
+          <p class="post__info">
+            {{ post.pub_date|date:"d E Y, H:i" }} |
+            {% if post.location and post.location.is_published %}
+              {{ post.location.name }}
+            {% else %}
+              Планета Земля
             {% endif %}
-            -->
-          </section>
-          
-          <footer class="mt-4">
-            {% include "includes/comments.html" %}
-          </footer>
+            <br>
+            Автор: <a class="post__link" href="{% url 'blog:profile' post.author.username %}">@{{ post.author.username }}</a>
+            <br>
+            Категория: <a class="post__link" href="{% url 'blog:category_posts' post.category.slug %}">{{ post.category.title }}</a>
+          </p>
         </div>
-      </article>
-    </div>
+      </header>
+
+      <section class="post__content">
+        <p class="post__text">{{ post.text|safe }}</p>
+
+        <div class="post__share">
+          <script src="https://yastatic.net/share2/share.js"></script>
+          <div class="ya-share2" data-curtain data-shape="round" data-limit="0"
+               data-more-button-type="short"
+               data-services="messenger,vkontakte,odnoklassniki,telegram,twitter,viber,whatsapp,moimir,pinterest"></div>
+        </div>
+      </section>
+
+      <footer class="post__footer">
+        {% include "includes/comments.html" %}
+      </footer>
+    </article>
   </div>
 </section>
 {% endblock %}

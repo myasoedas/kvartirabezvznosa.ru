@@ -151,7 +151,7 @@ class UserRegisterView(CreateView):
 class IndexView(PostQueryMixin, PostCommentCountMixin, PaginatorMixin, ListView):
     model = Post
     context_object_name = 'page_obj'
-    template_name = 'blog/index.html'
+    template_name = 'pages/index.html'
 
     def get_queryset(self):
         return self.get_filtered_posts(published_only=True)
@@ -226,15 +226,17 @@ class PostDetailView(DetailView, PaginatorMixin):
         context['form'] = CommentForm()
         return context
 
+
 def robots_txt_view(request):
         lines = [
             "User-agent: *",
             "Disallow: /admin/",
             "Allow: /static/",
-            "Sitemap: https://osteopat-violetta.ru/sitemap.xml",
-            "Sitemap: https://osteopat-violetta.ru/rss-feed.xml",
+            "Sitemap: https://kvartirabezvznosa.ru/sitemap.xml",
+            "Sitemap: https://kvartirabezvznosa.ru/rss-feed.xml",
         ]
         return HttpResponse("\n".join(lines), content_type="text/plain")
+
 
 def rss_feed(request):
         """Генерация RSS-канала для лендинга."""
@@ -244,26 +246,26 @@ def rss_feed(request):
             xmlns:turbo="http://turbo.yandex.ru"
             version="2.0">
             <channel>
-                <title>Остеопат Виолетта Санкт-Петербург и Сертолово</title>
-                <link>https://osteopat-violetta.ru/</link>
-                <description>Эффективное лечение боли в спине, суставах и ЛОР-заболеваний без медикаментов</description>
+                <title>Карина Дерябина - эксперт по недвижимости</title>
+                <link>https://kvartirabezvznosa.ru/</link>
+                <description>Подбор лучших квартир под ваш запрос в Москве и Краснодаре</description>
                 <language>ru</language>
 
                 <!-- Главная страница -->
                 <item turbo="true">
-                    <link>https://osteopat-violetta.ru/</link>
+                    <link>https://kvartirabezvznosa.ru/</link>
                     <turbo:content>
                         <![CDATA[
                         <header>
-                            <h1>Остеопат в Санкт-Петербурге и Сертолово</h1>
+                            <h1>Карина Дерябина - эксперт по недвижимости</h1>
                             <figure>
-                                <img src="https://osteopat-violetta.ru/static/img/logo.jpg" alt="Логотип Остеопат Виолетта">
+                                <img src="https://kvartirabezvznosa.ru/static/img/logo.jpg" alt="Логотип Карина Дерябина">
                             </figure>
-                            <h2>Виолетта Игоревна Валетчик</h2>
-                            <p>Эффективное лечение боли в спине, суставах и ЛОР-заболеваний без медикаментов</p>
+                            <h2>Карина Дерябина</h2>
+                            <p>Подбор лучших квартир в Москве под ваш бюджет</p>
                         </header>
                         <section>
-                            <h2>Услуги врача остеопата</h2>
+                            <h2>Услуги</h2>
                             <ul>
                                 <li>
                                     <figure>
