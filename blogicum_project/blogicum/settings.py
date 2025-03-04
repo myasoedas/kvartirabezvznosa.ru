@@ -166,15 +166,15 @@ AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
 AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
 # обязательно для Cloud.ru
-AWS_S3_ADDRESSING_STYLE = "path"  
+AWS_S3_ADDRESSING_STYLE = "path"
 
-# Дополнительные параметры для boto3 (если требуется версия 1.36+)
-AWS_S3_CONFIG = {
+# Это не нужно раскоментировать! Дополнительные параметры для boto3 (если требуется версия 1.36+)
+#AWS_S3_CONFIG = {
     #"request_checksum_calculation": "when_required",
     #"response_checksum_validation": "when_required",
-    "s3": {"addressing_style": "path"},
-    "signature_version": "s3v4",
-}
+#   "s3": {"addressing_style": "path"},
+#    "signature_version": "s3v4",
+#}
 
 # Формирование домена для доступа к статике
 # Если вы хотите, чтобы URL файлов имели вид:
@@ -188,6 +188,8 @@ AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
 STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
 
 # URL для доступа к статическим файлам
+
+#STATIC_URL = '/static/'
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
 # Пути для локальной статики
@@ -197,11 +199,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_dev'),
 ]
 
-STATIC_URL = '/static/'
+# ✅ **Настройка медиафайлов**
+DEFAULT_FILE_STORAGE = "blogicum.storage_backends.MediaStorage"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
-MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
