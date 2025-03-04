@@ -1440,3 +1440,405 @@ git clone https://github.com/myasoedas/kvartirabezvznosa.ru.git .
 11. На локальном ПК установите клиент awscli, который работает в командной строке, отредактируйте его конфиги чтобы он получил доступ к управлению бакетом в Cloud.ru с локального ПК.
 12. Через клиент awscli загрузите политики для бакета относительно папок static и media, чтобы они стали доступными по ссылке.
 13. Запишите в конфиги на локальном ПК настройки подключения к бакетам.
+
+---
+
+### ✅ **Исправленный `policy.json`**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadStatic",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::kvartirabezvznosa/static/*"
+    },
+    {
+      "Sid": "PublicReadMedia",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::kvartirabezvznosa/media",
+        "arn:aws:s3:::kvartirabezvznosa/media/*"
+      ]
+    },
+    {
+      "Sid": "AllowDjangoUpload",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::c8ae7675-a352-44ef-ba23-98334277ed4b:user/deryabinakarina@mail.ru"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::kvartirabezvznosa/media",
+        "arn:aws:s3:::kvartirabezvznosa/media/*"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+### 🔧 **Как обновить политику?**
+1️⃣ **Удалить старую политику**:
+```bash
+aws --profile default --endpoint-url=https://s3.cloud.ru s3api delete-bucket-policy --bucket kvartirabezvznosa
+```
+
+2️⃣ **Создать новый `policy.json`**:
+```bash
+nano policy.json
+```
+📌 **Вставь исправленный JSON (см. выше).**
+
+3️⃣ **Применить новую политику**:
+```bash
+aws --profile default --endpoint-url=https://s3.cloud.ru s3api put-bucket-policy --bucket kvartirabezvznosa --policy file://policy.json
+```
+
+4️⃣ **Проверить, что политика обновилась**:
+```bash
+aws --profile default --endpoint-url=https://s3.cloud.ru s3api get-bucket-policy --bucket kvartirabezvznosa
+```
+✅ В ответе должен быть **обновленный JSON**.
+
+---
+
+### 🔍 **Проверка загрузки файлов**
+Проверь, может ли Django загружать файлы в `media/`:
+```bash
+echo "Test File" > test.txt
+aws --profile default --endpoint-url=https://s3.cloud.ru s3 cp test.txt s3://kvartirabezvznosa/media/
+```
+✅ **Если команда сработала без ошибок**, значит политика **работает** и файлы можно загружать. 🚀
+
+Твой `settings.py`, `.env` и `storage_backends.py` выглядят хорошо, но я нашел **несколько потенциальных проблем**, которые могут вызвать ошибки при работе с медиафайлами и Cloud.ru S3. Исправляю их и объясняю, **что именно поправил**.
+
+---
+
+## ✅ **Исправленный `settings.py`**
+```python
+import os
+from pathlib import Path
+from decouple import config
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = config('SECRET_KEY')
+
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    #'127.0.0.1',
+    #'localhost',
+    "kvartirabezvznosa.ru",
+    "www.kvartirabezvznosa.ru",
+    "bezvznosa.ru",
+    "www.bezvznosa.ru",
+    "ipotekabezvznosa.ru",
+    "www.ipotekabezvznosa.ru",
+]
+
+INSTALLED_APPS = [
+    # стандартные приложения Django
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # сторонние приложения
+    'django_bootstrap5',
+    'django_cleanup.apps.CleanupConfig',
+    'django_ckeditor_5',
+    'django.contrib.sitemaps',
+    'storages',
+    # ваши приложения
+    'pages.apps.PagesConfig',
+    'blog.apps.BlogConfig',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# Путь для загрузки файлов, включая видео
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Привязка загруженных файлов к пользователю
+CKEDITOR_RESTRICT_BY_USER = False
+
+# Разрешение на загрузку любых файлов, не только изображений
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
+
+# Конфигурация CKEditor
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|', 'alignment', '|',
+            'imageUpload', 'insertImage', 'mediaEmbed', '|',
+            'undo', 'redo', '|', 'fontSize', 'fontFamily', 'highlight', '|',
+            'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+            'horizontalLine', 'specialCharacters', 'sourceEditing'
+        ],
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', 'imageStyle:full', 'imageStyle:side',
+                'linkImage'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells'
+            ]
+        },
+        'mediaEmbed': {
+            'previewsInData': True
+        },
+        'height': 500,  # Adjust editor height
+        'width': 'auto',  # Adjust editor width
+    }
+}
+
+ROOT_URLCONF = 'blogicum.urls'
+
+TEMPLATES_DIR = BASE_DIR / 'templates'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [TEMPLATES_DIR],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'blogicum.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DATABASE_PORT', default='5432'),
+
+    }
+}
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+handler404 = 'pages.views.custom_404_view'
+handler403 = 'pages.views.custom_403_view'
+handler500 = 'pages.views.custom_500_view'
+
+LANGUAGE_CODE = 'ru-RU'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/auth/login/'
+
+TIME_ZONE = 'Europe/Moscow'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Настройка аутентификации для Cloud.ru S3
+AWS_TENANT_ID = config('AWS_TENANT_ID')
+# Формат tenant_id:key_id
+AWS_ACCESS_KEY_ID = f"{AWS_TENANT_ID}:{config('AWS_ACCESS_KEY_ID')}"  
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_SIGNATURE_VERSION = config('AWS_S3_SIGNATURE_VERSION')
+# обязательно для Cloud.ru
+AWS_S3_ADDRESSING_STYLE = "path"
+
+# Это не нужно раскоментировать! Дополнительные параметры для boto3 (если требуется версия 1.36+)
+#AWS_S3_CONFIG = {
+    #"request_checksum_calculation": "when_required",
+    #"response_checksum_validation": "when_required",
+#   "s3": {"addressing_style": "path"},
+#    "signature_version": "s3v4",
+#}
+
+# Формирование домена для доступа к статике
+# Если вы хотите, чтобы URL файлов имели вид:
+# https://s3.cloud.ru/kvartirabezvznosa/static/...
+# можно использовать значение из .env (AWS_S3_CUSTOM_DOMAIN), либо сформировать его:
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL.replace('https://', '')}/{AWS_STORAGE_BUCKET_NAME}"
+AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
+
+
+# Указываем кастомный storage backend для статики
+STATICFILES_STORAGE = "blogicum.storage_backends.StaticStorage"
+
+# URL для доступа к статическим файлам
+
+#STATIC_URL = '/static/'
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
+# Пути для локальной статики
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_dev'),
+]
+
+# ✅ **Настройка медиафайлов**
+DEFAULT_FILE_STORAGE = "blogicum.storage_backends.MediaStorage"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#MEDIA_URL = '/media/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Настройки для отправки почты через SMTP Яндекса
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Добавляем таймауты для повышения надежности
+EMAIL_TIMEOUT = 10  # Таймаут для подключения (в секундах)
+
+# Добавляем обработку ошибок при сбоях отправки почты
+EMAIL_USE_LOCALTIME = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django_debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',  # 'INFO' 'WARNING' 'DEBUG' 
+            'propagate': True,
+        },
+    },
+}
+
+```
+
+---
+
+## ✅ **Исправленный `storage_backends.py`**
+```python
+from storages.backends.s3boto3 import S3Boto3Storage
+from django.conf import settings
+from botocore.client import Config
+
+# ✅ Статические файлы
+class StaticStorage(S3Boto3Storage):
+    location = "static"
+    default_acl = "public-read"
+    file_overwrite = True
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+
+    def connection_params(self):
+        params = super().connection_params() or {}
+        params.update({"config": Config(signature_version=settings.AWS_S3_SIGNATURE_VERSION)})
+        return params
+
+# ✅ Медиафайлы
+class MediaStorage(S3Boto3Storage):
+    location = "media"
+    default_acl = "public-read"
+    file_overwrite = False
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+
+    def connection_params(self):
+        params = super().connection_params() or {}
+        params.update({"config": Config(signature_version=settings.AWS_S3_SIGNATURE_VERSION)})
+        return params
+```
+
+---
+
+## ✅ **Финальные шаги**
+1️⃣ **Перезапусти сервер Django**:
+```bash
+docker compose restart
+```
+
+2️⃣ **Попробуй загрузить изображение в `media/` через Django**  
+Создай тестовый пост и добавь к нему изображение.
+
+3️⃣ **Проверь в бакете `S3 Cloud.ru`**  
+Убедись, что файл появился в `media/`.
+
+4️⃣ **Проверь доступность файла в браузере**  
+Зайди по `https://kvartirabezvznosa.s3.cloud.ru/media/название_файла.jpg`  
+✅ Если файл открывается — **всё работает!** 🚀
