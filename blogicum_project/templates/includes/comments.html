@@ -1,35 +1,49 @@
-<!-- blogicum/templates/includes/comments.html -->
 {% if user.is_authenticated %}
   {% load django_bootstrap5 %}
-  <h5 class="mb-4">Оставить комментарий</h5>
-  <form method="post" action="{% url 'blog:add_comment' post.id %}">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="Отправить" %}
-  </form>
-{% endif %}
-<br>
-{% for comment in page_obj %}
-  <div class="media mb-4">
-    <div class="media-body">
-      <h5 class="mt-0">
-        <a href="{% url 'blog:profile' comment.author.username %}" name="comment_{{ comment.id }}">
-          @{{ comment.author.username }}
-        </a>
-      </h5>
-      <small class="text-muted">{{ comment.created_at }}</small>
-      <br>
-      {{ comment.text|linebreaksbr }}
+  <section class="comments">
+    <div class="comments__container">
+      <article class="comments__card">
+        <div class="comments__form-container">
+          <h3 class="comments__title">Оставить комментарий</h3>
+          <form class="comments__form" method="post" action="{% url 'blog:add_comment' post.id %}">
+            {% csrf_token %}
+            <label class="comments__label" for="comment-text">Ваш комментарий:</label>
+            <textarea 
+              id="comment-text"
+              name="text"
+              class="comments__input"
+              placeholder="Введите ваш комментарий..."
+              rows="4"
+              required
+            ></textarea>
+            <button class="comments__button" type="submit">Отправить</button>
+          </form>
+        </div>
+      </article>
     </div>
-    {% if user == comment.author %}
-      <a class="btn btn-sm text-muted" href="{% url 'blog:edit_comment' post.id comment.id %}" role="button">
-        Отредактировать комментарий
-      </a>
-      <a class="btn btn-sm text-muted" href="{% url 'blog:delete_comment' post.id comment.id %}" role="button">
-        Удалить комментарий
-      </a>
-    {% endif %}
+  </section>
+{% endif %}
+
+<section class="comments">
+  <div class="comments__container">
+    <article class="comments__card">
+      <div class="comments__list">
+        {% for comment in page_obj %}
+          <div class="comments__item">
+            <div class="comments__header">
+              <a href="{% url 'blog:profile' comment.author.username %}" class="comments__author" name="comment_{{ comment.id }}">
+                @{{ comment.author.username }}
+              </a>
+              <time class="comments__date" datetime="{{ comment.created_at }}">
+                {{ comment.created_at }}
+              </time>
+            </div>
+            <p class="comments__text">{{ comment.text|linebreaksbr }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </article>
   </div>
-{% endfor %}
+</section>
 
 {% include "includes/paginator.html" %}

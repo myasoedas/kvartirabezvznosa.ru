@@ -1,0 +1,115 @@
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
+.comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--page-bg-color);
+  min-height: 100vh;
+
+  &__container {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--bg-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__header {
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-color);
+  }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--h-text-color);
+    margin: 0;
+  }
+
+  &__body {
+    padding-top: 16px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__text {
+    font-size: 16px;
+    color: var(--p-text-color);
+    background-color: var(--bg-color);
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    @include transition(background-color, transform);
+
+    &:hover {
+      background-color: var(--primary-color);
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__container {
+      max-width: 90%;
+      padding: 16px;
+    }
+
+    &__title {
+      font-size: 20px;
+    }
+
+    &__button {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__title {
+      font-size: 18px;
+    }
+
+    &__button {
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+  }
+}

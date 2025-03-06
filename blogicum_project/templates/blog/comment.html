@@ -1,42 +1,44 @@
-{% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}
-  {% if '/edit_comment/' in request.path %}
-    Редактирование комментария
-  {% else %}
-    Удаление комментария
-  {% endif %}
-{% endblock %}
-{% block content %}
-<section id="comment-action" class="py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <article class="card col-12 col-md-8 col-lg-6 mb-4">
-        <header class="card-header text-center">
-          {% if '/edit_comment/' in request.path %}
-            <h4 class="mb-0">Редактирование комментария</h4>
-          {% else %}
-            <h4 class="mb-0">Удаление комментария</h4>
-          {% endif %}
-        </header>
-        <div class="card-body">
-          <form method="post">
-            {% if '/edit_comment/' in request.path %}
-              action="{% url 'blog:edit_comment' post_id=comment.post_id comment_id=comment.id %}"
-            {% endif %}
-            {% csrf_token %}
-            {% if not '/delete_comment/' in request.path %}
-              {% bootstrap_form form %}
-            {% else %}
-              <p class="text-muted">{{ comment.text }}</p>
-            {% endif %}
-            <div class="d-grid gap-2 mt-4">
-              {% bootstrap_button button_type="submit" content="Отправить" %}
-            </div>
-          </form>
+{% if user.is_authenticated %}
+  {% load django_bootstrap5 %}
+  <section class="comments">
+    <h3 class="comments__title">Оставить комментарий</h3>
+    <form class="comments__form" method="post" action="{% url 'blog:add_comment' post.id %}">
+      {% csrf_token %}
+      <label class="comments__label" for="comment-text">Ваш комментарий:</label>
+      <textarea 
+        id="comment-text"
+        name="text"
+        class="comments__input"
+        placeholder="Введите ваш комментарий..."
+        rows="4"
+        required
+      ></textarea>
+      <button class="comments__button" type="submit">Отправить</button>
+    </form>
+  </section>
+{% endif %}
+
+<section class="comments__list">
+  {% for comment in page_obj %}
+    <article class="comment">
+      <div class="comment__header">
+        <a href="{% url 'blog:profile' comment.author.username %}" class="comment__author" name="comment_{{ comment.id }}">
+          @{{ comment.author.username }}
+        </a>
+        <time class="comment__date" datetime="{{ comment.created_at }}">
+          {{ comment.created_at }}
+        </time>
+      </div>
+      <p class="comment__text">{{ comment.text|linebreaksbr }}</p>
+      
+      {% if user == comment.author or user.is_superuser %}
+        <div class="comment__actions">
+          <a href="{% url 'blog:edit_comment' post.id comment.id %}" class="comment__link">Редактировать</a>
+          <a href="{% url 'blog:delete_comment' post.id comment.id %}" class="comment__link comment__link--delete">Удалить</a>
         </div>
-      </article>
-    </div>
-  </div>
+      {% endif %}
+    </article>
+  {% endfor %}
 </section>
-{% endblock %}
+
+{% include "includes/paginator.html" %}
