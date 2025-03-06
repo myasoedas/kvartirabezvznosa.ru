@@ -1,25 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Публикации в категории {{ category.title }}{% endblock %}
 {% block content %}
-<section id="posts-feed" class="py-5">
-  <div class="container">
-    <header class="text-center mb-5">
-      <h1 class="section-heading">Публикации в категории – {{ category.title }}</h1>
-      <p class="lead mx-auto" style="max-width: 800px;">{{ category.description }}</p>
-    </header>
-    <div class="row">
+<section class="posts">
+  <div class="posts__container">
+    <h1 class="posts__heading">Публикации в категории – {{ category.title }}</h1>
+    <p class="category__description">{{ category.description }}</p>
+    
+    <div class="posts__grid">
       {% for post in page_obj %}
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <article>
+        <article class="posts__card">
           {% include "includes/post_card.html" %}
         </article>
-      </div>
       {% endfor %}
     </div>
-    <div class="row">
-      <div class="col-12">
-        {% include "includes/paginator.html" %}
-      </div>
+
+    <div class="posts__paginator">
+      {% include "includes/paginator.html" %}
     </div>
   </div>
 </section>

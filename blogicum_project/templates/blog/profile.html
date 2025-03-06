@@ -2,9 +2,11 @@
 {% block title %}Профиль пользователя {{ profile.username }}{% endblock %}
 {% block content %}
 <!-- Секция профиля -->
+<!--
 <section id="profile-header" class="py-5">
   <div class="container text-center">
     <h1 class="section-heading mb-5">Профиль пользователя {{ profile.username }}</h1>
+    
     <ul class="list-group list-group-flush mb-4">
       <li class="list-group-item text-muted">
         Имя пользователя:
@@ -21,34 +23,30 @@
         Роль: {% if profile.is_staff %}Админ{% else %}Пользователь{% endif %}
       </li>
     </ul>
-    <!--
+   
     {% if user.is_authenticated and request.user == profile %}
       <div class="d-flex justify-content-center flex-wrap gap-3">
         <a class="btn btn-outline-primary btn-sm" href="{% url 'blog:edit_profile' %}">Редактировать профиль</a>
         <a class="btn btn-outline-secondary btn-sm" href="{% url 'password_change' %}">Изменить пароль</a>
       </div>
     {% endif %}
-    -->
+  
   </div>
 </section>
-
+-->
 <!-- Секция с записями пользователя -->
-<section id="posts-feed" class="py-5">
-  <div class="container">
-    <h2 class="section-heading text-center mb-5">Записи пользователя</h2>
-    <div class="row">
+<section class="posts">
+  <div class="posts__container">
+    <h1 class="posts__heading">Записи пользователя {{ profile.username }}</h1>
+    <div class="posts__grid">
       {% for post in page_obj %}
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <article>
-          {% include "includes/post_card.html" %}
-        </article>
-      </div>
+      <article class="posts__card">
+        {% include "includes/post_card.html" %}
+      </article>
       {% endfor %}
     </div>
-    <div class="row">
-      <div class="col-12">
-        {% include "includes/paginator.html" %}
-      </div>
+    <div class="posts__paginator">
+      {% include "includes/paginator.html" %}
     </div>
   </div>
 </section>
