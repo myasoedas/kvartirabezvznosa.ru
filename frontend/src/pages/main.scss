@@ -21,6 +21,7 @@
 @use "../blocks/theme-toggle/theme-toggle.scss" as *;
 
 @use "../blocks/posts-list/posts-list.scss" as *;
+@use "../blocks/video-reviews/video-reviews.scss" as *;
 @use "../blocks/post-card/post-card.scss" as *;
 @use "../blocks/paginator/paginator.scss" as *;
 @use "../blocks/post-detail/post-detail.scss" as *;
@@ -28,8 +29,6 @@
 @use "../blocks/comments/comments.scss" as *;
 
 @use "../blocks/category/category.scss" as *;
-
-@use "../blocks/video-reviews/video-reviews.scss" as *;
 
 @use "../blocks/footer/footer.scss" as *;
 
