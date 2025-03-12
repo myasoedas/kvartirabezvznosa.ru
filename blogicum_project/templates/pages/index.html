@@ -4,38 +4,24 @@
 {% block content %}
     <section class="posts">
         <div class="posts__container">
-        <h2 class="posts__heading">Выгодные предложения</h2>
-        <div class="posts__grid">
-            {% for post in page_obj %}
-            <article class="posts__card">
-            {% include "includes/post_card.html" %}
-            </article>
-            {% endfor %}
-        </div>
+            <h2 class="posts__heading">Выгодные предложения</h2>
+            
         </div>
     </section>
     <section class="posts">
         <div class="posts__container">
-        <h2 class="posts__heading">Мои успешные кейсы</h2>
-        <div class="posts__grid">
-            {% for post in page_obj %}
-            <article class="posts__card">
-            {% include "includes/post_card.html" %}
-            </article>
-            {% endfor %}
-        </div>
+            <h2 class="posts__heading">Мои успешные кейсы</h2>
+        
         </div>
     </section>
     <section class="posts">
         <div class="posts__container">
-        <h2 class="posts__heading">Отзывы клиентов</h2>
-        <div class="posts__grid">
-            {% for post in page_obj %}
-            <article class="posts__card">
-            {% include "includes/post_card.html" %}
-            </article>
-            {% endfor %}
-        </div>
+            <h2 class="posts__heading">Отзывы клиентов</h2>
+        
         </div>
     </section>
+    
+    <!-- Видео отзывы -->
+    {% include "includes/video-reviews.html" %}
+    
 {% endblock %}
