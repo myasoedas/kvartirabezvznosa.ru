@@ -32,21 +32,31 @@
     width: 100%;
   }
 
-  &__item {
-    width: 100%;
-    border-radius: 15px;
+  &__card {
+    background-color: var(--page-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
   }
 
   &__video {
     width: 100%;
     height: auto;
-    border-radius: 15px;
     display: block;
+    border-radius: 12px;
+    object-fit: cover;
   }
+}
 
-  /* Адаптивность */
-  @media (max-width: 768px) {
+/* Адаптивность */
+@media (max-width: 768px) {
+  .video-reviews {
     padding: 3rem 1rem;
 
     &__grid {
