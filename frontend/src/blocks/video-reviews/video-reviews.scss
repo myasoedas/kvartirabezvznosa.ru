@@ -45,8 +45,13 @@
     }
   }
 
+  &__paginator {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
   &__video {
-    width: 100%;
+    width: 80%;
     height: auto;
     display: block;
     border-radius: 12px;
