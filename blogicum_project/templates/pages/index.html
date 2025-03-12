@@ -5,22 +5,19 @@
     <section class="posts">
         <div class="posts__container">
             <h2 class="posts__heading">Выгодные предложения</h2>
-            
+            <div class="posts__container">
+                <h2 class="posts__heading">Выгодные предложения</h2>
+                <div class="posts__grid">
+                    {% for post in page_obj %}
+                    <article class="posts__card">
+                    {% include "includes/post_card.html" %}
+                    </article>
+                    {% endfor %}
+                </div>
+              </div>
         </div>
     </section>
-    <section class="posts">
-        <div class="posts__container">
-            <h2 class="posts__heading">Мои успешные кейсы</h2>
-        
-        </div>
-    </section>
-    <section class="posts">
-        <div class="posts__container">
-            <h2 class="posts__heading">Отзывы клиентов</h2>
-        
-        </div>
-    </section>
-    
+
     <!-- Видео отзывы -->
     <section class="video-reviews">
         <div class="video-reviews__container">
@@ -28,12 +25,7 @@
             <div class="video-reviews__grid">
                 <div class="video-reviews__item">
                     <video class="video-reviews__video" controls>
-                        <source src="{% media 'blogs_videos/otziv-001.mp4' %}" type="video/mp4">
-                    </video>
-                </div>
-                <div class="video-reviews__item">
-                    <video class="video-reviews__video" controls>
-                        <source src="{% media 'blogs_videos/otziv-001.mp4' %}" type="video/mp4">
+                        <source src="https://kvartirabezvznosa.s3.cloud.ru/media/blogs_videos/otziv-001.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
