@@ -28,13 +28,29 @@
     margin-bottom: 2rem;
   }
 
-  &__wrapper {
-    display: flex;
-    justify-content: center;  /* Центрирование по горизонтали */
-    align-items: center;      /* Центрирование по вертикали */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Две карточки в строку */
+    gap: 1.5rem; /* Отступы между карточками */
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    justify-content: center;
+  }
+
+  &__card {
+    background-color: var(--page-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
   }
 
   &__video {
@@ -50,24 +66,22 @@
 /* ✅ Адаптация под мобильные устройства */
 @media (max-width: 768px) {
   .video-reviews {
-    padding: 2rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 2rem 1rem; /* Уменьшенные отступы */
   }
 
-  .video-reviews__wrapper {
-    width: 90vw; /* 90% ширины экрана */
-    height: 90vh; /* 90% высоты экрана */
-    max-width: none;
-    display: flex;
-    justify-content: center;  /* Центрирование */
-    align-items: center;      /* Центрирование */
-    margin: 0 auto;
+  .video-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ Две карточки на мобильных тоже */
+    gap: 1rem; /* Отступ между карточками */
+    justify-content: center;
+  }
+
+  .video-reviews__card {
+    padding: 0.5rem; /* Уменьшенные отступы */
   }
 
   .video-reviews__video {
-    width: 80%;
+    width: 100%;
     height: auto;
     object-fit: cover;
     margin: 0 auto; /* Центрирование */
