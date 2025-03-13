@@ -4,79 +4,80 @@
 
 .slider {
     width: 100%;
-    padding: 2rem 0;
     background-color: var(--bg-color);
+    padding: 4rem 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     &__container {
-        position: relative;
-        max-width: 900px;
+        max-width: 1200px;
         width: 100%;
+        position: relative;
         overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    &__inner {
+    &__wrapper {
         display: flex;
-        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
         position: relative;
     }
 
     &__track {
         display: flex;
         width: 100%;
-        height: 100%;
-        transition: transform 0.4s ease-in-out;
+        overflow: hidden;
+        transition: transform 0.5s ease-in-out;
     }
 
     &__slide {
         min-width: 100%;
-        transition: transform 0.4s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
     }
 
     &__image {
         width: 100%;
         height: auto;
-        display: block;
-        border-radius: 10px;
+        max-height: 600px;
+        object-fit: cover;
+        border-radius: 12px;
     }
 
-    /* Стрелки */
-    &__arrow {
+    &__button {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background: var(--button-color);
+        background: var(--primary-color);
         color: #fff;
         border: none;
-        padding: 10px 15px;
-        font-size: 24px;
         cursor: pointer;
-        transition: background 0.3s;
-        z-index: 10;
+        padding: 1rem;
+        font-size: 1.5rem;
         border-radius: 50%;
+        transition: background 0.3s ease;
 
         &:hover {
-            background: var(--primary-color);
+            background: var(--secondary-color);
         }
 
-        &--left {
+        &--prev {
             left: 10px;
         }
 
-        &--right {
+        &--next {
             right: 10px;
         }
     }
 
-    /* Точки */
     &__dots {
         display: flex;
         justify-content: center;
-        padding: 10px;
+        margin-top: 1rem;
     }
 
     &__dot {
@@ -88,26 +89,41 @@
         cursor: pointer;
         transition: background 0.3s ease;
 
-        &--active {
+        &.active {
             background: var(--primary-color);
         }
     }
+}
 
-    /* Адаптивность */
-    @media (max-width: 768px) {
-        &__container {
-            max-width: 100%;
-            border-radius: 0;
-        }
+/* 🔥 Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    .slider {
+        padding: 2rem 0;
+    }
 
-        &__arrow {
-            font-size: 20px;
-            padding: 8px 12px;
-        }
+    .slider__track {
+        overflow: hidden;
+    }
 
-        &__dot {
-            width: 10px;
-            height: 10px;
-        }
+    .slider__slide {
+        display: flex;
+        justify-content: center;
+    }
+
+    .slider__image {
+        width: 90vw; /* 90% ширины экрана */
+        height: 90vh; /* 90% высоты экрана */
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .slider__button {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+
+    .slider__dot {
+        width: 10px;
+        height: 10px;
     }
 }
