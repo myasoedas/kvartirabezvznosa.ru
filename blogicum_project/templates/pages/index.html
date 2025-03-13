@@ -5,45 +5,27 @@
 
 <section class="slider">
     <div class="slider__container">
-        <div class="slider__wrapper">
-            <button class="slider__button slider__button--prev" aria-label="Предыдущий слайд">
-                &#10094;
-            </button>
-
+        <button class="slider__arrow slider__arrow--left" aria-label="Предыдущий слайд">&#10094;</button>
+        
+        <div class="slider__inner">
             <div class="slider__track">
                 <div class="slider__slide">
-                    <picture>
-                        <source srcset="images/slider/slide-1-vertical.webp" media="(max-width: 768px)">
-                        <img class="slider__image" src="images/slider/slide-1-horizontal.webp" alt="Слайд 1" width="100%">
-                    </picture>
+                    <img src="https://via.placeholder.com/800x400" alt="Слайд 1" class="slider__image">
                 </div>
                 <div class="slider__slide">
-                    <picture>
-                        <source srcset="images/slider/slide-2-vertical.webp" media="(max-width: 768px)">
-                        <img class="slider__image" src="images/slider/slide-2-horizontal.webp" alt="Слайд 2" width="100%">
-                    </picture>
+                    <img src="https://via.placeholder.com/800x400" alt="Слайд 2" class="slider__image">
                 </div>
                 <div class="slider__slide">
-                    <picture>
-                        <source srcset="images/slider/slide-3-vertical.webp" media="(max-width: 768px)">
-                        <img class="slider__image" src="images/slider/slide-3-horizontal.webp" alt="Слайд 3" width="100%">
-                    </picture>
+                    <img src="https://via.placeholder.com/800x400" alt="Слайд 3" class="slider__image">
                 </div>
             </div>
-
-            <button class="slider__button slider__button--next" aria-label="Следующий слайд">
-                &#10095;
-            </button>
         </div>
 
-        <div class="slider__dots">
-            <span class="slider__dot"></span>
-            <span class="slider__dot"></span>
-            <span class="slider__dot"></span>
-        </div>
+        <button class="slider__arrow slider__arrow--right" aria-label="Следующий слайд">&#10095;</button>
+        
+        <div class="slider__dots"></div>
     </div>
 </section>
-
 
     <section class="posts">
         <div class="posts__container">
