@@ -3,77 +3,36 @@
 @use "../../vendor/mixins" as *;
 
 .header {
-    margin: 0; /* обнулить внешние отступы */
-    padding: 0; /* обнулить внутренние отступы */
-    max-width: 100%; /* header не будет превышать ширину родителя */
-    height: 50px; /* Высота фиксированная */
-    background: var(--header-bg-color); /* цвет фона */
+    margin: 0; /*обнулить внешние отступы*/
+    padding: 0; /*обнулить внутрение оступы*/
+    max-width: 100%;    /* header не будет превышать ширину родительского элемента */
+    height: 50px;      /* Высота будет изменяться пропорционально ширине */
+    background: var(--header-bg-color); /*цвет фона - темный*/
+  
+    display: flex; /*Определил блок header как флекс контейнер*/
+    flex-direction: row; /*выстроить блоки в линию по горизонтали слева на право*/
+    align-items: center; /*выровнять блоки по центру по вертикали*/
+    justify-content: space-between; /*прижать блоки к левому и правому краю, равномерно распределив по ширине контейнера*/
     
-    display: flex; /* Флекс-контейнер */
-    flex-direction: row; /* горизонтальное расположение */
-    align-items: center; /* Выровнять элементы по вертикали */
-    justify-content: space-between; /* Раздвигаем элементы */
-
-    font-family: 'Inter', Arial, sans-serif;
-    color: var(--header-h-text-color); /* Цвет текста */
-
-    /* Сглаживание шрифтов */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    &__left {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
+    font-family: 'Inter', Arial, sans-serif; /*Использовать шрифт Inter*/
+    color: var(--header-h-text-color); /*Цвет шрифта - белый*/
+  
+    /*Сглаживание шрифтов*/
+    -webkit-font-smoothing: antialiased; /*сглаживание шрифтов в Safari и во всех браузерах на платформе Chromium*/
+    -moz-osx-font-smoothing: grayscale; /*сглаживание шрифтов в Mozilla Firefox*/
+  }
+  
+  /*Медиазапрос - задать новые свойства блока для экранов с разрешением от 768px до 1280px*/
+  @media (min-width: 768px) {
+    .header {
+      padding: 0;
     }
-
-    &__logo {
-        display: block;
-        width: 40px;
-        height: 40px;
-        object-fit: cover; /* Обрезает изображение, сохраняя пропорции */
-        border-radius: 50%;
-        margin-left: 5px;
-        margin-right: 10px;
-        transition: filter 0.3s ease; /* Добавляем плавный переход */
+  }
+  
+  /*Медиазапрос - задать новые свойства блока для экранов с разрешением от 1024px до 1279px*/
+  @media (min-width: 1024px) {
+    .header {
+      padding-right: 0;
+      padding-left: 0;
     }
-
-    /* Стиль для ссылки с логотипом */
-    &__logo-link {
-        display: inline-block;
-        
-        &:hover .header__logo {
-            filter: brightness(0.8); /* Затемняем логотип */
-        }
-    }
-
-    &__name-link {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--header-h-text-color);
-        text-decoration: none;
-        transition: color 0.3s ease;
-
-        &:hover {
-            color: var(--header-p-text-color);
-        }
-    }
-
-    &__right {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
-    }
-
-    /* Медиазапросы */
-    @media (min-width: 768px) {
-        padding: 0;
-    }
-
-    @media (min-width: 1024px) {
-        padding-right: 0;
-        padding-left: 0;
-    }
-}
+  }
