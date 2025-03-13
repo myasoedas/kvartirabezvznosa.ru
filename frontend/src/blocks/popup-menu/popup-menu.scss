@@ -3,68 +3,73 @@
 @use "../../vendor/mixins" as *;
 
 .popup-menu {
-    position: fixed; /* ✅ Меню не двигается при прокрутке */
+    position: absolute;
     top: 60px;
     left: 50%;
     transform: translateX(-50%) scale(0.9);
-    background: var(--popup-menu-bg-color);
-    backdrop-filter: blur(5px); /* ✅ Делаем фон слегка размытым */
+    background: var(--popup-menu-bg-color) !important;
     width: 90%;
-    max-width: 320px;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1100; /* ✅ Меню всегда выше слайдера */
-
-    opacity: 0;
-    visibility: hidden;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    
+    opacity: 0 !important;
+    visibility: hidden !important;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    
+    z-index: 9999 !important; /* Меню всегда поверх всех элементов */
 
     &.open {
-        opacity: 1;
-        visibility: visible;
+        opacity: 1 !important;
+        visibility: visible !important;
         transform: translateX(-50%) scale(1);
     }
 }
 
-/* Список */
+/* Список в меню */
 .popup-menu__list {
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
 /* Пункты списка */
 .popup-menu__item {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 /* Ссылки */
 .popup-menu__link {
     display: block;
-    padding: 12px 16px;
-    color: var(--popup-menu-a);
-    text-decoration: none;
+    padding: 10px 15px;
+    color: var(--popup-menu-a) !important;
+    text-decoration: none !important;
     font-weight: 600;
-    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color 0.3s ease, background 0.3s ease;
 
     &:hover {
-        color: var(--popup-menu-a-hover);
-        background: rgba(255, 255, 255, 0.1);
+        color: var(--popup-menu-a-hover) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 5px;
     }
 }
 
-/* ⚡ Медиазапросы для мобильных */
+/* Адаптивность */
 @media (max-width: 768px) {
     .popup-menu {
         width: 95%;
         max-width: 300px;
-        padding: 10px;
+        padding: 8px;
     }
 
     .popup-menu__link {
-        padding: 10px 14px;
+        padding: 8px 12px;
         font-size: 14px;
     }
 }
