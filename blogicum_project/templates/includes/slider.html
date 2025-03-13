@@ -3,15 +3,15 @@
         <button class="slider__arrow slider__arrow--left" aria-label="Предыдущий слайд">&#10094;</button>
         <div class="slider__inner">
             <div class="slider__track">
-                {% for post in posts %}
                 <div class="slider__slide">
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="slider__image">
-                    <div class="slider__content">
-                        <h2 class="slider__title">{{ post.title }}</h2>
-                        <a href="{% url 'blog:post_detail' post.id %}" class="slider__button">Перейти</a>
-                    </div>
+                    <img src="https://kvartirabezvznosa.s3.cloud.ru/media/slider/slider-image-01.jpeg" alt="Слайд 1" class="slider__image">
                 </div>
-                {% endfor %}
+                <div class="slider__slide">
+                    <img src="https://kvartirabezvznosa.s3.cloud.ru/media/slider/slider-image-02.jpeg" alt="Слайд 2" class="slider__image">
+                </div>
+                <div class="slider__slide">
+                    <img src="https://kvartirabezvznosa.s3.cloud.ru/media/slider/slider-image-03.jpeg" alt="Слайд 3" class="slider__image">
+                </div>
             </div>
         </div>
         <button class="slider__arrow slider__arrow--right" aria-label="Следующий слайд">&#10095;</button>
