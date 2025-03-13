@@ -11,6 +11,8 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    position: relative; /* Делаем слайдер позиционируемым */
+    z-index: 100; /* Слайдер ниже меню */
 
     &__container {
         position: relative;

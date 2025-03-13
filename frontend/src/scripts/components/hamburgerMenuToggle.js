@@ -4,24 +4,27 @@ export function hamburgerMenuToggle() {
 
     if (!hamburgerIcon || !popupMenu) return;
 
-    // Функция переключения меню
     function toggleMenu(event) {
-        event.stopPropagation(); // Предотвращает всплытие события на `document`
+        event.preventDefault(); // Предотвращает стандартное поведение
         hamburgerIcon.classList.toggle('active');
         popupMenu.classList.toggle('open');
+
+        // Добавляем класс к body, чтобы запретить скролл при открытом меню
+        if (popupMenu.classList.contains('open')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     }
 
-    // Функция закрытия меню при клике вне меню
     function closeMenu(event) {
         if (!popupMenu.contains(event.target) && !hamburgerIcon.contains(event.target)) {
             hamburgerIcon.classList.remove('active');
             popupMenu.classList.remove('open');
+            document.body.style.overflow = ''; // Разрешаем скролл
         }
     }
 
-    // Назначаем обработчик на клик по иконке гамбургера
     hamburgerIcon.addEventListener('click', toggleMenu);
-
-    // Назначаем обработчик на клик по документу, чтобы закрыть меню
     document.addEventListener('click', closeMenu);
 }
