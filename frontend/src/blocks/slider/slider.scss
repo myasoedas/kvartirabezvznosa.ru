@@ -1,0 +1,113 @@
+@use "../../vendor/variables" as *;
+@use "../../vendor/themes" as *;
+@use "../../vendor/mixins" as *;
+
+.slider {
+    width: 100%;
+    padding: 2rem 0;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &__container {
+        position: relative;
+        max-width: 900px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &__inner {
+        display: flex;
+        overflow: hidden;
+        position: relative;
+    }
+
+    &__track {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    &__slide {
+        min-width: 100%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    &__image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    /* Стрелки */
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--button-color);
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background 0.3s;
+        z-index: 10;
+        border-radius: 50%;
+
+        &:hover {
+            background: var(--primary-color);
+        }
+
+        &--left {
+            left: 10px;
+        }
+
+        &--right {
+            right: 10px;
+        }
+    }
+
+    /* Точки */
+    &__dots {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    &__dot {
+        width: 12px;
+        height: 12px;
+        background: var(--line-color);
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &--active {
+            background: var(--primary-color);
+        }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        &__container {
+            max-width: 100%;
+            border-radius: 0;
+        }
+
+        &__arrow {
+            font-size: 20px;
+            padding: 8px 12px;
+        }
+
+        &__dot {
+            width: 10px;
+            height: 10px;
+        }
+    }
+}

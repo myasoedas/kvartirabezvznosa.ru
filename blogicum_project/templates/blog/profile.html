@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Профиль пользователя {{ profile.username }}{% endblock %}
 {% block content %}
+<!-- Секция с записями пользователя -->
+<section class="posts">
+  <div class="posts__container">
+    <h1 class="posts__heading">Записи пользователя: {{ profile.username }}</h1>
+    <div class="posts__grid">
+      {% for post in page_obj %}
+      <article class="posts__card">
+        {% include "includes/post_card.html" %}
+      </article>
+      {% endfor %}
+    </div>
+    <div class="posts__paginator">
+      {% include "includes/paginator.html" %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
 <!-- Секция профиля 
 <section id="profile-header" class="py-5">
   <div class="container text-center">
@@ -33,21 +51,3 @@
   </div>
 </section>
 -->
-
-<!-- Секция с записями пользователя -->
-<section class="posts">
-  <div class="posts__container">
-    <h1 class="posts__heading">Записи пользователя {{ profile.username }}</h1>
-    <div class="posts__grid">
-      {% for post in page_obj %}
-      <article class="posts__card">
-        {% include "includes/post_card.html" %}
-      </article>
-      {% endfor %}
-    </div>
-    <div class="posts__paginator">
-      {% include "includes/paginator.html" %}
-    </div>
-  </div>
-</section>
-{% endblock %}
